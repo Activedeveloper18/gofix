@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:goffix/constants.dart';
 
+import '../custom_widegt/popmessager.dart';
 import '../layout/layout.dart';
 // import 'package:goffix/screens/add/AddScreen.dart';
 
@@ -64,7 +65,8 @@ class _SignupScreenState extends State<SignupScreen> {
   var _gender = ['Male', 'Female'];
   var _finder = ['Finder', 'Fixture'];
   int? _catTextFeild;
-  int? _locTextFeild;
+  int? gendervlue;
+  int? usertype_value;
   List? listOfLoc;
   List<catName>? listOfCat;
   List<catName>? filteredCat;
@@ -196,7 +198,7 @@ class _SignupScreenState extends State<SignupScreen> {
         _proValError = true;
       });
     }
-    if (_locTextFeild == null) {
+    if (gendervlue == null) {
       setState(() {
         _locValError = true;
       });
@@ -246,7 +248,7 @@ class _SignupScreenState extends State<SignupScreen> {
         "u_phn": phn,
         "u_email": em,
         "u_pwd": pwd,
-        "u_city": _locTextFeild.toString(),
+        "u_city": gendervlue.toString(),
         "u_pfn": _catTextFeild.toString(),
         "u_gender": _genTextFeild.toString()
       }
@@ -314,8 +316,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   "SIGN UP",
-                  style: TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               Center(
@@ -338,8 +339,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: TextField(
                                   // maxLength: 10,
                                   keyboardType: TextInputType.number,
@@ -347,8 +348,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                                   decoration: InputDecoration(
                                       prefixIcon: Padding(
-                                        padding:
-                                            const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
@@ -361,15 +361,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade300,
-                                              width: 1.0),                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.grey.shade300, width: 1.0),
+                                              color: Colors.grey.shade300,
+                                              width: 1.0),
                                           borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              BorderRadius.circular(10.0)),
                                       contentPadding: EdgeInsets.fromLTRB(
                                           20.0, 15.0, 20.0, 10.0),
                                       hintText: "Mobile No",
@@ -381,8 +381,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 height: 10,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: new TextField(
                                   controller: _passwordController,
                                   decoration: InputDecoration(
@@ -391,15 +391,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade300,
-                                              width: 1.0),                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade300,
-                                              width: 1.0),                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
                                       contentPadding: EdgeInsets.fromLTRB(
                                           20.0, 15.0, 20.0, 10.0),
                                       hintText: "Enter One Time Password",
@@ -413,8 +413,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     right: 20, top: 10, bottom: 10),
                                 child: Container(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       InkWell(
                                         onTap: () {
@@ -436,8 +435,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                                   color: Colors.grey,
                                                   fontFamily: "Lato",
                                                   fontSize: 14,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ],
                                         ),
@@ -450,8 +448,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 height: 10,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: new TextField(
                                   controller: _nameController,
                                   decoration: InputDecoration(
@@ -460,15 +458,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade300,
-                                              width: 1.0),                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade300,
-                                              width: 1.0),                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
                                       contentPadding: EdgeInsets.fromLTRB(
                                           20.0, 15.0, 20.0, 10.0),
                                       hintText: "Name",
@@ -481,12 +479,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                 height: 10,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(10.0),
+                                      borderRadius: BorderRadius.circular(10.0),
                                       border: Border.all(
                                           color: Colors.grey.shade500,
                                           width: 1),
@@ -499,11 +496,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                       border: InputBorder.none,
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.white,
-                                              width: 2.0),
+                                              color: Colors.white, width: 2.0),
                                           borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              BorderRadius.circular(10.0)),
                                       contentPadding:
                                           EdgeInsets.only(left: 20.0),
                                       focusColor: Colors.green,
@@ -519,8 +514,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     // validator: FormBuilderValidators.compose(
                                     //     [FormBuilderValidators.required(context)]),
                                     items: _gender
-                                        .map((location) =>
-                                            DropdownMenuItem(
+                                        .map((location) => DropdownMenuItem(
                                               value: location,
                                               child: Text(location),
                                             ))
@@ -532,14 +526,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                       print(val);
                                       if (val == "Male") {
                                         setState(() {
-                                          _locTextFeild = 0;
+                                          gendervlue = 0;
                                         });
                                       } else if (val == "Female") {
                                         setState(() {
-                                          _locTextFeild = 1;
+                                          gendervlue = 1;
                                         });
                                       }
-                                      print(_locTextFeild);
+                                      print(gendervlue);
                                     },
                                   ),
                                 ),
@@ -548,8 +542,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 height: 10,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: new TextField(
                                   controller: _emailController,
                                   decoration: InputDecoration(
@@ -558,15 +552,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade300,
-                                              width: 1.0),                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade300,
-                                              width: 1.0),                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
                                       contentPadding: EdgeInsets.fromLTRB(
                                           20.0, 15.0, 20.0, 10.0),
                                       hintText: "Emaail",
@@ -578,8 +572,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 height: 10,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: new TextField(
                                   controller: _proController,
                                   decoration: InputDecoration(
@@ -588,15 +582,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade300,
-                                              width: 1.0),                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade300,
-                                              width: 1.0),                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
                                       contentPadding: EdgeInsets.fromLTRB(
                                           20.0, 15.0, 20.0, 10.0),
                                       hintText: "Profession",
@@ -608,12 +602,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                 height: 10,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(10.0),
+                                      borderRadius: BorderRadius.circular(10.0),
                                       border: Border.all(
                                           color: Colors.grey.shade500,
                                           width: 1),
@@ -626,10 +619,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                       border: InputBorder.none,
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.grey.shade300, width: 1.0),
+                                              color: Colors.grey.shade300,
+                                              width: 1.0),
                                           borderRadius:
-                                              BorderRadius.circular(
-                                                  10.0)),
+                                              BorderRadius.circular(10.0)),
                                       contentPadding:
                                           EdgeInsets.only(left: 20.0),
                                       focusColor: Colors.green,
@@ -638,8 +631,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
 
                                     items: _finder
-                                        .map((location) =>
-                                            DropdownMenuItem(
+                                        .map((location) => DropdownMenuItem(
                                               value: location,
                                               child: Text(location),
                                             ))
@@ -651,14 +643,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                       print(val);
                                       if (val == "Finder") {
                                         setState(() {
-                                          _locTextFeild = 0;
+                                          usertype_value = 0;
                                         });
                                       } else if (val == "Fixture") {
                                         setState(() {
-                                          _locTextFeild = 1;
+                                          usertype_value = 1;
                                         });
                                       }
-                                      print(_locTextFeild);
+                                      print(usertype_value);
                                     },
                                   ),
                                 ),
@@ -677,15 +669,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
-                                          text:
-                                              'I have read and agree to the ',
-                                          style: TextStyle(
-                                              color: Colors.black),
+                                          text: 'I have read and agree to the ',
+                                          style: TextStyle(color: Colors.black),
                                         ),
                                         TextSpan(
                                           text: 'Terms and Conditions',
-                                          style: TextStyle(
-                                              color: Colors.blue),
+                                          style: TextStyle(color: Colors.blue),
                                         ),
                                       ],
                                     ),
@@ -701,12 +690,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                     width: double.infinity,
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                          shape:
-                                              MaterialStateProperty.all(
+                                          shape: MaterialStateProperty.all(
                                             RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(
-                                                      18.0),
+                                                  BorderRadius.circular(18.0),
                                             ),
                                           ),
                                           backgroundColor:
@@ -716,41 +703,52 @@ class _SignupScreenState extends State<SignupScreen> {
                                       // elevation: 10,
                                       // textColor: Colors.white,
                                       // materialTapTargetSize: ,
-                                      onPressed: () => {
-                                        {
-                                          print('Finder and fixture    9'),
-                                          print(_locTextFeild),
-                                          _locTextFeild == 1
-                                              ? Navigator.of(context)
-                                                  .push(
-                                                  MaterialPageRoute(
-                                                      builder: (_) =>
-                                                          FixtureScreen()),
-                                                )
-                                              : Navigator.of(context)
-                                                  .push(
-                                                  MaterialPageRoute(
-                                                      builder: (_) =>
-                                                          Layout()),
-                                                )
-                                          // _checkUsr(
-                                          //     _nameController
-                                          //         .text,
-                                          //     _emailController
-                                          //         .text
-                                          //     // // _pwdController.text,
-                                          //     // _phnController.text
-                                          //
-                                          // );
-                                        }
+                                      onPressed: () {
+                                        print("continue cliked");
+                                        print("continue $gendervlue");
+                                        print("continue $_catTextFeild");
+                                        print("continue cliked");
+                                        UserPost(
+                                          email: _emailController.text,
+                                          phonenumber: _mobileController.text,
+                                          username: _nameController.text,
+                                          gender:  gendervlue,
+                                          profession: _proController.text,
+                                          user_type: usertype_value
+                                        );
+                                        // {
+                                        //   print('Finder and fixture    9'),
+                                        //   print(gendervlue),
+                                        //   gendervlue == 1
+                                        //       ? Navigator.of(context)
+                                        //           .push(
+                                        //           MaterialPageRoute(
+                                        //               builder: (_) =>
+                                        //                   FixtureScreen()),
+                                        //         )
+                                        //       : Navigator.of(context)
+                                        //           .push(
+                                        //           MaterialPageRoute(
+                                        //               builder: (_) =>
+                                        //                   Layout()),
+                                        //         )
+                                        //   // _checkUsr(
+                                        //   //     _nameController
+                                        //   //         .text,
+                                        //   //     _emailController
+                                        //   //         .text
+                                        //   //     // // _pwdController.text,
+                                        //   //     // _phnController.text
+                                        //   //
+                                        //   // );
+                                        // }
                                       },
                                       // color: mainOrange,
                                       // splashColor: mainBlue,
                                       // padding: EdgeInsets.all(10.0),
                                       child: Text(
                                         "   Continue   ",
-                                        style: TextStyle(
-                                            color: Colors.white),
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ),
@@ -767,5 +765,49 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> UserPost({
+    required String email,
+    required String phonenumber,
+    String? user_address,
+    String? profession,
+  required String username,
+  required  int? user_type,
+    int? gender,
+
+  }) async {
+    try {
+      var json = jsonEncode({
+        "email": email,
+        "phnumber": phonenumber,
+        "role": "ROLE_USER",
+        "usaddress": user_address,
+        "gender": gender,
+        "usname": username,
+        "profession": profession,
+        "ustype": user_type,
+        "usstatus": "Active"
+      });
+      var header = {"Content-Type": "application/json"};
+      Uri url = Uri.parse(
+          "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/auth/signupwithotp");
+      //
+      print(json);
+      final response = await http.post(url, headers: header, body: json);
+      print(response.statusCode);
+      print(response.body);
+      if(response.statusCode==200){
+        popMessage(
+          context,jsonDecode(response.body)['message']
+        );
+      }{
+        popMessage(
+            context,jsonDecode(response.body)['message']
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
