@@ -5,6 +5,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:goffix/constants.dart';
 import 'package:goffix/screens/signup/signup.dart';
 import 'package:http/http.dart' as http;
+
+import '../custom_widegt/popmessager.dart';
+import '../otp/otpScreen.dart';
 // import 'package:goffix/screens/add/AddScreen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -262,11 +265,16 @@ class _SignInScreenState extends State<SignInScreen> {
                                           // elevation: 10,
                                           // textColor: Colors.white,
                                           onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SignupScreen()));
+                                            if(_mobileController.text.length==10){
+                                            otpGenarate(_mobileController.text);}
+                                            else{
+                                              popMessage(context, "Please enter a valid mobile number");
+                                            }
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             SignupScreen()));
                                           },
                                           /*{
                                             _checkUsr(_mobileController.text)
@@ -309,36 +317,38 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Future<dynamic> _checkUsr(String phn) async {
+  Future<dynamic> otpGenarate(String phn) async {
     //Check mobile
-    var requestBody = {
-      "email": "user@example.com",
-      "phnumber": "1234567890",
-      "role": "ROLE_USER",
-      "usaddress": "123 Main St",
-      "gender": 1,
-      "usname": "John Doe",
-      "profession": "Engineer",
-      "ustype": 1,
-      "usstatus": "Active"
-    };
+    var requestBody = {};
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
-    var response = await http.post(baseUrl,
-        headers: {
-          'Accept': 'application/json',
-        },
-        body: jsonRequest);
-    var jsonResponse = null;
+    Uri url = Uri.parse(otpUrl + "phnumber=${phn}");
+    print(url);
+    var response = await http.get(url, headers: {
+      'Accept': 'application/json',
+    });
+    String jsonResponse = "";
     print("Status code");
     print(response.statusCode);
     if (response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-      print("Login success");
-      print(response.body);
+      jsonResponse = response.body;
+      String otp = jsonResponse.substring(5);
+      print("body ${jsonResponse.substring(5)}");
+      print("body$otp");
+      // Navigator.of(context).push(
+      //   MaterialPageRoute(builder: (_) => SignupScreen()),
+      // );
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => SignupScreen()),
+        MaterialPageRoute(
+            builder: (_) => OtpScreenMobile(
+                  uid: '',
+                  otp: otp,
+                  phn: phn,
+                  oTyp: "1",
+                  screen: "signup",
+                )),
       );
+
       print(jsonResponse);
     } else if (response.statusCode == 202) {
       print("Status code 202");

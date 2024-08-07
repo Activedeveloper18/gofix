@@ -314,9 +314,22 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  "SIGN UP",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "SIGN UP",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => Layout()),
+                          );
+                        },
+                        child: Text("Skip"))
+                  ],
                 ),
               ),
               Center(
@@ -709,13 +722,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                         print("continue $_catTextFeild");
                                         print("continue cliked");
                                         UserPost(
-                                          email: _emailController.text,
-                                          phonenumber: _mobileController.text,
-                                          username: _nameController.text,
-                                          gender:  gendervlue,
-                                          profession: _proController.text,
-                                          user_type: usertype_value
-                                        );
+                                            email: _emailController.text,
+                                            phonenumber: _mobileController.text,
+                                            username: _nameController.text,
+                                            gender: gendervlue,
+                                            profession: _proController.text,
+                                            user_type: usertype_value);
                                         // {
                                         //   print('Finder and fixture    9'),
                                         //   print(gendervlue),
@@ -772,10 +784,9 @@ class _SignupScreenState extends State<SignupScreen> {
     required String phonenumber,
     String? user_address,
     String? profession,
-  required String username,
-  required  int? user_type,
+    required String username,
+    required int? user_type,
     int? gender,
-
   }) async {
     try {
       var json = jsonEncode({
@@ -797,14 +808,11 @@ class _SignupScreenState extends State<SignupScreen> {
       final response = await http.post(url, headers: header, body: json);
       print(response.statusCode);
       print(response.body);
-      if(response.statusCode==200){
-        popMessage(
-          context,jsonDecode(response.body)['message']
-        );
-      }{
-        popMessage(
-            context,jsonDecode(response.body)['message']
-        );
+      if (response.statusCode == 200) {
+        popMessage(context, jsonDecode(response.body)['message']);
+      }
+      {
+        popMessage(context, jsonDecode(response.body)['message']);
       }
     } catch (e) {
       print(e);
