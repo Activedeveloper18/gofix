@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 popMessage(context,message){
   final snackBar = SnackBar(
     backgroundColor: Colors.green,
-    margin: EdgeInsets.symmetric(vertical: 500),
+    margin: EdgeInsets.symmetric(vertical: 300),
     behavior: SnackBarBehavior.floating,
     content:Text('$message'),
     action: SnackBarAction(
