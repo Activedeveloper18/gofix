@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:carousel_slider/carousel_controller.dart';
-import 'package:carousel_slider/carousel_options.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:carousel_slider/carousel_controller.dart';
+// import 'package:carousel_slider/carousel_options.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:goffix/screens/login/login.dart';
 import 'package:http/http.dart' as http;
@@ -259,7 +260,7 @@ class ManuallyControlledSlider extends StatefulWidget {
 }
 
 class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
-  final CarouselController _controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
 
   @override
   void initState() {
@@ -276,7 +277,7 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
               CarouselSlider(
                 items: imageSliders,
                 options: CarouselOptions(enlargeCenterPage: true, height: 200),
-                carouselController: _controller,
+                controller: _controller,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -607,7 +608,7 @@ class CarouselChangeReasonDemo extends StatefulWidget {
 
 class _CarouselChangeReasonDemoState extends State<CarouselChangeReasonDemo> {
   String reason = '';
-  final CarouselController _controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
 
   void onPageChange(int index, CarouselPageChangedReason changeReason) {
     setState(() {
@@ -630,7 +631,7 @@ class _CarouselChangeReasonDemoState extends State<CarouselChangeReasonDemo> {
                   onPageChanged: onPageChange,
                   autoPlay: true,
                 ),
-                carouselController: _controller,
+                controller: _controller,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

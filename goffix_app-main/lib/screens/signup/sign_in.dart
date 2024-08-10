@@ -277,7 +277,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                           // textColor: Colors.white,
                                           onPressed: () {
                                             if(_mobileController.text.length==10){
-                                            otpGenarate(_mobileController.text);}
+                                            otpGenarate(_mobileController.text);
+
+                                            }
                                             else{
                                               popMessage(context, "Please enter a valid mobile number");
                                             }
@@ -364,4 +366,6 @@ class _SignInScreenState extends State<SignInScreen> {
       _showMyDialog("Error", "Mobile no. Already Exists", "UserExists");
     }
   }
+
+
 }

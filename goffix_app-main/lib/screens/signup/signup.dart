@@ -355,7 +355,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 child: TextField(
-                                  maxLength: 6,
+                                  maxLength: 10,
                                   keyboardType: TextInputType.phone,
                                   controller: _mobileController,
 
@@ -398,6 +398,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 child: new TextField(
+                                  maxLength: 6,
                                   controller: _passwordController,
                                   decoration: InputDecoration(
 counterText: "",

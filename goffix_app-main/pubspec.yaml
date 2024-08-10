@@ -87,7 +87,7 @@ dependencies:
 
 #  otp_screen: ^0.0.3
   super_tooltip: ^2.0.7
-  carousel_slider: ^4.2.1
+  carousel_slider_plus:
   # flutter_datetime_picker: ^1.5.1
   # image_picker: ^0.7.3
   image_picker: ^0.7.4
