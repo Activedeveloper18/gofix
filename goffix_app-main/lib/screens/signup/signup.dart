@@ -355,11 +355,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 child: TextField(
-                                  // maxLength: 10,
-                                  keyboardType: TextInputType.number,
+                                  maxLength: 6,
+                                  keyboardType: TextInputType.phone,
                                   controller: _mobileController,
 
                                   decoration: InputDecoration(
+                                    counterText: "",
                                       prefixIcon: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -399,7 +400,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: new TextField(
                                   controller: _passwordController,
                                   decoration: InputDecoration(
-
+counterText: "",
                                       // suffixIcon: Icon(CupertinoIcons.eye),
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -576,7 +577,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                               BorderRadius.circular(10.0)),
                                       contentPadding: EdgeInsets.fromLTRB(
                                           20.0, 15.0, 20.0, 10.0),
-                                      hintText: "Emaail",
+                                      hintText: "Email",
                                       focusColor: Colors.green,
                                       fillColor: Colors.grey),
                                 ),

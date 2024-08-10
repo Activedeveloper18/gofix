@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:goffix/constants.dart';
 import 'package:goffix/screens/signup/signup.dart';
@@ -207,11 +208,14 @@ class _SignInScreenState extends State<SignInScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16),
                                       child: TextField(
-                                        // maxLength: 10,
+                                        maxLength: 10,
                                         keyboardType: TextInputType.number,
                                         controller: _mobileController,
-
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(RegExp("[0-9]"))
+                                          ],
                                         decoration: InputDecoration(
+                                          counterText: "",
                                             prefixIcon: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -248,6 +252,13 @@ class _SignInScreenState extends State<SignInScreen> {
                                     SizedBox(
                                       height: 20,
                                     ),
+                                    TextButton(onPressed: (){
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SignupScreen()));
+                                    }, child: Text("create account")),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16.0, vertical: 28),
@@ -270,11 +281,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                             else{
                                               popMessage(context, "Please enter a valid mobile number");
                                             }
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //         builder: (context) =>
-                                            //             SignupScreen()));
+
                                           },
                                           /*{
                                             _checkUsr(_mobileController.text)

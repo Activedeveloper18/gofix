@@ -20,62 +20,53 @@ class OtpScreenMobile extends StatefulWidget {
   final String? oTyp;
   final String? screen;
 
-  const OtpScreenMobile({
-    Key? key,
-    this.uid,
-    this.otp,
-    this.phn,
-    this.oTyp,
-    this.screen
-  }) : super(key: key);
+  const OtpScreenMobile(
+      {Key? key, this.uid, this.otp, this.phn, this.oTyp, this.screen})
+      : super(key: key);
 
   @override
   _OtpScreenMobileState createState() => _OtpScreenMobileState();
 }
 
 class _OtpScreenMobileState extends State<OtpScreenMobile> {
-
-
   Future<String> validateOtp(String otp) async {
     await Future.delayed(const Duration(milliseconds: 2000));
-    var requestBody = {
-
-    };
+    var requestBody = {};
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
     Uri url = Uri.parse(otpValidateUrl+"phnumber=${widget.phn}&otp=${otp}");
+    // Uri url = Uri.parse(
+    //     "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/auth/signinwithotp");
     print(url);
     var response = await http.post(
       url,
       headers: {'Accept': 'application/json'},
-      body: jsonRequest,
+      body: requestBody,
     );
     print(response.statusCode);
     print(response.body);
 
     // var jsonResponse = json.decode(response.body);
 
-      if (response.statusCode == 200) {
-        if (widget.oTyp == "1") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Layout(),
-            ),
-          );
-        }
-
-    }
-    else{
+    if (response.statusCode == 200) {
+      if (widget.oTyp == "1") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Layout(),
+          ),
+        );
+      }
+    } else {
+      setState(() {});
       print("error otp");
       popMessage(context, "Please enter a valid OTP number");
       final snackBar = SnackBar(
         backgroundColor: Colors.green,
         margin: EdgeInsets.symmetric(vertical: 300),
         behavior: SnackBarBehavior.floating,
-        content:Text("Please enter a valid OTP number"),
+        content: Text("Please enter a valid OTP number"),
         action: SnackBarAction(
-
           label: 'Undo',
           onPressed: () {
             // Code to execute when the "Undo" action is pressed
@@ -85,7 +76,6 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
 
       // Use ScaffoldMessenger to show the Snackbar
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
     }
     return "";
   }
@@ -119,7 +109,6 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
       home: Container(
         padding: EdgeInsets.only(top: 30),
         child: AwesomeOtpScreen.withGradientBackground(
-
           topColor: Color(0xFFcc2b5e),
           bottomColor: Colors.white,
           otpLength: 6,

@@ -60,7 +60,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               ButtonStyle(backgroundColor: MaterialStateProperty.all(mainBlue)),
           child: const Text(
             'Let\'s go right away!',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white,fontSize: 16.0, fontWeight: FontWeight.bold),
           ),
           onPressed: () => _onIntroEnd(context),
         ),
@@ -71,27 +71,33 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           title: "Easy Connect",
           body:
               "Easy Connect provides seeker and offeror to fulfill service and product need with the best customer experience",
-          image: _buildImage('../assets/images/Picture1.png'),
+          image: _buildImage('../assets/images/pic3.png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "choose your service",
           body:
               "choose your service for the job,repair work,and medical services",
-          image: _buildImage('../assets/images/Picture2.png'),
+          image: _buildImage('images/pic1.png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "looking for products",
           body:
               "looking for products around your location with contact to purchase",
-          image: _buildImage('../assets/images/Picture3.png'),
+          image: _buildImage('images/pic2.png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "convert to digital ad",
           body: "covert to digital ads with one-stop solutions",
-          image: _buildImage('../assets/images/Picture4.png'),
+          image: _buildImage('images/gdial.png'),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: "convert to digital ad",
+          body: "covert to digital ads with one-stop solutions",
+          image: _buildImage('images/pic4.png'),
           decoration: pageDecoration,
         ),
       ],
