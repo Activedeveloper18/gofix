@@ -110,7 +110,7 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
     setState(() {
 
     });
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()))
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>Layout()))
     ;}
     else{
       return "no user found";

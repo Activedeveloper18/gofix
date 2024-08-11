@@ -23,6 +23,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../models/getcountbyprofession.dart';
 import '../CauroselDemo.dart';
 import 'components/popover_button.dart';
 import 'package:goffix/screens/network/network_status_service.dart';
@@ -38,17 +39,18 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
   // Map<String, dynamic> listOfAds;
-   List? listOfAds;
-   List? listOfPosts;
-   List? listOfPostsTop10;
+  List? listOfAds;
+  List? listOfPosts;
+  bool isLoader = false;
+  List? listOfPostsTop10;
   // Map<String, dynamic> listOfPostsTemp;
-   List? listOfPostsTemp;
-   List? chkOff;
+  List? listOfPostsTemp;
+  List? chkOff;
   bool _isFetchPostLoading = true;
   var startPost = "0";
   var limitPost = "50";
-   List? postedJobs;
-   PopupMenu? menu;
+  List? postedJobs;
+  PopupMenu? menu;
   final LayerLink _layerLink = LayerLink();
   int? uid;
   String? token;
@@ -56,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late OverlayEntry _overlayEntry;
   bool _otpPop = true;
   String _savePostIcon = "";
-   GlobalKey<ScaffoldState>? _scaffoldKey;
+  GlobalKey<ScaffoldState>? _scaffoldKey;
   String userName = "";
   String mobile = "";
 
@@ -339,18 +341,34 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-//Sync Online
-  // Future _SyncPost() async {
-  //   if (listOfPosts.isNotEmpty) {
-  //     print(listOfPosts[0]);
-  //   }
-  // }
+  List<GetCountByProfession> getCountByProfession = <GetCountByProfession>[];
+// Sync Online
+  Future fetchPost() async {
+    isLoader = true;
+    Uri url = Uri.parse(getAllUserByProfession + "profession=Engineer");
+    final response = await http.get(url, headers: headers);
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      isLoader = false;
+      setState(() {});
+      var data = jsonDecode(response.body);
+      // var data = jsonDecode("");
+
+      getCountByProfession = data.map((e) => GetCountByProfession.fromJson(e));
+    } else {
+      isLoader = false;
+      setState(() {});
+      var snackbar = '';
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     this.param();
     this._getPostsTop10();
+    fetchPost();
     // this._chckOffline();
     _scaffoldKey = GlobalKey();
     // this.getUserName();
@@ -467,16 +485,379 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     fontWeight:
                                                         FontWeight.bold)),
                                           ),
-                                          listOfPostsTop10 == null
+                                          // isLoader
+                                          //     ? Container(
+                                          //         child: Center(
+                                          //             child: Image.asset(
+                                          //                 "assets/images/page_load.gif",
+                                          //                 height: 50)))
+                                          //     // : postCards(),
+                                          // :Container(child: Text("Madhu"),),
+                                          // isLoader
+                                          //     ? Container()
+                                          //     : _fetchPosts()
+                                          isLoader
                                               ? Container(
                                                   child: Center(
                                                       child: Image.asset(
                                                           "assets/images/page_load.gif",
                                                           height: 50)))
-                                              : postCards(),
-                                          listOfPostsTop10 == null
-                                              ? Container()
-                                              : _fetchPosts()
+                                              : SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                      .size
+                                                      .height,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: ListView.builder(
+                                                      itemCount: 15,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return
+                                                            //   Padding(
+                                                            //   padding:
+                                                            //       const EdgeInsets
+                                                            //           .all(8.0),
+                                                            //   child: Container(
+                                                            //     height: 100,
+                                                            //     width: MediaQuery.of(
+                                                            //                 context)
+                                                            //             .size
+                                                            //             .width *
+                                                            //         95,
+                                                            //     decoration: BoxDecoration(
+                                                            //         color: Colors
+                                                            //             .white,
+                                                            //         borderRadius:
+                                                            //             BorderRadius
+                                                            //                 .circular(
+                                                            //                     10),
+                                                            //         boxShadow: [
+                                                            //           BoxShadow(
+                                                            //               color: Colors
+                                                            //                   .grey,
+                                                            //               blurRadius:
+                                                            //                   4,
+                                                            //               spreadRadius:
+                                                            //                   5)
+                                                            //         ]),
+                                                            //     child: Row(
+                                                            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                            //       children: [
+                                                            //         CircleAvatar(
+                                                            //
+                                                            //           backgroundImage:
+                                                            //               AssetImage(
+                                                            //                   "assets/images/pic1.png"),
+                                                            //         ),
+                                                            //         Text("Engineer",style: TextStyle(fontSize: 32),),
+                                                            //
+                                                            //         Text("10",style: TextStyle(fontSize: 32),),
+                                                            //
+                                                            //
+                                                            //       ],
+                                                            //     ),
+                                                            //   ),
+                                                            // );
+                                                            Container(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    bottom: 20),
+                                                            child: Container(
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5),
+                                                                  color: Colors
+                                                                      .white,
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                      color: Color(
+                                                                              0xFFAAAAAA)
+                                                                          .withOpacity(
+                                                                              0.3),
+                                                                      blurRadius:
+                                                                          40.0, // soften the shadow
+                                                                      spreadRadius:
+                                                                          3, //extend the shadow
+                                                                      offset:
+                                                                          Offset(
+                                                                        0.0, // Move to right 10  horizontally
+                                                                        30.0, // Move to bottom 10 Vertically
+                                                                      ),
+                                                                    ),
+                                                                  ]),
+                                                              // decoration: BoxDecoration(color: Colors.grey),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        top: 15,
+                                                                        left:
+                                                                            15,
+                                                                        bottom:
+                                                                            15,
+                                                                        right:
+                                                                            10),
+                                                                child:
+                                                                    Container(
+                                                                  child: Column(
+                                                                    children: <Widget>[
+                                                                      // Header
+                                                                      Row(
+                                                                        children: <Widget>[
+                                                                          ClipRRect(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(100),
+                                                                            child: listOfPostsTop10?[index]["u_img"] == null
+                                                                                ? Image.asset(
+                                                                                    'assets/images/male.png',
+                                                                                    height: 70,
+                                                                                  )
+                                                                                : listOfPostsTop10?[index]["u_img"] == ("file:///android_asset/www/images/male.png")
+                                                                                    ? Image.asset(
+                                                                                        'assets/images/male.png',
+                                                                                        height: 70,
+                                                                                      )
+                                                                                    : Image.memory(
+                                                                                        image_64(listOfPostsTop10?[index]["u_img"]),
+                                                                                        // Image.asset(
+                                                                                        //   'assets/images/profile.jpg',
+                                                                                        height: 70,
+                                                                                        // ),
+                                                                                      ),
+                                                                          ),
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(left: 10),
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                ConstrainedBox(
+                                                                                  constraints: BoxConstraints(
+                                                                                    minWidth: 150.0,
+                                                                                    maxWidth: 200.0,
+                                                                                    // minHeight: 30.0,
+                                                                                    // maxHeight: 100.0,
+                                                                                  ),
+                                                                                  child: AutoSizeText(
+                                                                                    "listOfPostsTop10?[index]",
+                                                                                    // "Rajesh Reddy - Sicentix ",
+                                                                                    maxLines: 2,
+                                                                                    softWrap: true,
+                                                                                    minFontSize: 18,
+                                                                                    style: TextStyle(
+                                                                                        color: Colors.grey.shade700,
+                                                                                        fontSize: 20,
+                                                                                        // fontFamily: "Titillium Web",
+                                                                                        fontFamily: "Lato",
+                                                                                        fontWeight: FontWeight.bold),
+                                                                                  ),
+                                                                                ),
+                                                                                // Text(
+                                                                                //   listOfPostsTop10[index]["u_nm"],
+                                                                                //   style: TextStyle(
+                                                                                //       color: Colors.grey.shade700,
+                                                                                //       fontSize: 20,
+                                                                                //       // fontFamily: "Titillium Web",
+                                                                                //       fontFamily: "Lato",
+                                                                                //       fontWeight: FontWeight.bold),
+                                                                                // ),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Icon(
+                                                                                      CupertinoIcons.placemark_fill,
+                                                                                      size: 20,
+                                                                                      color: mainBlue.withOpacity(0.8),
+                                                                                    ),
+                                                                                    Text("loc_name", style: TextStyle(color: mainBlue.withOpacity(0.5), fontWeight: FontWeight.bold)),
+                                                                                  ],
+                                                                                ),
+                                                                                // Text(
+                                                                                //   // snapshot.data[index].pDt.toString(),
+                                                                                //   // TimeAgo.timeAgoSinceDate(
+                                                                                //   //     snapshot.data[index].pDt.toString()),
+                                                                                //   Jiffy(listOfPostsTop10[index]["p_dt"])
+                                                                                //       .fromNow(),
+                                                                                //   style: TextStyle(
+                                                                                //       color: Colors.grey.withOpacity(0.8)),
+                                                                                // ),
+                                                                              ],
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10,
+                                                                      ),
+
+                                                                      Divider(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10,
+                                                                      ),
+                                                                      // Body
+                                                                      Container(
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.start,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: <Widget>[
+                                                                            Text(
+                                                                              "p_tit",
+                                                                              style: TextStyle(color: Colors.grey.shade800, fontSize: 20, fontWeight: FontWeight.bold),
+                                                                            ),
+                                                                            Text(
+                                                                              "Jdf",
+                                                                              style: TextStyle(
+                                                                                color: Colors.grey.shade800,
+                                                                                fontSize: 18,
+
+                                                                                // fontWeight: FontWeight.bold,
+                                                                              ),
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height: 10,
+                                                                            ),
+                                                                            Row(
+                                                                              children: [
+                                                                                Container(
+                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: mainBlue)),
+                                                                                  child: Text(
+                                                                                    "cat_name",
+                                                                                    style: TextStyle(color: mainBlue, fontSize: 15),
+                                                                                  ),
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  width: 10,
+                                                                                ),
+                                                                                Container(
+                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: mainBlue)),
+                                                                                  child: Text(
+                                                                                    "priority",
+                                                                                    style: TextStyle(color: mainBlue, fontSize: 15),
+                                                                                  ),
+                                                                                )
+                                                                              ],
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10,
+                                                                      ),
+
+                                                                      Divider(
+                                                                          color:
+                                                                              Colors.grey),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10,
+                                                                      ),
+                                                                      // Footer
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceAround,
+                                                                        children: [
+                                                                          (listOfPostsTop10?[index]["p_ctyp"] == "0")
+                                                                              ? InkWell(
+                                                                                  onTap: () {
+                                                                                    _callClick(listOfPostsTop10?[index]["p_id"], uid, listOfPostsTop10?[index]["u_id"], uid, listOfPostsTop10?[index]["u_phn"]);
+                                                                                  },
+                                                                                  child: Icon(
+                                                                                    Icons.call,
+                                                                                    size: 23,
+                                                                                    color: mainBlue,
+                                                                                  ),
+                                                                                )
+                                                                              : Icon(
+                                                                                  Icons.phone_disabled,
+                                                                                  size: 23,
+                                                                                  color: Colors.grey,
+                                                                                ),
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              // _msgClick(
+                                                                              // int.parse(listOfPostsTop10?[index]["u_id"]),
+                                                                              // uid,
+                                                                              // // int.parse(listOfPostsTop10[index]["p_id"]),
+                                                                              // listOfPostsTop10![index]["u_img"],
+                                                                              // listOfPostsTop10![index]["u_nm"]);
+                                                                            },
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.message,
+                                                                              size: 23,
+                                                                              color: mainBlue,
+                                                                            ),
+                                                                          ),
+                                                                          // SimpleAccountMenu(),
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              var shareText = listOfPostsTop10![index]["p_tit"] + '\n' + "SJdf";
+                                                                              // Share.share(shareText);
+                                                                            },
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.share_outlined,
+                                                                              size: 23,
+                                                                              color: mainBlue,
+                                                                            ),
+                                                                          ),
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              print(listOfPostsTop10?[index]["issaved"]);
+                                                                              _savePost(listOfPostsTop10?[index]["p_id"]);
+
+                                                                              AlertDialog();
+                                                                            },
+                                                                            child:
+                                                                                Icon(
+                                                                              "issaved" == "1" ? CupertinoIcons.info_circle_fill : CupertinoIcons.info_circle_fill,
+                                                                              size: 23,
+                                                                              color: mainBlue,
+                                                                            ),
+                                                                          ),
+                                                                          Icon(
+                                                                            CupertinoIcons.info_circle,
+                                                                            size:
+                                                                                23,
+                                                                            color:
+                                                                                mainBlue,
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.bookmark,
+                                                                            color:
+                                                                                mainBlue,
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }),
+                                                ),
                                         ],
                                       ),
                                     )
@@ -516,9 +897,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: listOfPostsTop10!.length,
+      itemCount: listOfPostsTop10?.length,
       itemBuilder: (context, index) {
-        if (listOfPostsTop10![index]["p_priority"] == "0") {
+        if (listOfPostsTop10?[index]["p_priority"] == "0") {
           priority = "One Day";
         } else if (listOfPostsTop10![index]["p_priority"] == "1") {
           priority = "One Week";
@@ -762,7 +1143,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           // SimpleAccountMenu(),
                           InkWell(
                             onTap: () {
-                              var shareText = listOfPostsTop10![index]["p_tit"] +
+                              var shareText = listOfPostsTop10![index]
+                                      ["p_tit"] +
                                   '\n' +
                                   SJdf;
                               // Share.share(shareText);
