@@ -773,6 +773,7 @@ class _HomeScreenState extends State<SearchScreen> {
         //       builder: (context) =>
         //           BookServiceScreen(catid: int.parse(link), cname: nm)),
         // );
+        print("cname  $nm");
         Navigator.push(
           context,
           MaterialPageRoute(

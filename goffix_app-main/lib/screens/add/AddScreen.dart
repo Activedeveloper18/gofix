@@ -41,6 +41,7 @@ class catName {
   }
 }
 
+ bool isLoading= false;
 class locName {
   String? loc_id;
   String? loc_name;
@@ -83,7 +84,8 @@ class _HomeScreenState extends State<AddScreen> {
   final TextEditingController _categoryController = new TextEditingController();
   final TextEditingController _locationController = new TextEditingController();
   final TextEditingController _postTitle = new TextEditingController();
-  final TextEditingController _professionController = new TextEditingController();
+  final TextEditingController _professionController =
+      new TextEditingController();
   final TextEditingController _postDesc = new TextEditingController();
 
   late int _catTextFeild;
@@ -146,10 +148,7 @@ class _HomeScreenState extends State<AddScreen> {
       } else {
         print("Something Went Wrong");
       }
-
-
     }
-
   }
 
   Future<List<LocModel>?> _getLoc() async {
@@ -284,120 +283,111 @@ class _HomeScreenState extends State<AddScreen> {
     );
   }
 
-  Future<dynamic> _addPost(String tit, String Desc) async {
-    if (this.mounted) {
-      setState(() {
-        IsPosting = true;
-      });
-    }
-    if (tit == "") {
-      if (this.mounted) {
-        setState(() {
-          _titValError = true;
-        });
-      }
-    }
-    if (Desc == "") {
-      if (this.mounted) {
-        setState(() {
-          _descValError = true;
-        });
-      }
-    }
-    if (_catTextFeild == null) {
-      if (this.mounted) {
-        setState(() {
-          _proValError = true;
-        });
-      }
-    }
-    if (_locTextFeild == null) {
-      if (this.mounted) {
-        setState(() {
-          _locValError = true;
-        });
-      }
-    }
-    if (_conTypeTextFeild == null) {
-      if (this.mounted) {
-        setState(() {
-          _ctypValError = true;
-        });
-      }
-    }
-    if (_timePTextFeild == null) {
-      if (this.mounted) {
-        setState(() {
-          _timValError = true;
-        });
-      }
-    }
-
-    String? token = await User().getToken();
-    int? uid = await User().getUID();
+  Future<dynamic> _addPost(
+      title,desc,profession,locName,
+      ) async {
+    // if (this.mounted) {
+    //   setState(() {
+    //     IsPosting = true;
+    //   });
+    // }
+    // if (tit == "") {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _titValError = true;
+    //     });
+    //   }
+    // }
+    // if (Desc == "") {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _descValError = true;
+    //     });
+    //   }
+    // }
+    // if (_catTextFeild == null) {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _proValError = true;
+    //     });
+    //   }
+    // }
+    // if (_locTextFeild == null) {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _locValError = true;
+    //     });
+    //   }
+    // }
+    // if (_conTypeTextFeild == null) {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _ctypValError = true;
+    //     });
+    //   }
+    // }
+    // if (_timePTextFeild == null) {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _timValError = true;
+    //     });
+    //   }
+    // }
 
     var requestBody = {
-      "service_name": "addPost",
-      "param": {
-        "p_uid": uid,
-        "p_tit": tit,
-        "p_jd": Desc,
-        "p_catid": _catTextFeild,
-        "p_loc": _locTextFeild,
-        "p_amt": "",
-        "p_priority": _timePTextFeild,
-        "p_ctyp": _conTypeTextFeild
-      }
+      "jobtitle": title,
+      "jobdescription": desc,
+      "jbprofession": profession,
+      "jblocation": locName,
+      "jobtype": "Full-time",
+      "jbmobileNumber": "1234567890",
+      "priority": "High",
+      "userId": 1
     };
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
-    var response = await http.post(baseUrl,
+    var response = await http.post(Uri.parse(jobPostUrl),
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
+          'content-Type': 'application/json',
+          'Authorization': 'Bearer $bearerToken',
         },
         body: jsonRequest);
     var jsonResponse = null;
-
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-      print(jsonResponse);
-      if (jsonResponse["response"]["status"] == 200) {
-        if (this.mounted) {
-          setState(() {
-            isPosted = true;
-            IsPosting = false;
-          });
-        }
+      // jsonResponse = json.decode(response.body);
+      // print(jsonResponse);
+      isLoading=false;
+      setState(() {
 
-        // _showMyDialog();
-        // Navigator.of(context).pushReplacement(
-        //   MaterialPageRoute(builder: (BuildContext context) => Layout()),
-        // );
-        //Post Success code
-        // Alert(
-        //   context: context,
-        //   type: AlertType.success,
-        //   title: "Job Post",
-        //   desc: "Job Posted Successfully",
-        //   buttons: [
-        //     DialogButton(
-        //       child: Text(
-        //         "Okay",
-        //         style: TextStyle(color: Colors.white, fontSize: 20),
-        //       ),
-        //       onPressed: () => Navigator.pop(context),
-        //       width: 120,
-        //     )
-        //   ],
-        // ).show().then((value) {
-        //   print(value);
-        //   Navigator.pushReplacement(
-        //       context, MaterialPageRoute(builder: (context) => Layout()));
-        // });
-      } else {
-        print("Post not posted");
-      }
+      });
+      _showMyDialog();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) => Layout()),
+      );
+      //Post Success code
+      // Alert(
+      //   context: context,
+      //   type: AlertType.success,
+      //   title: "Job Post",
+      //   desc: "Job Posted Successfully",
+      //   buttons: [
+      //     DialogButton(
+      //       child: Text(
+      //         "Okay",
+      //         style: TextStyle(color: Colors.white, fontSize: 20),
+      //       ),
+      //       onPressed: () => Navigator.pop(context),
+      //       width: 120,
+      //     )
+      //   ],
+      // ).show().then((value) {
+      //   print(value);
+      //   Navigator.pushReplacement(
+      //       context, MaterialPageRoute(builder: (context) => Layout()));
+      // });
     }
   }
 
@@ -520,7 +510,6 @@ class _HomeScreenState extends State<AddScreen> {
                       controller: _postTitle,
 
                       decoration: InputDecoration(
-
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.grey.shade300, width: 3.0),
@@ -530,24 +519,25 @@ class _HomeScreenState extends State<AddScreen> {
                                   color: Colors.grey.shade300, width: 3.0),
                               borderRadius: BorderRadius.circular(10.0)),
                           contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
                           hintText: "Post Title",
                           focusColor: Colors.grey,
                           fillColor: Colors.grey),
                     ),
                   ),
 
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   // Title validation
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextField(
-                     maxLines: 7,
+                      maxLines: 7,
                       // keyboardType: TextInputType.number,
                       controller: _postDesc,
 
                       decoration: InputDecoration(
-
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.grey.shade300, width: 3.0),
@@ -557,13 +547,15 @@ class _HomeScreenState extends State<AddScreen> {
                                   color: Colors.grey.shade300, width: 3.0),
                               borderRadius: BorderRadius.circular(10.0)),
                           contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
                           hintText: "Post Descrption",
                           focusColor: Colors.grey,
                           fillColor: Colors.grey),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   // Description
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -573,7 +565,6 @@ class _HomeScreenState extends State<AddScreen> {
                       controller: _professionController,
 
                       decoration: InputDecoration(
-
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.grey.shade300, width: 3.0),
@@ -583,26 +574,24 @@ class _HomeScreenState extends State<AddScreen> {
                                   color: Colors.grey.shade300, width: 3.0),
                               borderRadius: BorderRadius.circular(10.0)),
                           contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
                           hintText: "Profession",
                           focusColor: Colors.grey,
                           fillColor: Colors.grey),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   // Description validation
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(10.0),
-                          border: Border.all(
-                              color: Colors.black, width: 1),
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Colors.black, width: 1),
                           color: Colors.white),
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 2),
+                      padding: EdgeInsets.symmetric(horizontal: 2),
                       child: FormBuilderDropdown<String>(
                         // autovalidate: true,
                         name: 'Location',
@@ -610,14 +599,10 @@ class _HomeScreenState extends State<AddScreen> {
                           // isDense: true,   // isDense: true,
                           border: InputBorder.none,
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2.0),
-                              borderRadius:
-                              BorderRadius.circular(
-                                  10.0)),
-                          contentPadding:
-                          EdgeInsets.only(left: 20.0),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          contentPadding: EdgeInsets.only(left: 20.0),
                           focusColor: Colors.green,
                           fillColor: Colors.white,
                           hintText: 'Select Location',
@@ -630,13 +615,10 @@ class _HomeScreenState extends State<AddScreen> {
                         // hint: Text('Select Gender'),
                         // validator: FormBuilderValidators.compose(
                         //     [FormBuilderValidators.required(context)]),
-                        items: AllLoc
-                            .map((location) =>
-                            DropdownMenuItem(
+                        items: AllLoc.map((location) => DropdownMenuItem(
                               value: location,
                               child: Text(location),
-                            ))
-                            .toList(),
+                            )).toList(),
                         onChanged: (val) {
                           setState(() {
                             _locValError = false;
@@ -656,20 +638,18 @@ class _HomeScreenState extends State<AddScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   // Proffession
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(10.0),
-                          border: Border.all(
-                              color: Colors.black, width: 1),
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Colors.black, width: 1),
                           color: Colors.white),
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 2),
+                      padding: EdgeInsets.symmetric(horizontal: 2),
                       child: FormBuilderDropdown<String>(
                         // autovalidate: true,
                         name: 'OneDay',
@@ -677,14 +657,10 @@ class _HomeScreenState extends State<AddScreen> {
                           // isDense: true,   // isDense: true,
                           border: InputBorder.none,
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2.0),
-                              borderRadius:
-                              BorderRadius.circular(
-                                  10.0)),
-                          contentPadding:
-                          EdgeInsets.only(left: 20.0),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          contentPadding: EdgeInsets.only(left: 20.0),
                           focusColor: Colors.green,
                           fillColor: Colors.white,
                           hintText: 'OneDay',
@@ -697,12 +673,11 @@ class _HomeScreenState extends State<AddScreen> {
                         // hint: Text('Select Gender'),
                         // validator: FormBuilderValidators.compose(
                         //     [FormBuilderValidators.required(context)]),
-                        items:
-                        timePriority.map((location) =>
-                            DropdownMenuItem(
-                              value: location,
-                              child: Text(location),
-                            ))
+                        items: timePriority
+                            .map((location) => DropdownMenuItem(
+                                  value: location,
+                                  child: Text(location),
+                                ))
                             .toList(),
                         onChanged: (val) {
                           setState(() {
@@ -724,19 +699,17 @@ class _HomeScreenState extends State<AddScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(10.0),
-                          border: Border.all(
-                              color: Colors.black, width: 1),
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Colors.black, width: 1),
                           color: Colors.white),
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 2),
+                      padding: EdgeInsets.symmetric(horizontal: 2),
                       child: FormBuilderDropdown<String>(
                         // autovalidate: true,
                         name: 'OneDay',
@@ -744,14 +717,10 @@ class _HomeScreenState extends State<AddScreen> {
                           // isDense: true,   // isDense: true,
                           border: InputBorder.none,
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2.0),
-                              borderRadius:
-                              BorderRadius.circular(
-                                  10.0)),
-                          contentPadding:
-                          EdgeInsets.only(left: 20.0),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          contentPadding: EdgeInsets.only(left: 20.0),
                           focusColor: Colors.green,
                           fillColor: Colors.white,
                           hintText: 'OnlyMessage',
@@ -764,12 +733,11 @@ class _HomeScreenState extends State<AddScreen> {
                         // hint: Text('Select Gender'),
                         // validator: FormBuilderValidators.compose(
                         //     [FormBuilderValidators.required(context)]),
-                        items:
-                        contactType.map((location) =>
-                            DropdownMenuItem(
-                              value: location,
-                              child: Text(location),
-                            ))
+                        items: contactType
+                            .map((location) => DropdownMenuItem(
+                                  value: location,
+                                  child: Text(location),
+                                ))
                             .toList(),
                         onChanged: (val) {
                           setState(() {
@@ -791,9 +759,6 @@ class _HomeScreenState extends State<AddScreen> {
                     ),
                   ),
                   // Location
-
-
-
 
                   // Select Time Priority
 
@@ -901,69 +866,90 @@ class _HomeScreenState extends State<AddScreen> {
                                   IsPosting
                                       ? CircularProgressIndicator()
                                       : !isPosted
-                                          ? SliderButton(
-                                              action: () {
-                                                ///Do something here OnSlide
-                                                print("Posting a Job");
-                                                if (_titValError == false) {
-                                                  // startTimer();
-                                                  _addPost(_postTitle.text,
-                                                      _postDesc.text);
+                                          ? SizedBox(
+                                              width: MediaQuery.of(context).size.width*0.8,
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.tealAccent
+                                                ),
+                                                  onPressed: () {
+                                                    isLoading = true;
+                                                    setState(() {
 
-                                                  Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (BuildContext
-                                                              context) =>
-                                                          Layout(),
-                                                    ),
-                                                    (route) => false,
-                                                  );
-                                                }
-                                              },
-
-                                              ///Put label over here
-                                              label: Text(
-                                                "Slide to Post",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 17),
-                                              ),
-                                              icon: Center(
-                                                  child: Icon(
-                                                Icons.add,
-                                                color: mainOrange,
-                                                size: 40.0,
-                                                semanticLabel:
-                                                    'Text to announce in accessibility modes',
-                                              )),
-
-                                              //Put BoxShadow here
-                                              boxShadow: BoxShadow(
-                                                color: Colors.transparent
-                                                    .withOpacity(.6),
-                                                blurRadius: 1,
-                                              ),
-
-                                              //Adjust effects such as shimmer and flag vibration here
-                                              shimmer: true,
-                                              vibrationFlag: false,
-                                              // dismissThresholds: 2.0,
-                                              dismissible:
-                                                  isPosted ? true : false,
-                                              alignLabel: Alignment(0.0, 0),
-
-                                              ///Change All the color and size from here.
-                                              width: 300,
-                                              radius: 20,
-                                              buttonColor:
-                                                  Colors.white.withOpacity(0.8),
-                                              // buttonColor: Colors.transparent,
-                                              backgroundColor: mainOrange,
-                                              highlightedColor: mainBlue,
-                                              baseColor: Colors.white,
+                                                    });
+                                                    _addPost(
+                                                        _postTitle.text,
+                                                      _postDesc.text,
+                                                      _professionController.text,
+                                                      _locationController.text
+                                                    );
+                                                  },
+                                                  child:isLoading?CircularProgressIndicator(): Text("Post Your Job",style: TextStyle(
+                                                    fontSize: 24,
+                                                  ),)),
                                             )
+                                          // SliderButton(
+                                          //             action: () {
+                                          //               ///Do something here OnSlide
+                                          //               print("Posting a Job");
+                                          //               if (_titValError == false) {
+                                          //                 // startTimer();
+                                          //                 _addPost();
+                                          //
+                                          //                 // Navigator.pushAndRemoveUntil(
+                                          //                 //   context,
+                                          //                 //   MaterialPageRoute(
+                                          //                 //     builder: (BuildContext
+                                          //                 //             context) =>
+                                          //                 //         Layout(),
+                                          //                 //   ),
+                                          //                 //   (route) => false,
+                                          //                 // );
+                                          //               }
+                                          //             },
+                                          //
+                                          //             ///Put label over here
+                                          //             label: Text(
+                                          //               "Slide to Post",
+                                          //               style: TextStyle(
+                                          //                   color: Colors.white,
+                                          //                   fontWeight: FontWeight.w500,
+                                          //                   fontSize: 17),
+                                          //             ),
+                                          //             icon: Center(
+                                          //                 child: Icon(
+                                          //               Icons.add,
+                                          //               color: mainOrange,
+                                          //               size: 40.0,
+                                          //               semanticLabel:
+                                          //                   'Text to announce in accessibility modes',
+                                          //             )),
+                                          //
+                                          //             //Put BoxShadow here
+                                          //             boxShadow: BoxShadow(
+                                          //               color: Colors.transparent
+                                          //                   .withOpacity(.6),
+                                          //               blurRadius: 1,
+                                          //             ),
+                                          //
+                                          //             //Adjust effects such as shimmer and flag vibration here
+                                          //             shimmer: true,
+                                          //             vibrationFlag: false,
+                                          //             // dismissThresholds: 2.0,
+                                          //             dismissible:
+                                          //                 isPosted ? true : false,
+                                          //             alignLabel: Alignment(0.0, 0),
+                                          //
+                                          //             ///Change All the color and size from here.
+                                          //             width: 300,
+                                          //             radius: 20,
+                                          //             buttonColor:
+                                          //                 Colors.white.withOpacity(0.8),
+                                          //             // buttonColor: Colors.transparent,
+                                          //             backgroundColor: mainOrange,
+                                          //             highlightedColor: mainBlue,
+                                          //             baseColor: Colors.white,
+                                          //           )
                                           : Container()),
                           isPosted
                               ? Container(

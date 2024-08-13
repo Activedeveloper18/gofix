@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../constants.dart';
 import '../../models/getbyprofessiontype.dart';
+import 'BookService.dart';
 
 class ListFixerScreen extends StatefulWidget {
   final String? professionType; // Changed to final
@@ -73,40 +74,67 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
               child: Text("No data found"),
             );
           } else {
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return Padding(
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.black54)),
-                    child: ListTile(
-                      title: Text(snapshot.data![index].usname!.toString()),
-                      subtitle: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
+                  child: Text("Fixers : ${snapshot.data!.length}"),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.black54)),
+                        child: ListTile(
+                          onTap: (){
+                            print("object $index");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      BookServiceScreen(cname: widget.professionType,)),
+                            );
+                          },
+                          title: Text(snapshot.data![index].usname!.toString()),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Icon(Icons.email),
-                              Text(snapshot.data![index].username!.toString()),
+                             Row(
+                                  children: [
+                                    Icon(Icons.email,size: 15,),
+                                    SizedBox(
+                                      width: 120,
+                                      child: Text(snapshot.data![index].username!.toString(),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                              Row(
+                                children: [
+                                  Icon(Icons.phone,size: 15,),
+                                  Text(snapshot.data![index].phNumber!.toString()),
+                                ],
+                              ),
                             ],
                           ),
-                          Row(
-                            children: [
-                              Icon(Icons.phone),
-                              Text(snapshot.data![index].phNumber!.toString()),
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ],
             );
           }
         },

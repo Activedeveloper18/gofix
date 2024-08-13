@@ -27,7 +27,8 @@ String AppTC =
 
 
 String getAllUserByProfession = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/gdial/users/by-profession?";
-
+String jobPostUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/postjob";
+String jobGetUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/getalljobsb";
 
 
 var headers= {

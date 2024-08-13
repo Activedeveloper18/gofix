@@ -23,6 +23,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../models/getalljobsmodel.dart';
 import '../../models/getcountbyprofession.dart';
 import '../../repo/user_repo.dart';
 import '../CauroselDemo.dart';
@@ -74,13 +75,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // Check IsLoggedIn
   Future<dynamic> param() async {
-    int? _uid = await User().getUID();
-    String? _token = await User().getToken();
+    // int? _uid = await User().getUID();
+    // String? _token = await User().getToken();
 
     if (mounted) {
       setState(() {
-        uid = _uid;
-        token = _token;
+        // uid = _uid;
+        // token = _token;
       });
     }
   }
@@ -94,8 +95,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 //_callClick
   Future<dynamic> _callClick(pid, fxid, fdid, _uid, phn) async {
-    String? token = await User().getToken();
-    int? uid = await User().getUID();
+    // String? token = await User().getToken();
+    // int? uid = await User().getUID();
     fdid = fdid.toString();
     fxid = fxid.toString();
     if (fdid == fxid) {
@@ -148,8 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
   //
 //_msgClick
   Future<dynamic> _msgClick(fdid, uid, pid, uimg, unm) async {
-    String? token = await User().getToken();
-    int? uid = await User().getUID();
+    // String? token = await User().getToken();
+    // int? uid = await User().getUID();
     // String uid1 = uid.toString();
     if (uid != fdid) {
       Navigator.push(
@@ -182,8 +183,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 //Fetch Ads
   Future<dynamic> ads() async {
-    String? token = await User().getToken();
-    int? uid = await User().getUID();
+    // String? token = await User().getToken();
+    // int? uid = await User().getUID();
     var requestBody = {"service_name": "Adds", "param": {}};
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
@@ -234,8 +235,8 @@ class _HomeScreenState extends State<HomeScreen> {
     // refreshPosts() {}
     // Future _getPosts() async {
     // _getPosts() async {
-    String? token = await User().getToken();
-    int? uid = await User().getUID();
+    // String? token = await User().getToken();
+    // int? uid = await User().getUID();
     var requestBody = {
       "service_name": "postedJobs15",
       "param": {
@@ -293,8 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // refreshPosts() {}
     // Future _getPosts() async {
     // _getPosts() async {
-    String? token = await User().getToken();
-    int? uid = await User().getUID();
+
     var requestBody = {
       "service_name": "LivePosts",
       "param": {"u_id": uid, "startPost": "0", "limitPost": "10"}
@@ -342,34 +342,62 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-//   List<GetCountByProfessionModel> getCountByProfession = <GetCountByProfessionModel>[];
-// // Sync Online
-//   Future fetchPost() async {
-//     isLoader = true;
-//     Uri url = Uri.parse(getAllUserByProfession + "profession=Engineer");
-//     final response = await http.get(url, headers: headers);
-//     print(response.statusCode);
-//     print(response.body);
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       isLoader = false;
-//       setState(() {});
-//       var data = jsonDecode(response.body);
-//       // var data = jsonDecode("");
-//
-//       getCountByProfession = data.map((e) => GetCountByProfessionModel.fromJson(e));
-//     } else {
-//       isLoader = false;
-//       setState(() {});
-//       var snackbar = '';
-//     }
-//   }
+  List<GetCountByProfessionModel> getCountByProfession = <GetCountByProfessionModel>[];
+  List<GetAllJobModel> getAllJobsModel = <GetAllJobModel>[];
+// Sync Online
+  Future<void> fetchPost() async {
+    print("Object get all call url");
+    setState(() {
+      isLoader = true;
+    });
+
+    Uri url = Uri.parse(jobGetUrl);
+    print(url);
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $bearerToken',
+        },
+      );
+      print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+        setState(() {
+          getCountByProfession = List<GetCountByProfessionModel>.from(
+              data.map((e) => GetCountByProfessionModel.fromJson(e)));
+          isLoader = false;
+        });
+      } else {
+        setState(() {
+          isLoader = false;
+        });
+        // Handle error or show a message to the user
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to load data")),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        isLoader = false;
+      });
+      print("Error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("An error occurred")),
+      );
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     this.param();
     this._getPostsTop10();
-    // fetchPost();
+    fetchPost();
     UserRepo().getCountByProfession();
     // this._chckOffline();
     _scaffoldKey = GlobalKey();
@@ -644,14 +672,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               children: [
                                                                                 ConstrainedBox(
                                                                                   constraints: BoxConstraints(
-                                                                                    minWidth: 150.0,
+                                                                                    minWidth: 115.0,
                                                                                     maxWidth: 200.0,
                                                                                     // minHeight: 30.0,
                                                                                     // maxHeight: 100.0,
                                                                                   ),
                                                                                   child: AutoSizeText(
-                                                                                    "listOfPostsTop10[index]",
-                                                                                    // "Rajesh Reddy - Sicentix ",
+                                                                                    // "listOfPostsTop10[index]",
+                                                                                    "Rajesh Reddy - Sicentix ",
                                                                                     maxLines: 2,
                                                                                     softWrap: true,
                                                                                     minFontSize: 18,
@@ -679,7 +707,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                       size: 20,
                                                                                       color: mainBlue.withOpacity(0.8),
                                                                                     ),
-                                                                                    Text("loc_name", style: TextStyle(color: mainBlue.withOpacity(0.5), fontWeight: FontWeight.bold)),
+                                                                                    Text("Vizag", style: TextStyle(color: mainBlue.withOpacity(0.5), fontWeight: FontWeight.bold)),
                                                                                   ],
                                                                                 ),
                                                                                 // Text(
@@ -719,11 +747,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               CrossAxisAlignment.start,
                                                                           children: <Widget>[
                                                                             Text(
-                                                                              "p_tit",
+                                                                              "Software developer",
                                                                               style: TextStyle(color: Colors.grey.shade800, fontSize: 20, fontWeight: FontWeight.bold),
                                                                             ),
                                                                             Text(
-                                                                              "Jdf",
+                                                                              "Android",
                                                                               style: TextStyle(
                                                                                 color: Colors.grey.shade800,
                                                                                 fontSize: 18,
@@ -740,7 +768,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                   padding: const EdgeInsets.all(3.0),
                                                                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: mainBlue)),
                                                                                   child: Text(
-                                                                                    "cat_name",
+                                                                                    "Software",
                                                                                     style: TextStyle(color: mainBlue, fontSize: 15),
                                                                                   ),
                                                                                 ),
