@@ -516,7 +516,7 @@ class _HomeScreenState extends State<AddScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextField(
                       // maxLength: 10,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       controller: _postTitle,
 
                       decoration: InputDecoration(
@@ -569,7 +569,7 @@ class _HomeScreenState extends State<AddScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextField(
                       // maxLength: 10,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       controller: _professionController,
 
                       decoration: InputDecoration(

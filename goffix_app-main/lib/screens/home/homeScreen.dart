@@ -24,6 +24,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../models/getcountbyprofession.dart';
+import '../../repo/user_repo.dart';
 import '../CauroselDemo.dart';
 import 'components/popover_button.dart';
 import 'package:goffix/screens/network/network_status_service.dart';
@@ -341,34 +342,35 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  List<GetCountByProfession> getCountByProfession = <GetCountByProfession>[];
-// Sync Online
-  Future fetchPost() async {
-    isLoader = true;
-    Uri url = Uri.parse(getAllUserByProfession + "profession=Engineer");
-    final response = await http.get(url, headers: headers);
-    print(response.statusCode);
-    print(response.body);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      isLoader = false;
-      setState(() {});
-      var data = jsonDecode(response.body);
-      // var data = jsonDecode("");
-
-      getCountByProfession = data.map((e) => GetCountByProfession.fromJson(e));
-    } else {
-      isLoader = false;
-      setState(() {});
-      var snackbar = '';
-    }
-  }
+//   List<GetCountByProfessionModel> getCountByProfession = <GetCountByProfessionModel>[];
+// // Sync Online
+//   Future fetchPost() async {
+//     isLoader = true;
+//     Uri url = Uri.parse(getAllUserByProfession + "profession=Engineer");
+//     final response = await http.get(url, headers: headers);
+//     print(response.statusCode);
+//     print(response.body);
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       isLoader = false;
+//       setState(() {});
+//       var data = jsonDecode(response.body);
+//       // var data = jsonDecode("");
+//
+//       getCountByProfession = data.map((e) => GetCountByProfessionModel.fromJson(e));
+//     } else {
+//       isLoader = false;
+//       setState(() {});
+//       var snackbar = '';
+//     }
+//   }
 
   @override
   void initState() {
     super.initState();
     this.param();
     this._getPostsTop10();
-    fetchPost();
+    // fetchPost();
+    UserRepo().getCountByProfession();
     // this._chckOffline();
     _scaffoldKey = GlobalKey();
     // this.getUserName();
@@ -376,6 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // this.ads();
     // _scrollController = new ScrollController();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -387,6 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return new Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        leading: SizedBox(),
         actions: [
           Container(
             padding: EdgeInsets.all(8),
@@ -646,7 +650,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                     // maxHeight: 100.0,
                                                                                   ),
                                                                                   child: AutoSizeText(
-                                                                                    "listOfPostsTop10?[index]",
+                                                                                    "listOfPostsTop10[index]",
                                                                                     // "Rajesh Reddy - Sicentix ",
                                                                                     maxLines: 2,
                                                                                     softWrap: true,

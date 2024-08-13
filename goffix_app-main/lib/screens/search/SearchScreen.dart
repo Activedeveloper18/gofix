@@ -9,11 +9,13 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:goffix/screens/login/login.dart';
 import 'package:goffix/screens/search/BookService.dart';
 import 'package:goffix/screens/search/BookingStatus.dart';
+import 'package:goffix/screens/search/list_fixer_screen.dart';
 import 'package:goffix/screens/search/searchResult.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
+import '../../models/getbyprofessiontype.dart';
 import '../CauroselDemo.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -80,57 +82,10 @@ class _HomeScreenState extends State<SearchScreen> {
     }
   }
 
-  Future<List<catName>?> _getCat() async {
-    String? token = await User().getToken();
-    int? uid = await User().getUID();
-    var requestBody = {
-      "service_name": "getMastersDataOfAddPostForm",
-      "param": {}
-    };
-    var jsonRequest = json.encode(requestBody);
-    print(jsonRequest);
-    var response = await http.post(baseUrl,
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: jsonRequest);
-    var jsonResponse = null;
-    if (response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-      if (jsonResponse["response"]["status"] == 200) {
-        if (mounted) {
-          setState(() {
-            listOfCat =
-                parseCat(jsonResponse['response']['result']['categories']);
-
-            // .cast<catName>();
-          });
-        }
-
-        print(listOfCat);
-
-        // return listOfCat;
-        // LocProvider.db.deleteAllEmployees();
-        // return (listOfLoc as List).map((loc) {
-        //   print('Inserting $loc');
-        //   LocProvider.db.createLocation(LocModel.fromJson(loc));
-        // }).toList();
-
-        // await Future.delayed(const Duration(seconds: 2));
-      } else if (jsonResponse["response"]["status"] == 108) {
-        // _showMyDialog("Error", "Username/Password not found", "login");
-        print("Locations not found");
-      } else {
-        print("Something Went Wrong");
-      }
-    }
-    // return null;
-  }
-
-  static List<catName> parseCat(responseBody) {
-    return responseBody.map<catName>((json) => catName.fromJson(json)).toList();
-  }
+  //
+  // static List<catName> parseCat(responseBody) {
+  //   return responseBody.map<catName>((json) => catName.fromJson(json)).toList();
+  // }
 
   //Username and Mobile
   // Future<dynamic> getUserName() async {
@@ -174,7 +129,7 @@ class _HomeScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     this._getUsersCount();
-    this._getCat();
+    // this._getCat();
     // this.getUserName();
   }
 
@@ -188,22 +143,23 @@ class _HomeScreenState extends State<SearchScreen> {
     Size size = MediaQuery.of(context).size;
     return new Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   elevation: 30,
-      //   bottomOpacity: 0.8,
-      //   toolbarHeight: 60,
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.start,
-      //     children: [
-      //       Image.asset(
-      //         'assets/images/logo.png',
-      //         fit: BoxFit.contain,
-      //         height: 45,
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      appBar: AppBar(
+        leading: SizedBox(),
+        backgroundColor: Colors.white,
+        elevation: 30,
+        bottomOpacity: 0.8,
+        toolbarHeight: 60,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.asset(
+              'assets/images/logo.png',
+              fit: BoxFit.contain,
+              height: 45,
+            ),
+          ],
+        ),
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -239,6 +195,7 @@ class _HomeScreenState extends State<SearchScreen> {
                                     builder: (context) =>
                                         BookingStatusScreen()),
                               );
+
                             },
                             child: Icon(
                               CupertinoIcons.calendar_today,
@@ -417,7 +374,11 @@ class _HomeScreenState extends State<SearchScreen> {
                             ],
                             // ),
                           ),
-                          Container(height: 1,color: Colors.black,margin: EdgeInsets.only(right: 20),),
+                          Container(
+                            height: 1,
+                            color: Colors.black,
+                            margin: EdgeInsets.only(right: 20),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -454,7 +415,11 @@ class _HomeScreenState extends State<SearchScreen> {
                             ],
                             // ),
                           ),
-                          Container(height: 1,color: Colors.black,margin: EdgeInsets.only(right: 20),),
+                          Container(
+                            height: 1,
+                            color: Colors.black,
+                            margin: EdgeInsets.only(right: 20),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -474,25 +439,28 @@ class _HomeScreenState extends State<SearchScreen> {
                               _SeachIcon(
                                   "assets/ser/make up.ico", "Make Up", "166"),
 
-                              _SeachIcon("assets/ser/hair cutt.ico",
-                                  "Hair Cut", "166"),
+                              _SeachIcon("assets/ser/hair cutt.ico", "Hair Cut",
+                                  "166"),
 
                               _SeachIcon("assets/ser/salon servicee.ico",
                                   "Saloon Service", "1"),
                               _SeachIcon("assets/ser/hair caree.ico",
                                   "Hair Care", "2"),
+                              _SeachIcon("assets/ser/skin caree.ico",
+                                  "Skin Care", "2"),
                               _SeachIcon(
-                                  "assets/ser/skin caree.ico", "Skin Care", "2"),
-                              _SeachIcon("assets/ser/spaa.ico",
-                                  "Spa Service", "2"),
+                                  "assets/ser/spaa.ico", "Spa Service", "2"),
 
                               // _SeachIcon(
                               //     "assets/ser/veg.ico", "Vegetables", "2"),
                             ],
                             // ),
                           ),
-
-                          Container(height: 1,color: Colors.black,margin: EdgeInsets.only(right: 20),),
+                          Container(
+                            height: 1,
+                            color: Colors.black,
+                            margin: EdgeInsets.only(right: 20),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -509,26 +477,29 @@ class _HomeScreenState extends State<SearchScreen> {
                             runSpacing: 10,
                             // child: Row(
                             children: [
-                              _SeachIcon(
-                                  "assets/ser/wash & fold d.ico", "Wash & Fold", "166"),
-                              _SeachIcon(
-                                  "assets/ser/wash & ironn.ico", "Wash & Iron", "166"),
+                              _SeachIcon("assets/ser/wash & fold d.ico",
+                                  "Wash & Fold", "166"),
+                              _SeachIcon("assets/ser/wash & ironn.ico",
+                                  "Wash & Iron", "166"),
 
-                              _SeachIcon(
-                                  "assets/ser/steam ironn.ico", "Steam & Iron", "166"),
-                              _SeachIcon(
-                                  "assets/ser/curtain wash.ico", "Curtain Wash", "166"),
+                              _SeachIcon("assets/ser/steam ironn.ico",
+                                  "Steam & Iron", "166"),
+                              _SeachIcon("assets/ser/curtain wash.ico",
+                                  "Curtain Wash", "166"),
 
-                              _SeachIcon(
-                                  "assets/ser/dry cleaning.ico", "Dry Cleaning", "166"),
+                              _SeachIcon("assets/ser/dry cleaning.ico",
+                                  "Dry Cleaning", "166"),
 
                               // _SeachIcon(
                               //     "assets/ser/veg.ico", "Vegetables", "2"),
                             ],
                             // ),
                           ),
-
-                          Container(height: 1,color: Colors.black,margin: EdgeInsets.only(right: 20),),
+                          Container(
+                            height: 1,
+                            color: Colors.black,
+                            margin: EdgeInsets.only(right: 20),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -545,26 +516,28 @@ class _HomeScreenState extends State<SearchScreen> {
                             runSpacing: 10,
                             // child: Row(
                             children: [
-                              _SeachIcon(
-                                  "assets/ser/photographer.ico", "Photography", "166"),
+                              _SeachIcon("assets/ser/photographer.ico",
+                                  "Photography", "166"),
                               _SeachIcon(
                                   "assets/ser/bouquet.ico", "Bouquet", "166"),
 
-                              _SeachIcon(
-                                  "assets/ser/chef.ico", "Chef", "166"),
-                              _SeachIcon(
-                                  "assets/ser/catering.ico", "Food Catering", "166"),
+                              _SeachIcon("assets/ser/chef.ico", "Chef", "166"),
+                              _SeachIcon("assets/ser/catering.ico",
+                                  "Food Catering", "166"),
 
-                              _SeachIcon(
-                                  "assets/ser/stage dec.ico", "Stage Decoration", "166"),
+                              _SeachIcon("assets/ser/stage dec.ico",
+                                  "Stage Decoration", "166"),
 
                               // _SeachIcon(
                               //     "assets/ser/veg.ico", "Vegetables", "2"),
                             ],
                             // ),
                           ),
-
-                          Container(height: 1,color: Colors.black,margin: EdgeInsets.only(right: 20),),
+                          Container(
+                            height: 1,
+                            color: Colors.black,
+                            margin: EdgeInsets.only(right: 20),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -581,30 +554,32 @@ class _HomeScreenState extends State<SearchScreen> {
                             runSpacing: 10,
                             // child: Row(
                             children: [
-                              _SeachIcon(
-                                  "assets/ser/deep cleaningg.ico", "Deep Cleaning", "166"),
+                              _SeachIcon("assets/ser/deep cleaningg.ico",
+                                  "Deep Cleaning", "166"),
                               _SeachIcon(
                                   "assets/ser/bath.ico", "Bathroom", "166"),
 
                               _SeachIcon(
                                   "assets/ser/kitchen.ico", "Kitchen", "166"),
-                              _SeachIcon(
-                                  "assets/ser/sofaa.ico", "Sofa", "166"),
+                              _SeachIcon("assets/ser/sofaa.ico", "Sofa", "166"),
 
-                              _SeachIcon(
-                                  "assets/ser/carpet clean.ico", "Carpet", "166"),
+                              _SeachIcon("assets/ser/carpet clean.ico",
+                                  "Carpet", "166"),
                               _SeachIcon(
                                   "assets/ser/tank.ico", "Water Tank", "166"),
-                              _SeachIcon(
-                                  "assets/ser/home sanit.ico", "Home Sanitization", "166"),
+                              _SeachIcon("assets/ser/home sanit.ico",
+                                  "Home Sanitization", "166"),
 
                               // _SeachIcon(
                               //     "assets/ser/veg.ico", "Vegetables", "2"),
                             ],
                             // ),
                           ),
-
-                          Container(height: 1,color: Colors.black,margin: EdgeInsets.only(right: 20),),
+                          Container(
+                            height: 1,
+                            color: Colors.black,
+                            margin: EdgeInsets.only(right: 20),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -621,24 +596,26 @@ class _HomeScreenState extends State<SearchScreen> {
                             runSpacing: 10,
                             // child: Row(
                             children: [
-                              _SeachIcon(
-                                  "assets/ser/mobile repair.ico", "Mobile Repair", "166"),
-                              _SeachIcon(
-                                  "assets/ser/laptop ico.ico", "Laptop Repair", "166"),
+                              _SeachIcon("assets/ser/mobile repair.ico",
+                                  "Mobile Repair", "166"),
+                              _SeachIcon("assets/ser/laptop ico.ico",
+                                  "Laptop Repair", "166"),
 
-                              _SeachIcon(
-                                  "assets/ser/desktop repr.ico", "Desktop Repair", "166"),
-                              _SeachIcon(
-                                  "assets/ser/printr repair.ico", "Printer Repair", "166"),
-
+                              _SeachIcon("assets/ser/desktop repr.ico",
+                                  "Desktop Repair", "166"),
+                              _SeachIcon("assets/ser/printr repair.ico",
+                                  "Printer Repair", "166"),
 
                               // _SeachIcon(
                               //     "assets/ser/veg.ico", "Vegetables", "2"),
                             ],
                             // ),
                           ),
-
-                          Container(height: 1,color: Colors.black,margin: EdgeInsets.only(right: 20),),
+                          Container(
+                            height: 1,
+                            color: Colors.black,
+                            margin: EdgeInsets.only(right: 20),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -655,29 +632,30 @@ class _HomeScreenState extends State<SearchScreen> {
                             runSpacing: 10,
                             // child: Row(
                             children: [
-                              _SeachIcon(
-                                  "assets/ser/packers.ico", "Packers & Movers", "166"),
+                              _SeachIcon("assets/ser/packers.ico",
+                                  "Packers & Movers", "166"),
                               _SeachIcon(
                                   "assets/ser/driver.ico", "Driver", "166"),
 
-                              _SeachIcon(
-                                  "assets/ser/cake delivr.ico", "Cake Delivery", "166"),
-                              _SeachIcon(
-                                  "assets/ser/taxi ser.ico", "Taxi Service", "166"),
-                              _SeachIcon(
-                                  "assets/ser/bouq del.ico", "Bouquet Delivery", "166"),
-                              _SeachIcon(
-                                  "assets/ser/pick up delivery.ico", "Pickup & Delivery", "166"),
-
+                              _SeachIcon("assets/ser/cake delivr.ico",
+                                  "Cake Delivery", "166"),
+                              _SeachIcon("assets/ser/taxi ser.ico",
+                                  "Taxi Service", "166"),
+                              _SeachIcon("assets/ser/bouq del.ico",
+                                  "Bouquet Delivery", "166"),
+                              _SeachIcon("assets/ser/pick up delivery.ico",
+                                  "Pickup & Delivery", "166"),
 
                               // _SeachIcon(
                               //     "assets/ser/veg.ico", "Vegetables", "2"),
                             ],
                             // ),
                           ),
-
-
-                          Container(height: 1,color: Colors.black,margin: EdgeInsets.only(right: 20),),
+                          Container(
+                            height: 1,
+                            color: Colors.black,
+                            margin: EdgeInsets.only(right: 20),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -696,15 +674,12 @@ class _HomeScreenState extends State<SearchScreen> {
                             children: [
                               _SeachIcon(
                                   "assets/ser/fitness.ico", "Fitness", "166"),
-                              _SeachIcon(
-                                  "assets/ser/yogaa.ico", "Yoga", "166"),
+                              _SeachIcon("assets/ser/yogaa.ico", "Yoga", "166"),
 
-                              _SeachIcon(
-                                  "assets/ser/physio.ico", "Physiotherapy", "166"),
-                              _SeachIcon(
-                                  "assets/ser/parental care.ico", "Parental Care", "166"),
-
-
+                              _SeachIcon("assets/ser/physio.ico",
+                                  "Physiotherapy", "166"),
+                              _SeachIcon("assets/ser/parental care.ico",
+                                  "Parental Care", "166"),
 
                               // _SeachIcon(
                               //     "assets/ser/veg.ico", "Vegetables", "2"),
@@ -792,11 +767,18 @@ class _HomeScreenState extends State<SearchScreen> {
     return InkWell(
       onTap: () {
         // launch(link);
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (context) =>
+        //           BookServiceScreen(catid: int.parse(link), cname: nm)),
+        // );
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  BookServiceScreen(catid: int.parse(link), cname: nm)),
+              builder: (context) => ListFixerScreen(
+                professionType: "Engineer",
+              )),
         );
       },
       child: Padding(
