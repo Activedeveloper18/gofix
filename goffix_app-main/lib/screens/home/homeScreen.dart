@@ -359,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $bearerToken',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzIzNTY3NTg2LCJleHAiOjE3MjM2NTM5ODZ9.kpXcQQboSiKCcAOJXNENXosgkuCFOhw6Ly1cnSEPtQg',
         },
       );
       print(response.statusCode);
@@ -368,8 +368,8 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
         setState(() {
-          getCountByProfession = List<GetCountByProfessionModel>.from(
-              data.map((e) => GetCountByProfessionModel.fromJson(e)));
+          getAllJobsModel = List<GetAllJobModel>.from(
+              data.map((e) => GetAllJobModel.fromJson(e)));
           isLoader = false;
         });
       } else {
@@ -418,7 +418,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return new Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        leading: SizedBox(),
+        // leading: SizedBox(),
         actions: [
           Container(
             padding: EdgeInsets.all(8),
@@ -444,21 +444,16 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 30,
         bottomOpacity: 0.8,
         toolbarHeight: 60,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            InkWell(
-              onTap: () {
-                _getPosts();
-              },
-              child: Image.asset(
-                'assets/images/logo.png',
-                fit: BoxFit.contain,
-                height: 60,
-                width: 100,
-              ),
-            ),
-          ],
+        leading: InkWell(
+          onTap: () {
+            fetchPost();
+          },
+          child: Image.asset(
+            'assets/images/logo.png',
+            fit: BoxFit.contain,
+            height: 60,
+            width: 100,
+          ),
         ),
       ),
       body: new GestureDetector(
@@ -542,7 +537,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .size
                                                       .width,
                                                   child: ListView.builder(
-                                                      itemCount: 15,
+                                                      itemCount: getAllJobsModel.length,
                                                       itemBuilder:
                                                           (context, index) {
                                                         return
@@ -678,8 +673,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                     // maxHeight: 100.0,
                                                                                   ),
                                                                                   child: AutoSizeText(
-                                                                                    // "listOfPostsTop10[index]",
-                                                                                    "Rajesh Reddy - Sicentix ",
+                                                                                    "${getAllJobsModel[index].user!.usname}",
+                                                                                    // "Rajesh Reddy - Sicentix ",
                                                                                     maxLines: 2,
                                                                                     softWrap: true,
                                                                                     minFontSize: 18,
@@ -691,15 +686,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                         fontWeight: FontWeight.bold),
                                                                                   ),
                                                                                 ),
-                                                                                // Text(
-                                                                                //   listOfPostsTop10[index]["u_nm"],
-                                                                                //   style: TextStyle(
-                                                                                //       color: Colors.grey.shade700,
-                                                                                //       fontSize: 20,
-                                                                                //       // fontFamily: "Titillium Web",
-                                                                                //       fontFamily: "Lato",
-                                                                                //       fontWeight: FontWeight.bold),
-                                                                                // ),
+                                                                                Text(
+                                                                                  "${getAllJobsModel[index].jbmobileNumber}",
+                                                                                  style: TextStyle(
+                                                                                      color: Colors.grey.shade700,
+                                                                                      fontSize: 12,
+                                                                                      // fontFamily: "Titillium Web",
+                                                                                      fontFamily: "Lato",
+                                                                                      fontWeight: FontWeight.w400),
+                                                                                ),
                                                                                 Row(
                                                                                   children: [
                                                                                     Icon(
@@ -707,15 +702,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                       size: 20,
                                                                                       color: mainBlue.withOpacity(0.8),
                                                                                     ),
-                                                                                    Text("Vizag", style: TextStyle(color: mainBlue.withOpacity(0.5), fontWeight: FontWeight.bold)),
+                                                                                    Text( "${getAllJobsModel[index].jblocation}", style: TextStyle(color: mainBlue.withOpacity(0.5), fontWeight: FontWeight.bold)),
                                                                                   ],
                                                                                 ),
                                                                                 // Text(
+                                                                                //   "${getAllJobsModel[index].user!.gender}",
                                                                                 //   // snapshot.data[index].pDt.toString(),
                                                                                 //   // TimeAgo.timeAgoSinceDate(
                                                                                 //   //     snapshot.data[index].pDt.toString()),
-                                                                                //   Jiffy(listOfPostsTop10[index]["p_dt"])
-                                                                                //       .fromNow(),
+                                                                                //   // Jiffy(listOfPostsTop10[index]["p_dt"])
+                                                                                //   //     .fromNow(),
                                                                                 //   style: TextStyle(
                                                                                 //       color: Colors.grey.withOpacity(0.8)),
                                                                                 // ),
@@ -747,11 +743,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               CrossAxisAlignment.start,
                                                                           children: <Widget>[
                                                                             Text(
-                                                                              "Software developer",
+                                                                              "${getAllJobsModel[index].jbprofession}",
                                                                               style: TextStyle(color: Colors.grey.shade800, fontSize: 20, fontWeight: FontWeight.bold),
                                                                             ),
                                                                             Text(
-                                                                              "Android",
+                                                                              "${getAllJobsModel[index].jobtitle}",
                                                                               style: TextStyle(
                                                                                 color: Colors.grey.shade800,
                                                                                 fontSize: 18,
@@ -768,7 +764,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                   padding: const EdgeInsets.all(3.0),
                                                                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: mainBlue)),
                                                                                   child: Text(
-                                                                                    "Software",
+                                                                                    "${getAllJobsModel[index].jobtype}",
                                                                                     style: TextStyle(color: mainBlue, fontSize: 15),
                                                                                   ),
                                                                                 ),
@@ -779,7 +775,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                   padding: const EdgeInsets.all(3.0),
                                                                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: mainBlue)),
                                                                                   child: Text(
-                                                                                    "priority",
+                                                                                    "${getAllJobsModel[index].priority}",
                                                                                     style: TextStyle(color: mainBlue, fontSize: 15),
                                                                                   ),
                                                                                 )
@@ -842,7 +838,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           InkWell(
                                                                             onTap:
                                                                                 () {
-                                                                              var shareText = listOfPostsTop10![index]["p_tit"] + '\n' + "SJdf";
+                                                                              var shareText =  "${getAllJobsModel[index].jobtitle}" + '\n' + "SJdf";
                                                                               // Share.share(shareText);
                                                                             },
                                                                             child:
@@ -919,6 +915,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // this.ads();
     this._getPostsTop10();
     this._getPosts();
+    this.fetchPost();
 
     // _scrollController.dispose();
   }

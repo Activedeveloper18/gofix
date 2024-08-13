@@ -28,7 +28,7 @@ String AppTC =
 
 String getAllUserByProfession = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/gdial/users/by-profession?";
 String jobPostUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/postjob";
-String jobGetUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/getalljobsb";
+String jobGetUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/getalljobs";
 
 
 var headers= {
@@ -36,4 +36,4 @@ var headers= {
 'Content-Type': 'application/json', // Add this header
   'Authorization':"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzIzNDgxMjkwLCJleHAiOjE3MjM1Njc2OTB9.5Ls52a-0E216mjl4IeysQylNN9sTjVPz52XVlkX2a8Q",
 };
- String  bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzIzNDgxMjkwLCJleHAiOjE3MjM1Njc2OTB9.5Ls52a-0E216mjl4IeysQylNN9sTjVPz52XVlkX2a8Q";
+ String  bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzIzNTY3NTg2LCJleHAiOjE3MjM2NTM5ODZ9.kpXcQQboSiKCcAOJXNENXosgkuCFOhw6Ly1cnSEPtQg";

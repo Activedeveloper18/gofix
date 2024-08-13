@@ -16,6 +16,7 @@ import 'package:goffix/screens/message/msg_body.dart';
 import 'package:goffix/screens/profile/bookings.dart';
 import 'package:goffix/screens/profile/tab3.dart';
 import 'package:goffix/screens/settings/settings.dart';
+import 'package:goffix/screens/signup/sign_in.dart';
 import 'package:goffix/screens/welcome/welcome.dart';
 import 'package:http/http.dart' as http;
 // import 'package:intl/intl.dart';
@@ -183,441 +184,475 @@ class _ProfileScreenState extends State<ProfilePageScreen>
       //     ],
       //   ),
       // ),
-      body: Column(
-
-        children: <Widget>[
-          SizedBox(height: 50,),
-          Container(
-            margin: EdgeInsets.all(8),
-            decoration: BoxDecoration( color: mainBlue,borderRadius: BorderRadius.circular(10)),
-
-            height: 200,
-            // height: .4 * size.height,
-            child:
-
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
-              child: userDetails == null || userWork == null
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: userDetails!['u_img'] == null
-                                  ? Image.asset(
-                                      'assets/images/male.png',
-                                      height: 80,
-                                    )
-                                  : userDetails!['u_img'] ==
-                                          ("file:///android_asset/www/images/male.png")
-                                      ? Image.asset(
-                                          'assets/images/male.png',
-                                          height: 80,
-                                        )
-                                      : Image.memory(
-                                          image_64(userDetails!['u_img']),
-                                          height: 80,
-                                        ),
-                            ),
-                            // Container(
-                            //   height: .1 * size.height,
-                            //   width: .2 * size.width,
-                            //   decoration: BoxDecoration(
-                            //       shape: BoxShape.circle,
-                            //       image: DecorationImage(
-                            //           fit: BoxFit.cover,
-                            //           image: AssetImage("assets/images/male.png"))),
-                            // ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                // Text(
-                                //   userDetails['u_nm'].length > 8
-                                //       ? toBeginningOfSentenceCase(
-                                //                   userDetails['u_nm'])
-                                //               .substring(0, 8) +
-                                //           '...'
-                                //       : toBeginningOfSentenceCase(
-                                //           userDetails['u_nm']),
-                                //   style: TextStyle(
-                                //       color: Colors.white,
-                                //       fontSize: 25,
-                                //       // fontFamily: "Titillium Web",
-                                //       fontFamily: "Lato",
-                                //       fontWeight: FontWeight.bold),
-                                // ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Goffix-${uid.toString()}",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        // Image.asset(
-                                        //   "assets/fb.png",
-                                        //   height: 3 * SizeConfig.heightMultiplier,
-                                        //   width: 3 * SizeConfig.widthMultiplier,
-                                        // ),
-
-                                        Text(
-                                          userDetails!['cat_name'],
-                                          style: TextStyle(
-                                            color: Colors.white60,
-                                            fontSize: 15,
+      body: SingleChildScrollView(
+        child: Column(
+        
+          children: <Widget>[
+            SizedBox(height: 50,),
+            Container(
+              margin: EdgeInsets.all(8),
+              decoration: BoxDecoration( color: mainBlue,borderRadius: BorderRadius.circular(10)),
+        
+              height: 200,
+              // height: .4 * size.height,
+              child:
+        
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                child: userDetails == null || userWork == null
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: userDetails!['u_img'] == null
+                                    ? Image.asset(
+                                        'assets/images/male.png',
+                                        height: 80,
+                                      )
+                                    : userDetails!['u_img'] ==
+                                            ("file:///android_asset/www/images/male.png")
+                                        ? Image.asset(
+                                            'assets/images/male.png',
+                                            height: 80,
+                                          )
+                                        : Image.memory(
+                                            image_64(userDetails!['u_img']),
+                                            height: 80,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 3,
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        // Image.asset(
-                                        //   "assets/insta.png",
-                                        //   height: 3 * SizeConfig.heightMultiplier,
-                                        //   width: 3 * SizeConfig.widthMultiplier,
-                                        // ),
-                                        SizedBox(
-                                            // width: 20,
+                              ),
+                              // Container(
+                              //   height: .1 * size.height,
+                              //   width: .2 * size.width,
+                              //   decoration: BoxDecoration(
+                              //       shape: BoxShape.circle,
+                              //       image: DecorationImage(
+                              //           fit: BoxFit.cover,
+                              //           image: AssetImage("assets/images/male.png"))),
+                              // ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  // Text(
+                                  //   userDetails['u_nm'].length > 8
+                                  //       ? toBeginningOfSentenceCase(
+                                  //                   userDetails['u_nm'])
+                                  //               .substring(0, 8) +
+                                  //           '...'
+                                  //       : toBeginningOfSentenceCase(
+                                  //           userDetails['u_nm']),
+                                  //   style: TextStyle(
+                                  //       color: Colors.white,
+                                  //       fontSize: 25,
+                                  //       // fontFamily: "Titillium Web",
+                                  //       fontFamily: "Lato",
+                                  //       fontWeight: FontWeight.bold),
+                                  // ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "Goffix-${uid.toString()}",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          // Image.asset(
+                                          //   "assets/fb.png",
+                                          //   height: 3 * SizeConfig.heightMultiplier,
+                                          //   width: 3 * SizeConfig.widthMultiplier,
+                                          // ),
+        
+                                          Text(
+                                            userDetails!['cat_name'],
+                                            style: TextStyle(
+                                              color: Colors.white60,
+                                              fontSize: 15,
                                             ),
-                                        Text(
-                                          userDetails!['us_typ'] == "1"
-                                              ? "Fixer"
-                                              : "Finder",
-                                          style: TextStyle(
-                                            color: Colors.white60,
-                                            fontSize: 15,
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 3,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          // Image.asset(
+                                          //   "assets/insta.png",
+                                          //   height: 3 * SizeConfig.heightMultiplier,
+                                          //   width: 3 * SizeConfig.widthMultiplier,
+                                          // ),
+                                          SizedBox(
+                                              // width: 20,
+                                              ),
+                                          Text(
+                                            userDetails!['us_typ'] == "1"
+                                                ? "Fixer"
+                                                : "Finder",
+                                            style: TextStyle(
+                                              color: Colors.white60,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  Text(
+                                    userWork!['works'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "Posts",
+                                    style: TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  Text(
+                                    "|",
+                                    style: TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 30,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  Text(
+                                    userWork!['jobs'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "Jobs",
+                                    style: TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          // Container(
+                          //     child: SmoothStarRating(
+                          //   // color: Colors.yellow,
+                          //   color: mainOrange,
+                          //   borderColor: mainOrange,
+                          //   rating: rating,
+                          //   size: 45,
+                          //   starCount: 5,
+                          // ))
+                        ],
+                      ),
+              ),
+            ),
+            SizedBox(height: 20,),
+            // TabPage(),
+            // SettingsScreen()
+            Column(
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyBookings()));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        border: Border.all(width: 1,color: mainBlue)
+        
+                    ),
+        
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'MY BOOKINGS',
+                          style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 2,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                Text(
-                                  userWork!['works'],
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "Posts",
-                                  style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                Text(
-                                  "|",
-                                  style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 30,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                Text(
-                                  userWork!['jobs'],
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "Jobs",
-                                  style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        // Container(
-                        //     child: SmoothStarRating(
-                        //   // color: Colors.yellow,
-                        //   color: mainOrange,
-                        //   borderColor: mainOrange,
-                        //   rating: rating,
-                        //   size: 45,
-                        //   starCount: 5,
-                        // ))
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [Icon(Icons.event,color:mainBlue)],
+                        )
                       ],
                     ),
+                  ),
+                ),
+        
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignupEditScreen()));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        border: Border.all(width: 1,color: mainBlue)
+        
+                    ),
+        
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'EDIT ADDRESS ',
+                          style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [Icon(Icons.edit_calendar,color:mainBlue)],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      border: Border.all(width: 1,color: mainBlue)
+        
+                  ),
+        
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'CHANGE CITY ',
+                        style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [Icon(Icons.change_circle_rounded,color:mainBlue)],
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      border: Border.all(width: 1,color: mainBlue)
+        
+                  ),
+        
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'CHANGE LAUNGUAGE',
+                        style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [Icon(Icons.g_translate_rounded,color:mainBlue)],
+                      )
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    _showContactDialog(context);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        border: Border.all(width: 1,color: mainBlue)
+        
+                    ),
+        
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'CHAT WITH US',
+                          style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [Icon(Icons.chat,color:mainBlue)],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+        
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      border: Border.all(width: 1,color: mainBlue)
+        
+                  ),
+        
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'TERMS & CONDITIONS',
+                        style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [Icon(Icons.question_answer,color:mainBlue)],
+                      )
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        border: Border.all(width: 1,color: mainBlue)
+
+                    ),
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Logout',
+                          style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [Icon(Icons.logout,color:mainBlue)],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () async{
+                    await FirebasePhoneAuthHandler.signOut(context);
+                    // Navigator.pop(context);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WelcomeScreen(),
+                        ));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        border: Border.all(width: 1,color: mainBlue)
+                  
+                    ),
+                  
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'SIGN OUT',
+                          style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [Icon(Icons.login_outlined,color:mainBlue)],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          SizedBox(height: 20,),
-          // TabPage(),
-          // SettingsScreen()
-          Column(
-            children: [
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyBookings()));
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      border: Border.all(width: 1,color: mainBlue)
-
-                  ),
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'MY BOOKINGS',
-                        style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [Icon(Icons.event,color:mainBlue)],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignupEditScreen()));
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      border: Border.all(width: 1,color: mainBlue)
-
-                  ),
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'EDIT ADDRESS ',
-                        style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [Icon(Icons.edit_calendar,color:mainBlue)],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    border: Border.all(width: 1,color: mainBlue)
-
-                ),
-
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'CHANGE CITY ',
-                      style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 2,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [Icon(Icons.change_circle_rounded,color:mainBlue)],
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    border: Border.all(width: 1,color: mainBlue)
-
-                ),
-
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'CHANGE LAUNGUAGE',
-                      style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 2,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [Icon(Icons.g_translate_rounded,color:mainBlue)],
-                    )
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: (){
-                  _showContactDialog(context);
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      border: Border.all(width: 1,color: mainBlue)
-
-                  ),
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'CHAT WITH US',
-                        style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [Icon(Icons.chat,color:mainBlue)],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    border: Border.all(width: 1,color: mainBlue)
-
-                ),
-
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'TERMS & CONDITIONS',
-                      style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 2,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [Icon(Icons.question_answer,color:mainBlue)],
-                    )
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () async{
-                  await FirebasePhoneAuthHandler.signOut(context);
-                  // Navigator.pop(context);
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WelcomeScreen(),
-                      ));
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      border: Border.all(width: 1,color: mainBlue)
-                
-                  ),
-                
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'SIGN OUT',
-                        style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [Icon(Icons.login_outlined,color:mainBlue)],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

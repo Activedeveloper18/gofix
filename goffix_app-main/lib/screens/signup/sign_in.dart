@@ -106,222 +106,225 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return new Scaffold(
-      body: SafeArea(
-        child: Stack(
-            fit: StackFit.expand,
-            // height: ,
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Image.asset(
-                        "assets/images/gf.gif",
-                        width: 200,
+    return PopScope(
+      canPop: false,
+      child: new Scaffold(
+        body: SafeArea(
+          child: Stack(
+              fit: StackFit.expand,
+              // height: ,
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Image.asset(
+                          "assets/images/gf.gif",
+                          width: 200,
+                        ),
                       ),
-                    ),
-                    Container(
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              width: double.infinity,
-                              // height: 650,
-                              child: Form(
-                                child: Column(
-                                  children: [
-                                    // Name
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                                width: double.infinity,
+                                // height: 650,
+                                child: Form(
+                                  child: Column(
+                                    children: [
+                                      // Name
 
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            border: Border.all(
-                                                color: Colors.black, width: 1),
-                                            color: Colors.white),
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 2),
-                                        child: FormBuilderDropdown<String>(
-                                          // autovalidate: true,
-                                          name: 'Location',
-                                          decoration: InputDecoration(
-                                            // isDense: true,   // isDense: true,
-                                            border: InputBorder.none,
-                                            focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        10.0)),
-                                            contentPadding:
-                                                EdgeInsets.only(left: 20.0),
-                                            focusColor: Colors.green,
-                                            fillColor: Colors.white,
-                                            hintText: 'Select Location',
-                                            // suffix: _timePriorityError
-                                            //     ? const Icon(Icons.error)
-                                            //     : const Icon(Icons.check),
-                                          ),
-                                          // initialValue: 'Male',
-                                          // allowClear: true,
-                                          // hint: Text('Select Gender'),
-                                          // validator: FormBuilderValidators.compose(
-                                          //     [FormBuilderValidators.required(context)]),
-                                          items: _location
-                                              .map((location) =>
-                                                  DropdownMenuItem(
-                                                    value: location,
-                                                    child: Text(location),
-                                                  ))
-                                              .toList(),
-                                          onChanged: (val) {
-                                            setState(() {
-                                              _locValError = false;
-                                            });
-                                            print(val);
-                                            if (val == "Vizag") {
-                                              setState(() {
-                                                _locTextFeild = 0;
-                                              });
-                                            } else if (val == "Vijayawada") {
-                                              setState(() {
-                                                _locTextFeild = 1;
-                                              });
-                                            }
-                                            print(_locTextFeild);
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      child: TextField(
-                                        maxLength: 10,
-                                        keyboardType: TextInputType.number,
-                                        controller: _mobileController,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(RegExp("[0-9]"))
-                                          ],
-                                        decoration: InputDecoration(
-                                          counterText: "",
-                                            prefixIcon: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text('+91'),
-                                                  Icon(Icons
-                                                      .keyboard_arrow_down_rounded),
-                                                ],
-                                              ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              border: Border.all(
+                                                  color: Colors.black, width: 1),
+                                              color: Colors.white),
+                                          padding:
+                                              EdgeInsets.symmetric(horizontal: 2),
+                                          child: FormBuilderDropdown<String>(
+                                            // autovalidate: true,
+                                            name: 'Location',
+                                            decoration: InputDecoration(
+                                              // isDense: true,   // isDense: true,
+                                              border: InputBorder.none,
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.white,
+                                                      width: 2.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              contentPadding:
+                                                  EdgeInsets.only(left: 20.0),
+                                              focusColor: Colors.green,
+                                              fillColor: Colors.white,
+                                              hintText: 'Select Location',
+                                              // suffix: _timePriorityError
+                                              //     ? const Icon(Icons.error)
+                                              //     : const Icon(Icons.check),
                                             ),
-                                            border: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey.shade300,
-                                                    width: 3.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        10.0)),
-                                            focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey.shade300,
-                                                    width: 1.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        10.0)),
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                                20.0, 15.0, 20.0, 10.0),
-                                            hintText: "Mobile No",
-                                            focusColor: Colors.grey,
-                                            fillColor: Colors.white),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    TextButton(onPressed: (){
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SignupScreen()));
-                                    }, child: Text("create account")),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0, vertical: 28),
-                                      child: Container(
-                                        height: 50,
-                                        width: double.infinity,
-                                        child: ElevatedButton(
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      mainBlue)),
-                                          // shape: RoundedRectangleBorder(
-                                          //   borderRadius: BorderRadius.circular(25.0),
-                                          // ),
-                                          // elevation: 10,
-                                          // textColor: Colors.white,
-                                          onPressed: () {
-                                            if(_mobileController.text.length==10){
-                                            otpGenarate(_mobileController.text);
-
-                                            }
-                                            else{
-                                              popMessage(context, "Please enter a valid mobile number");
-                                            }
-
-                                          },
-                                          /*{
-                                            _checkUsr(_mobileController.text)
-                                          },*/
-
-                                          child: Text(
-                                            "Continue",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.white),
+                                            // initialValue: 'Male',
+                                            // allowClear: true,
+                                            // hint: Text('Select Gender'),
+                                            // validator: FormBuilderValidators.compose(
+                                            //     [FormBuilderValidators.required(context)]),
+                                            items: _location
+                                                .map((location) =>
+                                                    DropdownMenuItem(
+                                                      value: location,
+                                                      child: Text(location),
+                                                    ))
+                                                .toList(),
+                                            onChanged: (val) {
+                                              setState(() {
+                                                _locValError = false;
+                                              });
+                                              print(val);
+                                              if (val == "Vizag") {
+                                                setState(() {
+                                                  _locTextFeild = 0;
+                                                });
+                                              } else if (val == "Vijayawada") {
+                                                setState(() {
+                                                  _locTextFeild = 1;
+                                                });
+                                              }
+                                              print(_locTextFeild);
+                                            },
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(top: 20),
-                                      child: Image.asset(
-                                        "assets/images/sign.jpg",
-                                        width: double.infinity,
+                                      SizedBox(
+                                        height: 10,
                                       ),
-                                    ),
-                                    // Password
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: TextField(
+                                          maxLength: 10,
+                                          keyboardType: TextInputType.number,
+                                          controller: _mobileController,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter.allow(RegExp("[0-9]"))
+                                            ],
+                                          decoration: InputDecoration(
+                                            counterText: "",
+                                              prefixIcon: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Text('+91'),
+                                                    Icon(Icons
+                                                        .keyboard_arrow_down_rounded),
+                                                  ],
+                                                ),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey.shade300,
+                                                      width: 3.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey.shade300,
+                                                      width: 1.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              contentPadding: EdgeInsets.fromLTRB(
+                                                  20.0, 15.0, 20.0, 10.0),
+                                              hintText: "Mobile No",
+                                              focusColor: Colors.grey,
+                                              fillColor: Colors.white),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      TextButton(onPressed: (){
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignupScreen()));
+                                      }, child: Text("create account")),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0, vertical: 28),
+                                        child: Container(
+                                          height: 50,
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        mainBlue)),
+                                            // shape: RoundedRectangleBorder(
+                                            //   borderRadius: BorderRadius.circular(25.0),
+                                            // ),
+                                            // elevation: 10,
+                                            // textColor: Colors.white,
+                                            onPressed: () {
+                                              if(_mobileController.text.length==10){
+                                              otpGenarate(_mobileController.text);
 
-                                    // Gender
+                                              }
+                                              else{
+                                                popMessage(context, "Please enter a valid mobile number");
+                                              }
 
-                                    // Proffession
+                                            },
+                                            /*{
+                                              _checkUsr(_mobileController.text)
+                                            },*/
 
-                                    // Signup Button
-                                  ],
-                                ),
-                              )),
-                        ],
-                      ),
-                    )
-                  ],
+                                            child: Text(
+                                              "Continue",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(top: 20),
+                                        child: Image.asset(
+                                          "assets/images/sign.jpg",
+                                          width: double.infinity,
+                                        ),
+                                      ),
+                                      // Password
+
+                                      // Gender
+
+                                      // Proffession
+
+                                      // Signup Button
+                                    ],
+                                  ),
+                                )),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ]),
+              ]),
+        ),
       ),
     );
   }
@@ -344,6 +347,19 @@ class _SignInScreenState extends State<SignInScreen> {
       String otp = jsonResponse.substring(5);
       print("body ${jsonResponse.substring(5)}");
       print("body$otp");
+      final snackBar = SnackBar(
+        content: Text('Your otp is $otp'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Perform some action if the button is pressed
+            print("Undo action");
+          },
+        ),
+      );
+
+      // Display the SnackBar
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       // Navigator.of(context).push(
       //   MaterialPageRoute(builder: (_) => SignupScreen()),
       // );
