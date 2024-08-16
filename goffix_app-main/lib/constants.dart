@@ -34,6 +34,5 @@ String jobGetUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5
 var headers= {
 'Accept': 'application/json',
 'Content-Type': 'application/json', // Add this header
-  'Authorization':"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzIzNDgxMjkwLCJleHAiOjE3MjM1Njc2OTB9.5Ls52a-0E216mjl4IeysQylNN9sTjVPz52XVlkX2a8Q",
-};
+  'Authorization':"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZXJzb24yM0BnLmNvbWUiLCJpYXQiOjE3MjM3NjY0MDUsImV4cCI6MTcyMzg1MjgwNX0.tL2NYRlcUpoHwU3Jj8OOxFBLqq7plWGOGNHYfWIsRkI"};
  String  bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzIzNTY3NTg2LCJleHAiOjE3MjM2NTM5ODZ9.kpXcQQboSiKCcAOJXNENXosgkuCFOhw6Ly1cnSEPtQg";

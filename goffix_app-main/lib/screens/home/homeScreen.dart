@@ -359,8 +359,8 @@ class _HomeScreenState extends State<HomeScreen> {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzIzNTY3NTg2LCJleHAiOjE3MjM2NTM5ODZ9.kpXcQQboSiKCcAOJXNENXosgkuCFOhw6Ly1cnSEPtQg',
-        },
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZXJzb24yM0BnLmNvbWUiLCJpYXQiOjE3MjM3NjY0MDUsImV4cCI6MTcyMzg1MjgwNX0.tL2NYRlcUpoHwU3Jj8OOxFBLqq7plWGOGNHYfWIsRkI"'
+      },
       );
       print(response.statusCode);
       print(response.body);
@@ -450,8 +450,8 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: Image.asset(
             'assets/images/logo.png',
-            fit: BoxFit.contain,
-            height: 60,
+            fit: BoxFit.fitWidth,
+            height: 80,
             width: 100,
           ),
         ),

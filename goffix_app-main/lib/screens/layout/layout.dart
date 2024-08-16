@@ -27,6 +27,8 @@ import 'package:connectivity/connectivity.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../constants.dart';
+import '../eventBooking/eventListing.dart';
+import '../eventBooking/eventscreen.dart';
 
 class Layout extends StatefulWidget {
   static const id = 'HomeScreen';
@@ -173,7 +175,9 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     final _pageOption = [
-      HomePage(),
+      // HomePage(),
+      Eventscreen(),
+      // EventListing(),
       // HomeScreen(),
       SearchScreen(),
       // AddScreen(),

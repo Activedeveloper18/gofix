@@ -26,6 +26,7 @@ class EventListing extends StatefulWidget {
 class _EventListingState extends State<EventListing> {
   @override
   Widget build(BuildContext context) {
+    print("event screen");
     displayDate(DateTime date) {
       String formattedDate = DateFormat('dd-MM-yyyy').format(date);
       return formattedDate;
@@ -82,20 +83,14 @@ class _EventListingState extends State<EventListing> {
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               width: MediaQuery.of(context).size.width,
-              height: double.parse(widget.aId!.atypeHeight!),
-              // child: Image.memory(
-              //   image_64(_removeDataUrl(widget.aId.aImg)),
-              //   fit: BoxFit.fill,
-              //   width: 1300,
-              //   // height: double.parse(i.atypeHeight),
-              // ),
+              //   
             ),
             Row(
               children: [
                 Container(
                   padding: EdgeInsets.all(15),
                   child: Text(
-                    widget.aId!.aTitle!,
+                    "",
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                   ),
                 ),
@@ -119,14 +114,15 @@ class _EventListingState extends State<EventListing> {
                     Expanded(
                       child: Text(
                         // widget.aId.aDt.toString(),
-                        displayDate(widget.aId!.aDt!),
+                        // displayDate(widget.aId!.aDt!),
+                        "",
                         textAlign: TextAlign.start,
                         style: TextStyle(fontWeight: FontWeight.w700),
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        widget.aId!.aPrice!,
+                        "widget.aId!.aPrice!",
                         textAlign: TextAlign.end,
                         style: TextStyle(fontWeight: FontWeight.w700),
                       ),
