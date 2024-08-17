@@ -49,128 +49,113 @@ class _SelectedEventScreenState extends State<SelectedEventScreen> {
             color: Colors.grey,
           ),
           10.verticalSpace,
-          Container(
-            height: 150,
-            width: MediaQuery.of(context).size.width * 0.9,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.grey)),
-            padding: EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Expanded(
+          child: ListView.builder(
+              itemCount: 2,
+              itemBuilder: (context,index){
+            return   Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 150,
+                width: MediaQuery.of(context).size.width * 0.9,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.grey)),
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('General Entry for Adults\n\u{20B9} 2500'),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "ADD",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Colors.white),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width:200,
+                          child: Text(
+                              'General Entry for Adults for kids (6-11)yrs\n\u{20B9} 1000'),
+                        ),
+                        addbuttonclicked?  Container(
+                          child: Row(
+                            children: [
+                              IconButton(onPressed: (){
+                                if(count_tickts<10){
+                                  count_tickts++;
+                                }
+                                setState(() {
+          
+                                });
+                              }, icon: Icon(Icons.add)),
+                              Text("$count_tickts",style: Theme.of(context).textTheme.bodyLarge,),
+                              IconButton(onPressed: (){
+                                if(count_tickts>0){
+                                  count_tickts--;
+                                }
+                                setState(() {
+          
+                                });
+                              }, icon: Icon(Icons.remove)),
+          
+                            ],
+                          ),
+                        ):ElevatedButton(
+                          onPressed: () {
+                            addbuttonclicked = true;
+                            setState(() {
+          
+                            });
+                          },
+                          child: Text(
+                            "ADD",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: Colors.white),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5))),
+                        ),
+                      ],
+                    ),
+                    10.verticalSpace,
+                    Text(
+                      'Here’s how you can modify your SelectedEventScreen widget to work with older versions of Flutter',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge!
+                          .copyWith(fontSize: 14),
+                      textAlign: TextAlign.left,
                     ),
                   ],
                 ),
-                10.verticalSpace,
-                Text(
-                  'Here’s how you can modify your SelectedEventScreen widget to work with older versions of Flutter',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineLarge!
-                      .copyWith(fontSize: 14),
-                  textAlign: TextAlign.left,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 150,
-              width: MediaQuery.of(context).size.width * 0.9,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.grey)),
-              padding: EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width:200,
-                        child: Text(
-                            'General Entry for Adults for kids (6-11)yrs\n\u{20B9} 1000'),
-                      ),
-                     addbuttonclicked? ElevatedButton(
-                        onPressed: () {
-                          addbuttonclicked = true;
-                          setState(() {
-
-                          });
-                        },
-                        child: Text(
-                          "ADD",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5))),
-                      ): Container(
-                       child: Row(
-                         children: [
-                           IconButton(onPressed: (){
-                             if(count_tickts<10){
-                               count_tickts++;
-                             }
-                             setState(() {
-
-                             });
-                           }, icon: Icon(Icons.add)),
-                           Text("$count_tickts",style: Theme.of(context).textTheme.bodyLarge,),
-                           IconButton(onPressed: (){
-                             if(count_tickts>0){
-                               count_tickts--;
-                             }
-                             setState(() {
-
-                             });
-                           }, icon: Icon(Icons.remove)),
-
-                         ],
-                       ),
-                     ),
-                    ],
-                  ),
-                  10.verticalSpace,
-                  Text(
-                    'Here’s how you can modify your SelectedEventScreen widget to work with older versions of Flutter',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(fontSize: 14),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
               ),
+            );
+          }),
+        ),
+
+          SizedBox(
+            width: MediaQuery.of(context).size.width*0.85,
+            child: ElevatedButton(
+              onPressed: () {
+                addbuttonclicked = true;
+                setState(() {
+
+                });
+              },
+              child: Text(
+                "Continue",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5))),
             ),
           ),
-
         ],
       )),
     );
