@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goffix/screens/eventBooking/selectedeventscreen.dart';
 
 import '../../constants.dart';
 import '../add/AddScreen.dart';
@@ -200,24 +201,26 @@ class _EventscreenState extends State<Eventscreen> {
                     "Biggest Mall in India. Spread over 2 million sq ft, DLF Mall of India is the biggest mall in India in terms of built up area. It comes with various",
                   ),
                   SizedBox(height: 10),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.grey.shade400),
-                  height: 50,
-                  width: MediaQuery.of(context).size.width * 0.95,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Terms & Conditions",
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.grey.shade400),
+                      height: 50,
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Terms & Conditions",
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_downward))
+                        ],
+                      ),
                     ),
-                    IconButton(onPressed: (){}, icon: Icon(Icons.arrow_downward))
-                  ],
-                ),
-                ),
-              ),
+                  ),
                   SizedBox(height: 10),
                   Row(
                     children: [
@@ -233,10 +236,13 @@ class _EventscreenState extends State<Eventscreen> {
                       ),
                       Text(
                         "Location",
-                        style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.black),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.black),
                       ),
                     ],
                   ),
@@ -246,16 +252,20 @@ class _EventscreenState extends State<Eventscreen> {
                   ),
                   SizedBox(height: 10),
                   Center(
-                    child: SizedBox(height: 300, width: MediaQuery.of(context).size.width*0.9,
-                    child: Image(image: AssetImage('assets/images/map2.jpg'),),
+                    child: SizedBox(
+                      height: 300,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: Image(
+                        image: AssetImage('assets/images/map2.jpg'),
+                      ),
                     ),
                   ),
 // show map button
                   Center(
                     child: Container(
-decoration: BoxDecoration(border: Border.all(color: Colors.blueGrey),
-borderRadius: BorderRadius.circular(20)
-),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blueGrey),
+                            borderRadius: BorderRadius.circular(20)),
                         height: 30,
                         width: MediaQuery.of(context).size.width * 0.5,
                         child: ElevatedButton(
@@ -280,7 +290,13 @@ borderRadius: BorderRadius.circular(20)
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.black),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SelectedEventScreen()));
+                            },
                             child: Text(
                               "Register",
                               style: TextStyle(color: Colors.white),

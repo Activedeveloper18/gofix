@@ -8,6 +8,7 @@
 // import 'package:Kare.ai/screens/symtomchecker/symtomchecker.dart';
 import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goffix/screens/AdService/BookAdService.dart';
 import 'package:goffix/screens/CauroselDemo.dart';
 import 'package:goffix/screens/ForgotPassword/changePassword.dart';
@@ -69,19 +70,26 @@ class App extends StatelessWidget {
           ChangeNotifierProvider<EventTicketProvider>(
               create: (context) => EventTicketProvider()),
         ],
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            // theme: AppTheme.lightTheme,
-            // darkTheme: AppTheme.darkTheme,
-            onGenerateRoute: RouteGenerator.generateRoute,
-            // initialRoute: SplashScreen.id,
-            home:
-                // BookAdServiceScreen(
-                //   a_id: 3,
-                // )
-                WelcomeScreen()
-            // EventListing() .
-            ),
+        child: ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+          builder:  (_ , child){
+            return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                // theme: AppTheme.lightTheme,
+                // darkTheme: AppTheme.darkTheme,
+                onGenerateRoute: RouteGenerator.generateRoute,
+                // initialRoute: SplashScreen.id,
+                home:
+                    // BookAdServiceScreen(
+                    //   a_id: 3,
+                    // )
+                    WelcomeScreen()
+                // EventListing() .
+                );
+          }
+        ),
       ),
     );
   }
