@@ -579,38 +579,38 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                     ],
                   ),
                 ),
-                InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
-                  },
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        border: Border.all(width: 1,color: mainBlue)
-
-                    ),
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Logout',
-                          style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [Icon(Icons.logout,color:mainBlue)],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: (){
+                //     Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
+                //   },
+                //   child: Container(
+                //     margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                //     padding: EdgeInsets.all(12),
+                //     decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(10),
+                //         color: Colors.white,
+                //         border: Border.all(width: 1,color: mainBlue)
+                //
+                //     ),
+                //
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           'Logout',
+                //           style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                //         ),
+                //         SizedBox(
+                //           height: 2,
+                //         ),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //           children: [Icon(Icons.logout,color:mainBlue)],
+                //         )
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 GestureDetector(
                   onTap: () async{
                     await FirebasePhoneAuthHandler.signOut(context);

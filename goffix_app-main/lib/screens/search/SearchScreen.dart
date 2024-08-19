@@ -144,7 +144,7 @@ class _HomeScreenState extends State<SearchScreen> {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: SizedBox(),
+
         backgroundColor: Colors.white,
         elevation: 30,
         bottomOpacity: 0.8,

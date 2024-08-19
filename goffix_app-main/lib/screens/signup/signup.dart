@@ -3,6 +3,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:goffix/screens/home/homeScreen.dart';
 import 'package:goffix/screens/otp/otpScreen.dart';
 import 'package:goffix/screens/signup/fixture.dart';
+import 'package:goffix/screens/signup/sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -812,6 +813,7 @@ counterText: "",
       print(response.body);
       if (response.statusCode == 200) {
         popMessage(context, jsonDecode(response.body)['message']);
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
       }
       {
         popMessage(context, jsonDecode(response.body)['message']);

@@ -32,7 +32,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   }
 
   Widget _buildImage(String assetName, [double width = 350]) {
-    return Image.asset('assets/$assetName', width: width);
+    return Center(
+        child: Image.asset(
+      'assets/$assetName',
+      width: width,
+      fit: BoxFit.contain,
+    ));
   }
 
   @override
@@ -60,14 +65,16 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               ButtonStyle(backgroundColor: MaterialStateProperty.all(mainBlue)),
           child: const Text(
             'Let\'s go right away!',
-            style: TextStyle(color: Colors.white,fontSize: 16.0, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold),
           ),
           onPressed: () => _onIntroEnd(context),
         ),
       ),
       pages: [
         PageViewModel(
-
           title: "Easy Connect",
           body:
               "Easy Connect provides seeker and offeror to fulfill service and product need with the best customer experience",

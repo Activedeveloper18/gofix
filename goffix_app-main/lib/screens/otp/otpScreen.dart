@@ -11,6 +11,7 @@ import 'package:goffix/screens/ForgotPassword/changePassword.dart';
 import 'package:goffix/screens/config/configScreen.dart';
 import 'package:goffix/screens/login/login.dart';
 
+import '../../models/logincredentialsmodel.dart';
 import '../../models/loginuser_model.dart';
 import '../custom_widegt/popmessager.dart';
 
@@ -83,42 +84,42 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
 
   Future<String> validateOtp(otp) async {
     //Check mobile
-    try{
-    var requestBody = {"phnumber": widget.phn, "otp": otp};
+    try {
+      var requestBody = {"phnumber": widget.phn, "otp": otp};
 
-    var jsonRequest = json.encode(requestBody);
-    print(jsonRequest);
+      var jsonRequest = json.encode(requestBody);
+      print(jsonRequest);
 
-    Uri url = Uri.parse(
-        "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/auth/signinwithotp");
-    print(url);
+      Uri url = Uri.parse(
+          "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/auth/signinwithotp");
+      print(url);
 
-    var response = await http.post(
-      url,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json', // Add this header
-      },
-      body: jsonRequest,
-    );
-    final jsonString = jsonDecode(response.body);
-    print('Status code: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    if(response.statusCode==200 || response.statusCode==201){
-    SignInResponse signInResponse = SignInResponse.fromJson(jsonString);
-    print(signInResponse.email);
-    setState(() {
-
-    });
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>Layout()))
-    ;}
-    else{
-      return "no user found";
-    }
-    return "Success";}
-        catch(e){
+      var response = await http.post(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json', // Add this header
+        },
+        body: jsonRequest,
+      );
+      final jsonString = jsonDecode(response.body);
+      // print('Status code: ${response.statusCode}');
+      // print('Response body: ${response.body}');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        SignInResponse signInResponse = SignInResponse.fromJson(jsonString);
+        print(signInResponse.email);
+        LoginCredentialsModel loginCredentialsModel = LoginCredentialsModel.fromJson(jsonDecode(response.body));
+        setState(() {});
+        print(loginCredentialsModel.token);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Layout()));
+      } else {
+        return "no user found";
+      }
+      return "Success";
+    } catch (e) {
       return e.toString();
-        }
+    }
   }
 
   void moveToNextScreen(context) {
@@ -150,7 +151,7 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
       home: Container(
         padding: EdgeInsets.only(top: 30),
         child: AwesomeOtpScreen.withGradientBackground(
-          topColor: Color(0xFFcc2b5e),
+          topColor: Colors.white,
           bottomColor: Colors.white,
           otpLength: 6,
           validateOtp: validateOtp,

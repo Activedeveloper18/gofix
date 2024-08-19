@@ -356,11 +356,12 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final response = await http.get(
         url,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZXJzb24yM0BnLmNvbWUiLCJpYXQiOjE3MjM3NjY0MDUsImV4cCI6MTcyMzg1MjgwNX0.tL2NYRlcUpoHwU3Jj8OOxFBLqq7plWGOGNHYfWIsRkI"'
-      },
+        headers:headers,
+      //   {
+      //     'Accept': 'application/json',
+      //     'Content-Type': 'application/json',
+      //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZXJzb24yM0BnLmNvbWUiLCJpYXQiOjE3MjM3NjY0MDUsImV4cCI6MTcyMzg1MjgwNX0.tL2NYRlcUpoHwU3Jj8OOxFBLqq7plWGOGNHYfWIsRkI"'
+      // },
       );
       print(response.statusCode);
       print(response.body);

@@ -11,6 +11,7 @@ import 'dart:convert';
 // import 'package:Kare.ai/screens/welcome/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:goffix/screens/home/gdailscreen.dart';
 import 'package:goffix/screens/home/homeScreen.dart';
 import 'package:goffix/screens/home/newhomepage.dart';
 import 'package:goffix/screens/login/login.dart';
@@ -28,6 +29,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../constants.dart';
 import '../eventBooking/eventListing.dart';
+import '../eventBooking/eventlistscreen.dart';
 import '../eventBooking/eventscreen.dart';
 
 class Layout extends StatefulWidget {
@@ -176,13 +178,15 @@ class _LayoutState extends State<Layout> {
   Widget build(BuildContext context) {
     final _pageOption = [
       // HomePage(),
-      Eventscreen(),
+      // Eventscreen(),
+      EventListScreen(),
       // EventListing(),
       // HomeScreen(),
       SearchScreen(),
       // AddScreen(),
       HomeScreen(),
-      ChatScreen(),
+      Gdailscreen(),
+      // ChatScreen(),
       ProfilePageScreen(),
 
       // ProfileScreen(),

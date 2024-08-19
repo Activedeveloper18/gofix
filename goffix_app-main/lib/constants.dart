@@ -29,10 +29,10 @@ String AppTC =
 String getAllUserByProfession = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/gdial/users/by-profession?";
 String jobPostUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/postjob";
 String jobGetUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/getalljobs";
-
+String getCountProfessionUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/gdial/users/count-by-profession";
 
 var headers= {
 'Accept': 'application/json',
 'Content-Type': 'application/json', // Add this header
-  'Authorization':"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZXJzb24yM0BnLmNvbWUiLCJpYXQiOjE3MjM3NjY0MDUsImV4cCI6MTcyMzg1MjgwNX0.tL2NYRlcUpoHwU3Jj8OOxFBLqq7plWGOGNHYfWIsRkI"};
- String  bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzIzNTY3NTg2LCJleHAiOjE3MjM2NTM5ODZ9.kpXcQQboSiKCcAOJXNENXosgkuCFOhw6Ly1cnSEPtQg";
+  'Authorization':"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzI0MDYzMjgwLCJleHAiOjE3MjQxNDk2ODB9.FYk2Nb1pdJlwzx5FdvEFIEGFLNGsO8-wd7hVKIwgtoc"};
+ String  bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzI0MDYzMjgwLCJleHAiOjE3MjQxNDk2ODB9.FYk2Nb1pdJlwzx5FdvEFIEGFLNGsO8-wd7hVKIwgtoc";
