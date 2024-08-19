@@ -21,7 +21,8 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
   }
 
   Future<List<GetByProfessionTypeModel>> _getCat() async {
-    Uri url = Uri.parse(getAllUserByProfession + "profession=Engineer");
+    Uri url = Uri.parse(
+        getAllUserByProfession + "profession=${widget.professionType}");
     final response = await http.get(url, headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -41,7 +42,6 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: SizedBox(),
         backgroundColor: Colors.white,
         elevation: 30,
         bottomOpacity: 0.8,
@@ -80,7 +80,8 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Fixers : ${snapshot.data!.length}"),
+                  child: Text(
+                      "${widget.professionType} : ${snapshot.data!.length}"),
                 ),
                 ListView.builder(
                   shrinkWrap: true,
@@ -94,37 +95,45 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: Colors.black54)),
                         child: ListTile(
-                          onTap: (){
+                          onTap: () {
                             print("object $index");
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      BookServiceScreen(cname: widget.professionType,)),
+                                  builder: (context) => BookServiceScreen(
+                                        cname: widget.professionType,
+                                      )),
                             );
                           },
                           title: Text(snapshot.data![index].usname!.toString()),
                           subtitle: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                             Row(
-                                  children: [
-                                    Icon(Icons.email,size: 15,),
-                                    SizedBox(
-                                      width: 120,
-                                      child: Text(snapshot.data![index].username!.toString(),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
                               Row(
                                 children: [
-                                  Icon(Icons.phone,size: 15,),
-                                  Text(snapshot.data![index].phNumber!.toString()),
+                                  Icon(
+                                    Icons.email,
+                                    size: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 120,
+                                    child: Text(
+                                      snapshot.data![index].username!
+                                          .toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.phone,
+                                    size: 15,
+                                  ),
+                                  Text(snapshot.data![index].phNumber!
+                                      .toString()),
                                 ],
                               ),
                             ],

@@ -766,21 +766,22 @@ class _HomeScreenState extends State<SearchScreen> {
   Widget _SeachIcon(String img, String nm, String link) {
     return InkWell(
       onTap: () {
-        // launch(link);
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) =>
-        //           BookServiceScreen(catid: int.parse(link), cname: nm)),
-        // );
-        print("cname  $nm");
+        launch(link);
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => ListFixerScreen(
-                professionType: "Engineer",
-              )),
+              builder: (context) =>
+                  BookServiceScreen(catid: int.parse(link), cname: nm)),
         );
+        print("cname  $nm");
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (context) => ListFixerScreen(
+        //         professionType: "Engineer",
+        //       )),
+        // );
+
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

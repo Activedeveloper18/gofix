@@ -4,6 +4,7 @@ import 'package:goffix/models/getbyprofessiontype.dart';
 import 'package:goffix/screens/home/repo/gdailrepo.dart';
 
 import '../../models/getcountbyprofession.dart';
+import '../search/list_fixer_screen.dart';
 
 class Gdailscreen extends StatefulWidget {
   const Gdailscreen();
@@ -75,52 +76,64 @@ class _GdailscreenState extends State<Gdailscreen> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       GetCountByProfessionModel item = snapshot.data![index];
-                      return Container(
-                        height: 70,
-                        padding: EdgeInsets.all(10),
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                item.profession ?? "Unknown Profession",
-                                style: TextStyle(
-                                  color: Colors.indigo,
-                                  fontSize: 24,
+                      return InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ListFixerScreen(
+                                  professionType: item.profession.toString(),
+                                )),
+                          );
+
+                        },
+                        child: Container(
+                          height: 70,
+                          padding: EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  item.profession ?? "Unknown Profession",
+                                  style: TextStyle(
+                                    color: Colors.indigo,
+                                    fontSize: 24,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                    color: Colors.indigo,
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${item.count}",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.indigo,
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "${item.count}",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_right,
-                                  color: Colors.indigo,
-                                  size: 40,
-                                ),
-                              ],
-                            ),
-                          ],
+                                  Icon(
+                                    Icons.arrow_right,
+                                    color: Colors.indigo,
+                                    size: 40,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
