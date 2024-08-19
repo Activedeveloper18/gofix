@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io' as Io;
 import 'dart:async';
 import 'dart:typed_data';
@@ -342,7 +343,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  List<GetCountByProfessionModel> getCountByProfession = <GetCountByProfessionModel>[];
+  List<GetCountByProfessionModel> getCountByProfession =
+      <GetCountByProfessionModel>[];
   List<GetAllJobModel> getAllJobsModel = <GetAllJobModel>[];
 // Sync Online
   Future<void> fetchPost() async {
@@ -356,12 +358,12 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final response = await http.get(
         url,
-        headers:headers,
-      //   {
-      //     'Accept': 'application/json',
-      //     'Content-Type': 'application/json',
-      //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZXJzb24yM0BnLmNvbWUiLCJpYXQiOjE3MjM3NjY0MDUsImV4cCI6MTcyMzg1MjgwNX0.tL2NYRlcUpoHwU3Jj8OOxFBLqq7plWGOGNHYfWIsRkI"'
-      // },
+        headers: headers,
+        //   {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json',
+        //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZXJzb24yM0BnLmNvbWUiLCJpYXQiOjE3MjM3NjY0MDUsImV4cCI6MTcyMzg1MjgwNX0.tL2NYRlcUpoHwU3Jj8OOxFBLqq7plWGOGNHYfWIsRkI"'
+        // },
       );
       print(response.statusCode);
       print(response.body);
@@ -408,6 +410,49 @@ class _HomeScreenState extends State<HomeScreen> {
     // _scrollController = new ScrollController();
   }
 
+  Future<void> DeleteJobAPI(int index_id) async {
+    try {
+      print("object");
+      final resp =
+          await http.delete(Uri.parse(deletePostUrl+"$index_id"), headers: headers);
+      print(resp.statusCode);
+      print(resp.body.runtimeType);
+
+      if (resp.statusCode == 200 || resp.statusCode == 201) {
+        // List<dynamic> jsonData = jsonDecode(resp.body);
+        // print(jsonData.runtimeType);
+        setState(() {});
+        // Convert mapped iterable to a list
+        // getCountProfessionModel =
+        //     jsonData.map((e) => GetCountByProfessionModel.fromJson(e)).toList();
+        final snackBar = SnackBar(
+          content: Text('Deleted successfully'),
+          backgroundColor: Colors.green, // Optional: change the background color
+          behavior: SnackBarBehavior.floating, // Optional: make the Snackbar float
+          duration: Duration(seconds: 2), // Optional: control how long the Snackbar is visible
+        );
+
+        // Show the Snackbar
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        // return getCountProfessionModel;
+      } else {
+        // Handle error, maybe return null or an empty list
+        final snackBar = SnackBar(
+          content: Text('Deleted Failed'),
+          backgroundColor: Colors.green, // Optional: change the background color
+          behavior: SnackBarBehavior.floating, // Optional: make the Snackbar float
+          duration: Duration(seconds: 2), // Optional: control how long the Snackbar is visible
+        );
+
+        // Show the Snackbar
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        return null;
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -445,6 +490,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 30,
         bottomOpacity: 0.8,
         toolbarHeight: 60,
+        leadingWidth: 100,
         leading: InkWell(
           onTap: () {
             fetchPost();
@@ -538,7 +584,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .size
                                                       .width,
                                                   child: ListView.builder(
-                                                      itemCount: getAllJobsModel.length,
+                                                      itemCount: getAllJobsModel
+                                                          .length,
                                                       itemBuilder:
                                                           (context, index) {
                                                         return
@@ -668,23 +715,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               children: [
                                                                                 ConstrainedBox(
                                                                                   constraints: BoxConstraints(
-                                                                                    minWidth: 115.0,
-                                                                                    maxWidth: 200.0,
+                                                                                    minWidth: 120.0,
+                                                                                    maxWidth: 250.0,
                                                                                     // minHeight: 30.0,
                                                                                     // maxHeight: 100.0,
                                                                                   ),
-                                                                                  child: AutoSizeText(
-                                                                                    "${getAllJobsModel[index].user!.usname}",
-                                                                                    // "Rajesh Reddy - Sicentix ",
-                                                                                    maxLines: 2,
-                                                                                    softWrap: true,
-                                                                                    minFontSize: 18,
-                                                                                    style: TextStyle(
-                                                                                        color: Colors.grey.shade700,
-                                                                                        fontSize: 20,
-                                                                                        // fontFamily: "Titillium Web",
-                                                                                        fontFamily: "Lato",
-                                                                                        fontWeight: FontWeight.bold),
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      AutoSizeText(
+                                                                                        "${getAllJobsModel[index].user!.usname}",
+                                                                                        // "Rajesh Reddy - Sicentix ",
+                                                                                        maxLines: 2,
+                                                                                        softWrap: true,
+                                                                                        minFontSize: 18,
+                                                                                        style: TextStyle(
+                                                                                            color: Colors.grey.shade700,
+                                                                                            fontSize: 20,
+                                                                                            // fontFamily: "Titillium Web",
+                                                                                            fontFamily: "Lato",
+                                                                                            fontWeight: FontWeight.bold),
+                                                                                      ),
+                                                                                      IconButton(
+                                                                                          onPressed: () {
+                                                                                            print(getAllJobsModel[index].jobid);
+                                                                                            DeleteJobAPI(getAllJobsModel[index].jobid!);
+                                                                                          },
+                                                                                          icon: Icon(Icons.delete_rounded))
+                                                                                    ],
                                                                                   ),
                                                                                 ),
                                                                                 Text(
@@ -703,7 +761,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                       size: 20,
                                                                                       color: mainBlue.withOpacity(0.8),
                                                                                     ),
-                                                                                    Text( "${getAllJobsModel[index].jblocation}", style: TextStyle(color: mainBlue.withOpacity(0.5), fontWeight: FontWeight.bold)),
+                                                                                    Text("${getAllJobsModel[index].jblocation}", style: TextStyle(color: mainBlue.withOpacity(0.5), fontWeight: FontWeight.bold)),
                                                                                   ],
                                                                                 ),
                                                                                 // Text(
@@ -839,7 +897,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           InkWell(
                                                                             onTap:
                                                                                 () {
-                                                                              var shareText =  "${getAllJobsModel[index].jobtitle}" + '\n' + "SJdf";
+                                                                              var shareText = "${getAllJobsModel[index].jobtitle}" + '\n' + "SJdf";
                                                                               // Share.share(shareText);
                                                                             },
                                                                             child:

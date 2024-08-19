@@ -16,7 +16,7 @@ class _EventscreenState extends State<Eventscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: SizedBox(),
+        leadingWidth: 150,
         actions: [
           Container(
             padding: EdgeInsets.all(8),
@@ -42,14 +42,19 @@ class _EventscreenState extends State<Eventscreen> {
         elevation: 30,
         bottomOpacity: 0.8,
         toolbarHeight: 60,
-        leading: InkWell(
-          onTap: () {},
-          child: Image.asset(
-            'assets/images/logo.png',
-            fit: BoxFit.fitWidth,
-            height: 80,
-            width: 100,
-          ),
+        leading: Row(
+          children: [
+            IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back_ios)),
+            InkWell(
+              onTap: () {},
+              child: Image.asset(
+                'assets/images/logo.png',
+                fit: BoxFit.fitWidth,
+                height: 80,
+                width: 100,
+              ),
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(

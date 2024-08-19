@@ -144,7 +144,7 @@ class _HomeScreenState extends State<SearchScreen> {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-
+        leading: SizedBox(),
         backgroundColor: Colors.white,
         elevation: 30,
         bottomOpacity: 0.8,
@@ -195,7 +195,6 @@ class _HomeScreenState extends State<SearchScreen> {
                                     builder: (context) =>
                                         BookingStatusScreen()),
                               );
-
                             },
                             child: Icon(
                               CupertinoIcons.calendar_today,
@@ -781,7 +780,6 @@ class _HomeScreenState extends State<SearchScreen> {
         //         professionType: "Engineer",
         //       )),
         // );
-
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

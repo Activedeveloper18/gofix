@@ -410,6 +410,39 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                         ),
                       ),
                     ),
+                    // Text("Timings"),
+                    Container(
+                      height: 70,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      // color: Colors.indigo,
+                      child: Expanded(
+                        child:GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, // Number of items per row
+                            crossAxisSpacing: 10.0, // Spacing between columns
+                            mainAxisSpacing: 10.0,  // Spacing between rows
+                            childAspectRatio: 2, // Ratio of width to height of each grid item
+                          ),
+                          itemCount: Timings.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 50,
+                                width: 20,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.indigo),
+                                  borderRadius: BorderRadius.circular(5)
+                                ),
+                                child: Text(Timings[index]),
+                              ),
+                            );
+                          },
+                        )
+
+                      ),
+                    ),
                     //       HorizontalCalendar(
                     //
                     //       date: DateTime.now(),
@@ -495,58 +528,60 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                     //   ),
                     // ),
                     // Timing
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(
-                              color: Colors.grey.shade500, width: 1),
-                          color: Colors.white),
-                      padding: EdgeInsets.symmetric(horizontal: 2),
-                      child: FormBuilderDropdown<String>(
-                        // autovalidate: true,
-                        name: 'Timengs',
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 2.0),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          contentPadding: EdgeInsets.only(left: 20.0),
-                          focusColor: Colors.green,
-                          fillColor: Colors.white,
-                          hintText: 'Select Time',
-                          // suffix: _timePriorityError
-                          //     ? const Icon(Icons.error)
-                          //     : const Icon(Icons.check),
-                        ),
-                        // initialValue: 'Male',
-                        // allowClear: true,
-                        // hint: Text('Select Gender'),
-                        // validator: FormBuilderValidators.compose(
-                        //     [FormBuilderValidators.required(context)]),
-                        items: Timings.map((location) => DropdownMenuItem(
-                              value: location,
-                              child: Text(location),
-                            )).toList(),
-                        onChanged: (val) {
-                          setState(() {
-                            _locValError = false;
-                          });
-                          print(val);
-                          if (val == "Male") {
-                            setState(() {
-                              _locTextFeild = 0;
-                            });
-                          } else if (val == "Female") {
-                            setState(() {
-                              _locTextFeild = 1;
-                            });
-                          }
-                          print(_locTextFeild);
-                        },
-                      ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10.0),
+                    //       border: Border.all(
+                    //           color: Colors.grey.shade500, width: 1),
+                    //       color: Colors.white),
+                    //   padding: EdgeInsets.symmetric(horizontal: 2),
+                    //   child: FormBuilderDropdown<String>(
+                    //     // autovalidate: true,
+                    //     name: 'Timengs',
+                    //     decoration: InputDecoration(
+                    //       border: InputBorder.none,
+                    //       focusedBorder: OutlineInputBorder(
+                    //           borderSide:
+                    //               BorderSide(color: Colors.white, width: 2.0),
+                    //           borderRadius: BorderRadius.circular(10.0)),
+                    //       contentPadding: EdgeInsets.only(left: 20.0),
+                    //       focusColor: Colors.green,
+                    //       fillColor: Colors.white,
+                    //       hintText: 'Select Time',
+                    //       // suffix: _timePriorityError
+                    //       //     ? const Icon(Icons.error)
+                    //       //     : const Icon(Icons.check),
+                    //     ),
+                    //     // initialValue: 'Male',
+                    //     // allowClear: true,
+                    //     // hint: Text('Select Gender'),
+                    //     // validator: FormBuilderValidators.compose(
+                    //     //     [FormBuilderValidators.required(context)]),
+                    //     items: Timings.map((location) => DropdownMenuItem(
+                    //           value: location,
+                    //           child: Text(location),
+                    //         )).toList(),
+                    //     onChanged: (val) {
+                    //       setState(() {
+                    //         _locValError = false;
+                    //       });
+                    //       print(val);
+                    //       if (val == "Male") {
+                    //         setState(() {
+                    //           _locTextFeild = 0;
+                    //         });
+                    //       } else if (val == "Female") {
+                    //         setState(() {
+                    //           _locTextFeild = 1;
+                    //         });
+                    //       }
+                    //       print(_locTextFeild);
+                    //     },
+                    //   ),
+                    // ),
+                    SizedBox(
+                      height: 20,
                     ),
-SizedBox(height: 20,),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
@@ -601,7 +636,9 @@ SizedBox(height: 20,),
                       ),
                     ),
                     //Error timing
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     // Location
 
                     new TextField(
@@ -625,14 +662,15 @@ SizedBox(height: 20,),
                           fillColor: Colors.grey),
                     ),
                     // Address
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     // Address validation
                     new TextField(
                       controller: _nameController,
-
                       decoration: InputDecoration(
 
-                        // suffixIcon: Icon(CupertinoIcons.eye),
+                          // suffixIcon: Icon(CupertinoIcons.eye),
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.grey.shade300, width: 1.0),
@@ -642,7 +680,7 @@ SizedBox(height: 20,),
                                   color: Colors.grey.shade300, width: 1.0),
                               borderRadius: BorderRadius.circular(10.0)),
                           contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
                           hintText: "Enter Mobile No (optional)",
                           focusColor: Colors.green,
                           fillColor: Colors.grey),
@@ -663,13 +701,15 @@ SizedBox(height: 20,),
                     //       : Row(),
                     // ),
                     // Description
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     new TextField(
                       controller: _nameController,
                       maxLines: 4,
                       decoration: InputDecoration(
 
-                        // suffixIcon: Icon(CupertinoIcons.eye),
+                          // suffixIcon: Icon(CupertinoIcons.eye),
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.grey.shade300, width: 1.0),
@@ -679,7 +719,7 @@ SizedBox(height: 20,),
                                   color: Colors.grey.shade300, width: 1.0),
                               borderRadius: BorderRadius.circular(10.0)),
                           contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
                           hintText: "Additional Details",
                           focusColor: Colors.green,
                           fillColor: Colors.grey),

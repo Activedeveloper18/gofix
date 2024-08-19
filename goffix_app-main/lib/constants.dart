@@ -30,6 +30,7 @@ String getAllUserByProfession = "http://ec2-16-171-139-167.eu-north-1.compute.am
 String jobPostUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/postjob";
 String jobGetUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/getalljobs";
 String getCountProfessionUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/gdial/users/count-by-profession";
+String deletePostUrl = "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/jobs/deletejob/";
 
 var headers= {
 'Accept': 'application/json',
