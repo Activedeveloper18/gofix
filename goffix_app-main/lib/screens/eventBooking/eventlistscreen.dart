@@ -38,7 +38,13 @@ class _EventListscreenState extends State<EventListScreen> {
 
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Hello Vizag",style: Theme.of(context).textTheme.headlineSmall,),
+            ),
             InkWell(
               onTap: () {
                 Navigator.push(context,

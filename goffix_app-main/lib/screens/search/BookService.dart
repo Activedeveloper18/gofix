@@ -411,38 +411,72 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                       ),
                     ),
                     // Text("Timings"),
-                    Container(
-                      height: 70,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      // color: Colors.indigo,
-                      child: Expanded(
-                        child:GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3, // Number of items per row
-                            crossAxisSpacing: 10.0, // Spacing between columns
-                            mainAxisSpacing: 10.0,  // Spacing between rows
-                            childAspectRatio: 2, // Ratio of width to height of each grid item
-                          ),
-                          itemCount: Timings.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 50,
-                                width: 20,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.indigo),
-                                  borderRadius: BorderRadius.circular(5)
-                                ),
-                                child: Text(Timings[index]),
-                              ),
-                            );
-                          },
-                        )
+                    // Container(
+                    //   height: 70,
+                    //   width: MediaQuery.of(context).size.width * 0.9,
+                    //   // color: Colors.indigo,
+                    //   child: Expanded(
+                    //     child:GridView.builder(
+                    //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    //         crossAxisCount: 3, // Number of items per row
+                    //         crossAxisSpacing: 10.0, // Spacing between columns
+                    //         mainAxisSpacing: 10.0,  // Spacing between rows
+                    //         childAspectRatio: 2, // Ratio of width to height of each grid item
+                    //       ),
+                    //       itemCount: Timings.length,
+                    //       itemBuilder: (context, index) {
+                    //         return Padding(
+                    //           padding: const EdgeInsets.all(8.0),
+                    //           child: Container(
+                    //             height: 50,
+                    //             width: 20,
+                    //             alignment: Alignment.center,
+                    //             decoration: BoxDecoration(
+                    //               border: Border.all(color: Colors.indigo),
+                    //               borderRadius: BorderRadius.circular(5)
+                    //             ),
+                    //             child: Text(Timings[index]),
+                    //           ),
+                    //         );
+                    //       },
+                    //     )
+                    //
+                    //   ),
+                    // ),
 
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 50,
+                        width: 100,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.indigo),
+                            borderRadius: BorderRadius.circular(5)
+                        ),
+                        child: Text(Timings[0]),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 50,
+                        width: 100,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.indigo),
+                            borderRadius: BorderRadius.circular(5)
+                        ),
+                        child: Text(Timings[1]),
+                      ),
+                    ),
+                  ],
+                ),
+
+
+
                     //       HorizontalCalendar(
                     //
                     //       date: DateTime.now(),
