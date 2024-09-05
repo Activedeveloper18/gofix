@@ -31,7 +31,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
   }
 
-  Widget _buildImage(String assetName, [double width = 350]) {
+  Widget _buildImage(String assetName, [double width = 1000]) {
     return Center(
         child: Image.asset(
       'assets/$assetName',
@@ -57,55 +57,80 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       key: introKey,
       globalBackgroundColor: Colors.white,
 
-      globalFooter: SizedBox(
-        width: double.infinity,
-        height: 60,
-        child: ElevatedButton(
-          style:
-              ButtonStyle(backgroundColor: MaterialStateProperty.all(mainBlue)),
-          child: const Text(
-            'Let\'s go right away!',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold),
+      globalFooter: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: double.infinity,
+          height: 60,
+          child: ElevatedButton(
+            style:
+                ButtonStyle(backgroundColor: MaterialStateProperty.all(mainBlue)),
+            child: const Text(
+              'Let\'s go right away!',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold),
+            ),
+            onPressed: () => _onIntroEnd(context),
           ),
-          onPressed: () => _onIntroEnd(context),
         ),
       ),
       pages: [
         PageViewModel(
-          title: "Easy Connect",
-          body:
-              "Easy Connect provides seeker and offeror to fulfill service and product need with the best customer experience",
-          image: _buildImage('../assets/images/pic3.png'),
-          decoration: pageDecoration,
+            titleWidget: SizedBox(),
+            bodyWidget:  Image.asset("assets/images/slide1.png"),
+           ),
+        // PageViewModel(
+        //   title: "Easy Connect",
+        //   body:
+        //       "Easy Connect provides seeker and offeror to fulfill service and product need with the best customer experience",
+        //   image: _buildImage('../assets/images/pic3.png'),
+        //   decoration: pageDecoration,
+        // ),
+        PageViewModel(
+          titleWidget: SizedBox(),
+          bodyWidget:  Image.asset("assets/images/slide2.png"),
+        ),
+        // PageViewModel(
+        //   title: "choose your service",
+        //   body:
+        //       "choose your service for the job,repair work,and medical services",
+        //   image:Image.asset("assets/images/slide1.png",fit: BoxFit.fill,),
+        //   decoration: pageDecoration,
+        // ),
+        PageViewModel(
+          titleWidget: SizedBox(),
+          bodyWidget:  Image.asset("assets/images/slide3.png"),
+        ),
+        // PageViewModel(
+        //   title: "looking for products",
+        //   body:
+        //       "looking for products around your location with contact to purchase",
+        //   image: _buildImage('images/pic2.png'),
+        //   decoration: pageDecoration,
+        // ),
+
+        // PageViewModel(
+        //   title: "convert to digital ad",
+        //   body: "covert to digital ads with one-stop solutions",
+        //   image: _buildImage('images/gdial.png'),
+        //   decoration: pageDecoration,
+        // ),
+        // PageViewModel(
+        //   title: "convert to digital ad",
+        //   body: "covert to digital ads with one-stop solutions",
+        //   image: _buildImage('images/pic4.png'),
+        //   decoration: pageDecoration,
+        // ),
+
+        PageViewModel(
+          titleWidget: SizedBox(),
+          bodyWidget:  Image.asset("assets/images/slide4.png"),
         ),
         PageViewModel(
-          title: "choose your service",
-          body:
-              "choose your service for the job,repair work,and medical services",
-          image: _buildImage('images/pic1.png'),
-          decoration: pageDecoration,
-        ),
-        PageViewModel(
-          title: "looking for products",
-          body:
-              "looking for products around your location with contact to purchase",
-          image: _buildImage('images/pic2.png'),
-          decoration: pageDecoration,
-        ),
-        PageViewModel(
-          title: "convert to digital ad",
-          body: "covert to digital ads with one-stop solutions",
-          image: _buildImage('images/gdial.png'),
-          decoration: pageDecoration,
-        ),
-        PageViewModel(
-          title: "convert to digital ad",
-          body: "covert to digital ads with one-stop solutions",
-          image: _buildImage('images/pic4.png'),
-          decoration: pageDecoration,
+          titleWidget: SizedBox(),
+          bodyWidget:  Image.asset("assets/images/slide5.png"),
         ),
       ],
       onDone: () => _onIntroEnd(context),
