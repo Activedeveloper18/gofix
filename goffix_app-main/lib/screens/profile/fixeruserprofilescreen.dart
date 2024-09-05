@@ -130,7 +130,7 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
       "typeEmployee": "Fixer",
       "employeeID": "EMP123456",
       "employeeImage":
-      "https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
+          "https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
     };
     userDetails = UserProfileModel.fromJson(userdata);
 
@@ -200,176 +200,169 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
         child: Column(
           children: <Widget>[
             50.verticalSpace,
-
             Container(
               margin: EdgeInsets.all(8),
               decoration: BoxDecoration(
                   color: mainBlue, borderRadius: BorderRadius.circular(10)),
-
               height: 200,
               // height: .4 * size.height,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
                 child: userDetails == null
                     ? Center(
-                  child: CircularProgressIndicator(),
-                )
+                        child: CircularProgressIndicator(),
+                      )
                     : Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        ClipRect(
-                          child: Image.network(
-                            userDetails?.employeeImage ?? "",
-                            width:
-                            MediaQuery.of(context).size.width * 0.3,
-                            height:
-                            MediaQuery.of(context).size.width * 0.4,
-                            fit: BoxFit.cover,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              // profile image
+                              ClipRect(
+                                child: Image.network(
+                                  userDetails?.employeeImage ?? "",
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.15,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              18.horizontalSpace,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  15.verticalSpace,
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.40,
+                                    child: Text(
+                                      "${userDetails!.name.toString()}",
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          color: Colors.white,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.35,
+                                    child: Text(
+                                      "${userDetails!.email.toString()}",
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                        "${userDetails!.mobileNumber}",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    "${userDetails!.employeeId}",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  5.verticalSpace,
+                                  Row(
+                                    children: <Widget>[
+                                      SizedBox(
+                                          // width: 20,
+                                          ),
+                                      Text(
+                                        "${userDetails!.typeEmployee}",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
+                          20.verticalSpace,
 
-                            10.verticalSpace,
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width *
-                                  0.35,
-                              child: Text(
-                                "${userDetails!.name.toString()}",
-                                maxLines: 1,
-                                style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width *
-                                  0.35,
-                              child: Text(
-                                "${userDetails!.email.toString()}",
-                                maxLines: 1,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
+                          // work details
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          //   children: <Widget>[
+                          //     Column(
+                          //       children: <Widget>[
+                          //         Text(
+                          //          " userWork!['works']",
+                          //           style: TextStyle(
+                          //               color: Colors.white,
+                          //               fontSize: 25,
+                          //               fontWeight: FontWeight.bold),
+                          //         ),
+                          //         Text(
+                          //           "Posts",
+                          //           style: TextStyle(
+                          //             color: Colors.white70,
+                          //             fontSize: 15,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     Column(
+                          //       children: <Widget>[
+                          //         Text(
+                          //           "|",
+                          //           style: TextStyle(
+                          //             color: Colors.white70,
+                          //             fontSize: 30,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     Column(
+                          //       children: <Widget>[
+                          //         Text(
+                          //           "userWork!['jobs']",
+                          //           style: TextStyle(
+                          //               color: Colors.white,
+                          //               fontSize: 25,
+                          //               fontWeight: FontWeight.bold),
+                          //         ),
+                          //         Text(
+                          //           "Jobs",
+                          //           style: TextStyle(
+                          //             color: Colors.white70,
+                          //             fontSize: 15,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
 
-                            Row(
-                              children: <Widget>[
-
-                                Text(
-                                  "${userDetails!.mobileNumber}",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              "${userDetails!.employeeId}",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            ),
-                            5.verticalSpace,
-                            Row(
-                              children: <Widget>[
-
-                                SizedBox(
-                                  // width: 20,
-                                ),
-                                Text(
-                                  "${userDetails!.typeEmployee}",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                  ),
-                                ),
-
-                              ],
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    20.verticalSpace,
-
-                    // work details
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //   children: <Widget>[
-                    //     Column(
-                    //       children: <Widget>[
-                    //         Text(
-                    //          " userWork!['works']",
-                    //           style: TextStyle(
-                    //               color: Colors.white,
-                    //               fontSize: 25,
-                    //               fontWeight: FontWeight.bold),
-                    //         ),
-                    //         Text(
-                    //           "Posts",
-                    //           style: TextStyle(
-                    //             color: Colors.white70,
-                    //             fontSize: 15,
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //     Column(
-                    //       children: <Widget>[
-                    //         Text(
-                    //           "|",
-                    //           style: TextStyle(
-                    //             color: Colors.white70,
-                    //             fontSize: 30,
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //     Column(
-                    //       children: <Widget>[
-                    //         Text(
-                    //           "userWork!['jobs']",
-                    //           style: TextStyle(
-                    //               color: Colors.white,
-                    //               fontSize: 25,
-                    //               fontWeight: FontWeight.bold),
-                    //         ),
-                    //         Text(
-                    //           "Jobs",
-                    //           style: TextStyle(
-                    //             color: Colors.white70,
-                    //             fontSize: 15,
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ],
-                    // ),
-
-                    // Container(
-                    //     child: SmoothStarRating(
-                    //   // color: Colors.yellow,
-                    //   color: mainOrange,
-                    //   borderColor: mainOrange,
-                    //   rating: rating,
-                    //   size: 45,
-                    //   starCount: 5,
-                    // ))
-                  ],
-                ),
+                          // Container(
+                          //     child: SmoothStarRating(
+                          //   // color: Colors.yellow,
+                          //   color: mainOrange,
+                          //   borderColor: mainOrange,
+                          //   rating: rating,
+                          //   size: 45,
+                          //   starCount: 5,
+                          // ))
+                        ],
+                      ),
               ),
             ),
 
@@ -378,9 +371,185 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
             Column(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width*0.9,
-                  height: 400,
-                  color: Colors.blue,
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  height: 350,
+                  color: Colors.white,
+                  padding: EdgeInsets.only(left: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Tasks ",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(color: Colors.indigo),
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // completed
+                          Container(
+                            height: 40,
+                            width: 80,
+                            // padding: EdgeInsets.all(),
+                            decoration: BoxDecoration(
+                                color: Colors.greenAccent.withOpacity(0.5),
+                                border: Border.all(),
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text("Completed",
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("12",
+                                        style: TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700)),
+                                    Icon(
+                                      Icons.verified_sharp,
+                                      color: Colors.green,
+                                      size: 16,
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          // in progress
+                          Container(
+                            height: 40,
+                            width: 80,
+                            // padding: EdgeInsets.all(),
+                            decoration: BoxDecoration(
+                                color: Colors.indigoAccent.shade100
+                                    .withOpacity(0.5),
+                                border: Border.all(),
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text("In Progress",
+                                    style: TextStyle(
+                                        color: Colors.indigo,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("12",
+                                        style: TextStyle(
+                                            color: Colors.indigo,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700)),
+                                    Icon(
+                                      Icons.verified_sharp,
+                                      color: Colors.indigo,
+                                      size: 16,
+                                    )
+                                  ],
+                                ),
+                               
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 40,
+                            width: 80,
+                            // padding: EdgeInsets.all(),
+                            decoration: BoxDecoration(
+                                color: Colors.deepOrangeAccent.withOpacity(0.4),
+                                border: Border.all(),
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text("Missed",
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("12",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700)),
+                                    Icon(
+                                      Icons.verified_sharp,
+                                      color: Colors.red,
+                                      size: 16,
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      // total earnings
+                      Text(
+                        "Total Earnings ",
+                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Color(0xff0C45BE)),
+                      ),
+                      Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurpleAccent,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "\u{20B9} 40000",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(color: Colors.white),
+                              ),
+                              // money
+                              // SizedBox(
+                              //   height: 50,
+                              //   child: Image.asset("assets/images/moneylogo.png"),
+                              // ),
+
+                            ],
+                          )),
+                      Text(
+                        "About ",
+                        style: Theme.of(context)
+                            .textTheme
+                        .headlineSmall!
+                            .copyWith(color: Color(0xff0C45BE),fontWeight: FontWeight.w400),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width*0.9,
+                        child: Text(
+                          "We’re best known for our public Q&A platform that millions of people visit every month to ask questions, learn, and share technical knowledge.",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .copyWith(fontWeight: FontWeight.w400),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -573,38 +742,38 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                     ],
                   ),
                 ),
-                // InkWell(
-                //   onTap: (){
-                //     Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
-                //   },
-                //   child: Container(
-                //     margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                //     padding: EdgeInsets.all(12),
-                //     decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(10),
-                //         color: Colors.white,
-                //         border: Border.all(width: 1,color: mainBlue)
-                //
-                //     ),
-                //
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Text(
-                //           'Logout',
-                //           style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                //         ),
-                //         SizedBox(
-                //           height: 2,
-                //         ),
-                //         Row(
-                //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //           children: [Icon(Icons.logout,color:mainBlue)],
-                //         )
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        border: Border.all(width: 1,color: mainBlue)
+
+                    ),
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Logout',
+                          style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [Icon(Icons.logout,color:mainBlue)],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 GestureDetector(
                   onTap: () async {
                     await FirebasePhoneAuthHandler.signOut(context);
@@ -665,45 +834,43 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
             contentPadding: EdgeInsets.only(left: 10, right: 10),
             title: Center(
                 child: Text(
-                  "Contact Us",
-                  style: TextStyle(color: Colors.black),
-                )),
+              "Contact Us",
+              style: TextStyle(color: Colors.black),
+            )),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: Container(
               height: 200,
               width: 300,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                        'Please feel free to give us your valuable suggestions'),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Call us: ',
-                        ),
-                        InkWell(
-                          onTap: () {
-                            launch("tel:" + no);
-                          },
-                          child: Text(no),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text("Mail us: info@goffix.com")
-                  ],
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                      'Please feel free to give us your valuable suggestions'),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Call us: ',
+                      ),
+                      InkWell(
+                        onTap: () {
+                          launch("tel:" + no);
+                        },
+                        child: Text(no),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("Mail us: info@goffix.com")
+                ],
               ),
             ),
             actions: <Widget>[

@@ -188,8 +188,8 @@ class _LayoutState extends State<Layout> {
       HomeScreen(),
       Gdailscreen(),
       // ChatScreen(),
-      // ProfilePageScreen(),
-      FixerProfilePageScreen()
+      ProfilePageScreen(),
+      // FixerProfilePageScreen()
       // ProfileScreen(),
       // SettingsScreen()
     ];
