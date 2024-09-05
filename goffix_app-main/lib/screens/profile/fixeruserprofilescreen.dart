@@ -30,12 +30,12 @@ import 'package:url_launcher/url_launcher.dart';
 import '../settings/editProfile.dart';
 import 'model/userprofilemodels.dart';
 
-class ProfilePageScreen extends StatefulWidget {
+class FixerProfilePageScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfilePageScreen>
+class _ProfileScreenState extends State<FixerProfilePageScreen>
     with TickerProviderStateMixin {
   Map? userWork;
   // List listOfPostsProfile;
@@ -124,13 +124,13 @@ class _ProfileScreenState extends State<ProfilePageScreen>
     // this.param();
     // this._getUserActivity();
     Map<String, dynamic> userdata = {
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "mobileNumber": "1234567890",
-      "typeEmployee": "Finder",
+      "name": "John sena",
+      "email": "john.sena@example.com",
+      "mobileNumber": "254665556",
+      "typeEmployee": "Fixer",
       "employeeID": "EMP123456",
       "employeeImage":
-          "https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
+      "https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
     };
     userDetails = UserProfileModel.fromJson(userdata);
 
@@ -199,9 +199,8 @@ class _ProfileScreenState extends State<ProfilePageScreen>
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(
-              height: 50,
-            ),
+            50.verticalSpace,
+
             Container(
               margin: EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -213,173 +212,176 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
                 child: userDetails == null
                     ? Center(
-                        child: CircularProgressIndicator(),
-                      )
+                  child: CircularProgressIndicator(),
+                )
                     : Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              ClipRect(
-                                child: Image.network(
-                                  userDetails?.employeeImage ?? "",
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  fit: BoxFit.cover,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        ClipRect(
+                          child: Image.network(
+                            userDetails?.employeeImage ?? "",
+                            width:
+                            MediaQuery.of(context).size.width * 0.3,
+                            height:
+                            MediaQuery.of(context).size.width * 0.4,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+
+                            10.verticalSpace,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width *
+                                  0.35,
+                              child: Text(
+                                "${userDetails!.name.toString()}",
+                                maxLines: 1,
+                                style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width *
+                                  0.35,
+                              child: Text(
+                                "${userDetails!.email.toString()}",
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
                                 ),
                               ),
-                              SizedBox(
-                                width: 15,
+                            ),
+
+                            Row(
+                              children: <Widget>[
+
+                                Text(
+                                  "${userDetails!.mobileNumber}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              "${userDetails!.employeeId}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
+                            ),
+                            5.verticalSpace,
+                            Row(
+                              children: <Widget>[
 
-                                  10.verticalSpace,
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.35,
-                                    child: Text(
-                                      "${userDetails!.name.toString()}",
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                          overflow: TextOverflow.ellipsis,
-                                          color: Colors.white,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                SizedBox(
+                                  // width: 20,
+                                ),
+                                Text(
+                                  "${userDetails!.typeEmployee}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
                                   ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.35,
-                                    child: Text(
-                                      "${userDetails!.email.toString()}",
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ),
+                                ),
 
-                                  Row(
-                                    children: <Widget>[
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    20.verticalSpace,
 
-                                      Text(
-                                        "${userDetails!.mobileNumber}",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    "${userDetails!.employeeId}",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  5.verticalSpace,
-                                  Row(
-                                    children: <Widget>[
+                    // work details
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //   children: <Widget>[
+                    //     Column(
+                    //       children: <Widget>[
+                    //         Text(
+                    //          " userWork!['works']",
+                    //           style: TextStyle(
+                    //               color: Colors.white,
+                    //               fontSize: 25,
+                    //               fontWeight: FontWeight.bold),
+                    //         ),
+                    //         Text(
+                    //           "Posts",
+                    //           style: TextStyle(
+                    //             color: Colors.white70,
+                    //             fontSize: 15,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     Column(
+                    //       children: <Widget>[
+                    //         Text(
+                    //           "|",
+                    //           style: TextStyle(
+                    //             color: Colors.white70,
+                    //             fontSize: 30,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     Column(
+                    //       children: <Widget>[
+                    //         Text(
+                    //           "userWork!['jobs']",
+                    //           style: TextStyle(
+                    //               color: Colors.white,
+                    //               fontSize: 25,
+                    //               fontWeight: FontWeight.bold),
+                    //         ),
+                    //         Text(
+                    //           "Jobs",
+                    //           style: TextStyle(
+                    //             color: Colors.white70,
+                    //             fontSize: 15,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ),
 
-                                      SizedBox(
-                                          // width: 20,
-                                          ),
-                                      Text(
-                                        "${userDetails!.typeEmployee}",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-
-                                    ],
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                          20.verticalSpace,
-
-                          // work details
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          //   children: <Widget>[
-                          //     Column(
-                          //       children: <Widget>[
-                          //         Text(
-                          //          " userWork!['works']",
-                          //           style: TextStyle(
-                          //               color: Colors.white,
-                          //               fontSize: 25,
-                          //               fontWeight: FontWeight.bold),
-                          //         ),
-                          //         Text(
-                          //           "Posts",
-                          //           style: TextStyle(
-                          //             color: Colors.white70,
-                          //             fontSize: 15,
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     Column(
-                          //       children: <Widget>[
-                          //         Text(
-                          //           "|",
-                          //           style: TextStyle(
-                          //             color: Colors.white70,
-                          //             fontSize: 30,
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     Column(
-                          //       children: <Widget>[
-                          //         Text(
-                          //           "userWork!['jobs']",
-                          //           style: TextStyle(
-                          //               color: Colors.white,
-                          //               fontSize: 25,
-                          //               fontWeight: FontWeight.bold),
-                          //         ),
-                          //         Text(
-                          //           "Jobs",
-                          //           style: TextStyle(
-                          //             color: Colors.white70,
-                          //             fontSize: 15,
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ],
-                          // ),
-
-                          // Container(
-                          //     child: SmoothStarRating(
-                          //   // color: Colors.yellow,
-                          //   color: mainOrange,
-                          //   borderColor: mainOrange,
-                          //   rating: rating,
-                          //   size: 45,
-                          //   starCount: 5,
-                          // ))
-                        ],
-                      ),
+                    // Container(
+                    //     child: SmoothStarRating(
+                    //   // color: Colors.yellow,
+                    //   color: mainOrange,
+                    //   borderColor: mainOrange,
+                    //   rating: rating,
+                    //   size: 45,
+                    //   starCount: 5,
+                    // ))
+                  ],
+                ),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+
             // TabPage(),
             // SettingsScreen()
             Column(
               children: [
+                Container(
+                  width: MediaQuery.of(context).size.width*0.9,
+                  height: 400,
+                  color: Colors.blue,
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context,
@@ -663,9 +665,9 @@ class _ProfileScreenState extends State<ProfilePageScreen>
             contentPadding: EdgeInsets.only(left: 10, right: 10),
             title: Center(
                 child: Text(
-              "Contact Us",
-              style: TextStyle(color: Colors.black),
-            )),
+                  "Contact Us",
+                  style: TextStyle(color: Colors.black),
+                )),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: Container(

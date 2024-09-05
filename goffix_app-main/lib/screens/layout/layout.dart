@@ -31,6 +31,7 @@ import '../../constants.dart';
 import '../eventBooking/eventListing.dart';
 import '../eventBooking/eventlistscreen.dart';
 import '../eventBooking/eventscreen.dart';
+import '../profile/fixeruserprofilescreen.dart';
 
 class Layout extends StatefulWidget {
   static const id = 'HomeScreen';
@@ -187,8 +188,8 @@ class _LayoutState extends State<Layout> {
       HomeScreen(),
       Gdailscreen(),
       // ChatScreen(),
-      ProfilePageScreen(),
-
+      // ProfilePageScreen(),
+      FixerProfilePageScreen()
       // ProfileScreen(),
       // SettingsScreen()
     ];
