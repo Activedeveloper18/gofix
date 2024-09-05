@@ -103,8 +103,8 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
         body: jsonRequest,
       );
       final jsonString = jsonDecode(response.body);
-      // print('Status code: ${response.statusCode}');
-      // print('Response body: ${response.body}');
+      print('Status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
       if (response.statusCode == 200 || response.statusCode == 201) {
         SignInResponse signInResponse = SignInResponse.fromJson(jsonString);
         print(signInResponse.email);
@@ -112,7 +112,7 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
         setState(() {});
         print(loginCredentialsModel.token);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Layout()));
+            context, MaterialPageRoute(builder: (context) => Layout(loginCredentialsModel: loginCredentialsModel,)));
       } else {
         return "no user found";
       }

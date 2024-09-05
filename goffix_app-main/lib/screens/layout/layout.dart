@@ -28,6 +28,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../constants.dart';
+import '../../models/logincredentialsmodel.dart';
 import '../eventBooking/eventListing.dart';
 import '../eventBooking/eventlistscreen.dart';
 import '../eventBooking/eventscreen.dart';
@@ -35,10 +36,14 @@ import '../profile/fixeruserprofilescreen.dart';
 
 class Layout extends StatefulWidget {
   static const id = 'HomeScreen';
+  LoginCredentialsModel? loginCredentialsModel;
   // final int uid;
   // final String username;
   @override
-  // const Layout({Key key, this.uid, this.username}) : super(key: key);
+  Layout({
+    this.loginCredentialsModel
+
+});
   _LayoutState createState() => _LayoutState();
 }
 
@@ -177,6 +182,8 @@ class _LayoutState extends State<Layout> {
 
   @override
   Widget build(BuildContext context) {
+    print("object ${widget.loginCredentialsModel!.ustype== 1}");
+    print("object ${widget.loginCredentialsModel!.ustype== "1"}");
     final _pageOption = [
       // HomePage(),
       // Eventscreen(),
@@ -188,8 +195,8 @@ class _LayoutState extends State<Layout> {
       HomeScreen(),
       Gdailscreen(),
       // ChatScreen(),
-      ProfilePageScreen(),
-      // FixerProfilePageScreen()
+      widget.loginCredentialsModel!.ustype==1 ? ProfilePageScreen(usermodel: widget.loginCredentialsModel,):
+      FixerProfilePageScreen(usermodel: widget.loginCredentialsModel,)
       // ProfileScreen(),
       // SettingsScreen()
     ];

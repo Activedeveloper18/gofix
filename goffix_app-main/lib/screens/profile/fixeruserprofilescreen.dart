@@ -27,11 +27,16 @@ import 'package:http/http.dart' as http;
 // import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/logincredentialsmodel.dart';
 import '../settings/editProfile.dart';
 import 'model/userprofilemodels.dart';
 
 class FixerProfilePageScreen extends StatefulWidget {
+  LoginCredentialsModel? usermodel;
   @override
+   FixerProfilePageScreen({
+    this.usermodel,
+});
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
@@ -124,10 +129,10 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
     // this.param();
     // this._getUserActivity();
     Map<String, dynamic> userdata = {
-      "name": "John sena",
-      "email": "john.sena@example.com",
-      "mobileNumber": "254665556",
-      "typeEmployee": "Fixer",
+      "name": widget.usermodel?.usname ?? null,
+      "email": widget.usermodel?.email ?? null,
+      "mobileNumber": widget.usermodel?.phnumber ?? null,
+      "typeEmployee": widget.usermodel?.ustype==1 ? "Finder" : "Fixer",
       "employeeID": "EMP123456",
       "employeeImage":
           "https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"

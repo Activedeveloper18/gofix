@@ -27,10 +27,16 @@ import 'package:http/http.dart' as http;
 // import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/logincredentialsmodel.dart';
 import '../settings/editProfile.dart';
 import 'model/userprofilemodels.dart';
 
 class ProfilePageScreen extends StatefulWidget {
+  LoginCredentialsModel? usermodel;
+  @override
+  ProfilePageScreen({
+    this.usermodel,
+  });
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -124,13 +130,13 @@ class _ProfileScreenState extends State<ProfilePageScreen>
     // this.param();
     // this._getUserActivity();
     Map<String, dynamic> userdata = {
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "mobileNumber": "1234567890",
-      "typeEmployee": "Finder",
+      "name": widget.usermodel?.usname ?? null,
+      "email": widget.usermodel?.email ?? null,
+      "mobileNumber": widget.usermodel?.phnumber ?? null,
+      "typeEmployee": widget.usermodel?.ustype==1 ? "Finder" : "Fixer",
       "employeeID": "EMP123456",
       "employeeImage":
-          "https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
+      "https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
     };
     userDetails = UserProfileModel.fromJson(userdata);
 
@@ -571,38 +577,38 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                     ],
                   ),
                 ),
-                // InkWell(
-                //   onTap: (){
-                //     Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
-                //   },
-                //   child: Container(
-                //     margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                //     padding: EdgeInsets.all(12),
-                //     decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(10),
-                //         color: Colors.white,
-                //         border: Border.all(width: 1,color: mainBlue)
-                //
-                //     ),
-                //
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Text(
-                //           'Logout',
-                //           style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
-                //         ),
-                //         SizedBox(
-                //           height: 2,
-                //         ),
-                //         Row(
-                //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //           children: [Icon(Icons.logout,color:mainBlue)],
-                //         )
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        border: Border.all(width: 1,color: mainBlue)
+
+                    ),
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Logout',
+                          style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [Icon(Icons.logout,color:mainBlue)],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 GestureDetector(
                   onTap: () async {
                     await FirebasePhoneAuthHandler.signOut(context);
