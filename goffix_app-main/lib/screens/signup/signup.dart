@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:convert';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:goffix/screens/home/homeScreen.dart';
@@ -359,9 +360,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                   maxLength: 10,
                                   keyboardType: TextInputType.phone,
                                   controller: _mobileController,
-
                                   decoration: InputDecoration(
-                                    counterText: "",
+                                      counterText: "",
                                       prefixIcon: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -402,7 +402,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   maxLength: 6,
                                   controller: _passwordController,
                                   decoration: InputDecoration(
-counterText: "",
+                                      counterText: "",
                                       // suffixIcon: Icon(CupertinoIcons.eye),
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -494,66 +494,132 @@ counterText: "",
                               SizedBox(
                                 height: 10,
                               ),
+                              // gender
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      border: Border.all(
-                                          color: Colors.grey.shade500,
-                                          width: 1),
-                                      color: Colors.white),
-                                  padding: EdgeInsets.symmetric(horizontal: 2),
-                                  child: FormBuilderDropdown<String>(
-                                    // autovalidate: true,
-                                    name: 'Gender',
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.white, width: 2.0),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      contentPadding:
-                                          EdgeInsets.only(left: 20.0),
-                                      focusColor: Colors.green,
-                                      fillColor: Colors.white,
-                                      hintText: 'Select Gender',
-                                      // suffix: _timePriorityError
-                                      //     ? const Icon(Icons.error)
-                                      //     : const Icon(Icons.check),
+                                padding: const EdgeInsets.only(
+                                    left: 20.0, right: 20, top: 10, bottom: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        gendervlue = 1;
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            boxShadow: [
+                                              gendervlue == 1
+                                                  ? BoxShadow(
+                                                      color: Colors.blue,
+                                                      spreadRadius: 5,
+                                                      blurRadius: 5)
+                                                  : BoxShadow()
+                                            ]),
+                                        child: SvgPicture.asset(
+                                            "assets/icons/man-user-circle-icon.svg",
+                                            semanticsLabel: 'Acme Logo'),
+                                      ),
                                     ),
-                                    // initialValue: 'Male',
-                                    // allowClear: true,
-                                    // hint: Text('Select Gender'),
-                                    // validator: FormBuilderValidators.compose(
-                                    //     [FormBuilderValidators.required(context)]),
-                                    items: _gender
-                                        .map((location) => DropdownMenuItem(
-                                              value: location,
-                                              child: Text(location),
-                                            ))
-                                        .toList(),
-                                    onChanged: (val) {
-                                      setState(() {
-                                        _locValError = false;
-                                      });
-                                      print(val);
-                                      if (val == "Male") {
-                                        setState(() {
-                                          gendervlue = 0;
-                                        });
-                                      } else if (val == "Female") {
-                                        setState(() {
-                                          gendervlue = 1;
-                                        });
-                                      }
-                                      print(gendervlue);
-                                    },
-                                  ),
+                                    // Text("MALE"),
+                                    InkWell(
+                                      onTap: () {
+                                        gendervlue = 0;
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            boxShadow: [
+                                              gendervlue == 0
+                                                  ? BoxShadow(
+                                                      color: Colors.pinkAccent,
+                                                      spreadRadius: 5,
+                                                      blurRadius: 5)
+                                                  : BoxShadow()
+                                            ]),
+                                        child: SvgPicture.asset(
+                                            "assets/icons/woman-user-circle-icon.svg",
+                                            semanticsLabel: 'Acme Logo'),
+                                      ),
+                                    ),
+                                    // Text("FEMALE"),
+                                    //
+                                  ],
                                 ),
                               ),
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 16),
+                              //   child: Container(
+                              //     decoration: BoxDecoration(
+                              //         borderRadius: BorderRadius.circular(10.0),
+                              //         border: Border.all(
+                              //             color: Colors.grey.shade500,
+                              //             width: 1),
+                              //         color: Colors.white),
+                              //     padding: EdgeInsets.symmetric(horizontal: 2),
+                              //     child:
+                              //       // gender dropdown
+                              //     // FormBuilderDropdown<String>(
+                              //     //   // autovalidate: true,
+                              //     //   name: 'Gender',
+                              //     //   decoration: InputDecoration(
+                              //     //     border: InputBorder.none,
+                              //     //     focusedBorder: OutlineInputBorder(
+                              //     //         borderSide: BorderSide(
+                              //     //             color: Colors.white, width: 2.0),
+                              //     //         borderRadius:
+                              //     //             BorderRadius.circular(10.0)),
+                              //     //     contentPadding:
+                              //     //         EdgeInsets.only(left: 20.0),
+                              //     //     focusColor: Colors.green,
+                              //     //     fillColor: Colors.white,
+                              //     //     hintText: 'Select Gender',
+                              //     //     // suffix: _timePriorityError
+                              //     //     //     ? const Icon(Icons.error)
+                              //     //     //     : const Icon(Icons.check),
+                              //     //   ),
+                              //     //   // initialValue: 'Male',
+                              //     //   // allowClear: true,
+                              //     //   // hint: Text('Select Gender'),
+                              //     //   // validator: FormBuilderValidators.compose(
+                              //     //   //     [FormBuilderValidators.required(context)]),
+                              //     //   items: _gender
+                              //     //       .map((location) => DropdownMenuItem(
+                              //     //             value: location,
+                              //     //             child: Text(location),
+                              //     //           ))
+                              //     //       .toList(),
+                              //     //   onChanged: (val) {
+                              //     //     setState(() {
+                              //     //       _locValError = false;
+                              //     //     });
+                              //     //     print(val);
+                              //     //     if (val == "Male") {
+                              //     //       setState(() {
+                              //     //         gendervlue = 0;
+                              //     //       });
+                              //     //     } else if (val == "Female") {
+                              //     //       setState(() {
+                              //     //         gendervlue = 1;
+                              //     //       });
+                              //     //     }
+                              //     //     print(gendervlue);
+                              //     //   },
+                              //     // ),
+                              //   ),
+                              // ),
+
                               SizedBox(
                                 height: 10,
                               ),
@@ -813,7 +879,8 @@ counterText: "",
       print(response.body);
       if (response.statusCode == 200) {
         popMessage(context, jsonDecode(response.body)['message']);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignInScreen()));
       }
       {
         popMessage(context, jsonDecode(response.body)['message']);

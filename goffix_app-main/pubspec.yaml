@@ -120,6 +120,7 @@ dependencies:
   #     url: https://github.com/Vanethos/flutter_connectivity_widget.git
   number_inc_dec: ^0.8.0
   flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.0.9
 
 
 
@@ -145,6 +146,7 @@ flutter:
     - assets/images/pic4.png
     - assets/images/gdail_topimage.png
     - assets/images/slide1.png
+
     - assets/icons/
     - assets/ser/
 
