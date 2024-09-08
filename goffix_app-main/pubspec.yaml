@@ -121,6 +121,7 @@ dependencies:
   number_inc_dec: ^0.8.0
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.9
+  carousel_slider: ^5.0.0
 
 
 

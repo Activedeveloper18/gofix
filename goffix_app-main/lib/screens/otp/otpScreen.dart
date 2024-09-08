@@ -146,6 +146,7 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Container(
@@ -158,8 +159,8 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
           routeCallback: moveToNextScreen,
           themeColor: mainBlue,
           titleColor: mainBlue,
-          title: "Phone Number Verification",
-          subTitle: "Enter the code sent to \n " + widget.phn!,
+          title: "Phone Number Verification ",
+          subTitle: "Enter the code sent to  otp ${widget.otp}\n " + widget.phn!,
           icon: Image.asset(
             'assets/images/logo_ls.png',
             height: 50,

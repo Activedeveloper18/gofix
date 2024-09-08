@@ -209,10 +209,10 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
               margin: EdgeInsets.all(8),
               decoration: BoxDecoration(
                   color: mainBlue, borderRadius: BorderRadius.circular(10)),
-              height: 200,
+              height: 280,
               // height: .4 * size.height,
               child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 10,bottom: 20),
                 child: userDetails == null
                     ? Center(
                         child: CircularProgressIndicator(),
@@ -301,7 +301,7 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                               )
                             ],
                           ),
-                          20.verticalSpace,
+                          10.verticalSpace,
 
                           // work details
                           // Row(

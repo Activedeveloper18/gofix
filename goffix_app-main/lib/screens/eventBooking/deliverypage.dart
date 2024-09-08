@@ -23,25 +23,25 @@ class _EventscreenState extends State<Deliverypagescreen> {
       appBar: AppBar(
         leadingWidth: 150,
         actions: [
-          Container(
-            padding: EdgeInsets.all(8),
-            child: ElevatedButton.icon(
-              style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0)),
-                  ),
-                  elevation: MaterialStateProperty.all(0),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                  backgroundColor: MaterialStateProperty.all(mainBlue)),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddScreen()));
-              },
-              icon: Icon(Icons.arrow_circle_right_rounded),
-              label: Text("Post a Job"),
-            ),
-          )
+          // Container(
+          //   padding: EdgeInsets.all(8),
+          //   child: ElevatedButton.icon(
+          //     style: ButtonStyle(
+          //         shape: MaterialStateProperty.all(
+          //           RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(25.0)),
+          //         ),
+          //         elevation: MaterialStateProperty.all(0),
+          //         foregroundColor: MaterialStateProperty.all(Colors.white),
+          //         backgroundColor: MaterialStateProperty.all(mainBlue)),
+          //     onPressed: () {
+          //       Navigator.push(context,
+          //           MaterialPageRoute(builder: (context) => AddScreen()));
+          //     },
+          //     icon: Icon(Icons.arrow_circle_right_rounded),
+          //     label: Text("Post a Job"),
+          //   ),
+          // )
         ],
         backgroundColor: Colors.white,
         elevation: 30,

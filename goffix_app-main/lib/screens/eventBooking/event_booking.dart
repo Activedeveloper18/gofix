@@ -17,6 +17,7 @@ class _EventBookingScreenState extends State<EventBookingScreen> {
   TextEditingController contactnumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print("event page ");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

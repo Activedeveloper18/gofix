@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../otp/otpScreen.dart';
+import '../signup/finderandfixerscreen.dart';
 
 class LoginOtpScreen extends StatefulWidget {
   @override
@@ -271,10 +272,10 @@ class _HomeScreenState extends State<LoginOtpScreen> {
                       // elevation: 10,
                       // textColor: Colors.white,
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignupScreen()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => Layout()));
                       },
                       // {
                       //   _checkUsr(_mobileController.text)
@@ -295,90 +296,90 @@ class _HomeScreenState extends State<LoginOtpScreen> {
     );
   }
 
-  Future<dynamic> _signup(String nm, String em, String pwd, String phn) async {
-    //Check mobile
-    var requestBody = {
-      "service_name": "register",
-      "param": {
-        "u_nm": _mobileController.text,
-        "u_phn": phn,
-        "u_email": em,
-        "u_pwd": pwd,
-      }
-    };
-    var jsonRequest = json.encode(requestBody);
-    print(jsonRequest);
-    var response = await http.post(baseUrl,
-        headers: {
-          'Accept': 'application/json',
-        },
-        body: jsonRequest);
-    var jsonResponse = null;
-
-    if (response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-      print(jsonResponse);
-      if (jsonResponse["response"]["status"] == 200) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => OtpScreenMobile(
-                    uid: jsonResponse["response"]["result"]['data'],
-                    otp: jsonResponse["response"]["result"]['otp'],
-                    phn: phn,
-                    oTyp: "1",
-                    screen: "signup")));
-
-        // Alert(title: "Success",)
-        // otp response
-//         {
-//     "response": {
-//         "status": 200,
-//         "result": {
-//             "otp": "067d40152f03259370a6",
-//             "data": "1297"
-//         }
+//   Future<dynamic> _signup(String nm, String em, String pwd, String phn) async {
+//     //Check mobile
+//     var requestBody = {
+//       "service_name": "register",
+//       "param": {
+//         "u_nm": _mobileController.text,
+//         "u_phn": phn,
+//         "u_email": em,
+//         "u_pwd": pwd,
+//       }
+//     };
+//     var jsonRequest = json.encode(requestBody);
+//     print(jsonRequest);
+//     var response = await http.post(baseUrl,
+//         headers: {
+//           'Accept': 'application/json',
+//         },
+//         body: jsonRequest);
+//     var jsonResponse = null;
+//
+//     if (response.statusCode == 200) {
+//       jsonResponse = json.decode(response.body);
+//       print(jsonResponse);
+//       if (jsonResponse["response"]["status"] == 200) {
+//         Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//                 builder: (context) => OtpScreenMobile(
+//                     uid: jsonResponse["response"]["result"]['data'],
+//                     otp: jsonResponse["response"]["result"]['otp'],
+//                     phn: phn,
+//                     oTyp: "1",
+//                     screen: "signup")));
+//
+//         // Alert(title: "Success",)
+//         // otp response
+// //         {
+// //     "response": {
+// //         "status": 200,
+// //         "result": {
+// //             "otp": "067d40152f03259370a6",
+// //             "data": "1297"
+// //         }
+// //     }
+// // }
+//         print("success");
+//       } else {
+//         print("Post not posted");
+//       }
 //     }
-// }
-        print("success");
-      } else {
-        print("Post not posted");
-      }
-    }
-  }
+//   }
 
-  Future<bool?> _forgotPassword(String? mobile) async {
-    var requestBody = {
-      "service_name": "forgotpassword",
-      "param": {"u_phn": mobile}
-    };
-    var jsonRequest = json.encode(requestBody);
-    print(jsonRequest);
-    var response = await http.post(baseUrl,
-        headers: {'Accept': 'application/json'}, body: jsonRequest);
-    var jsonResponse = null;
-    if (response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-      if (jsonResponse["response"]["status"] == 200) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => OtpScreenMobile(
-                      uid: jsonResponse['response']['result']['data'],
-                      otp: jsonResponse['response']['result']['otp'],
-                      oTyp: "2",
-                      phn: mobile,
-                      screen: "forgotpassword",
-                    )));
-        print(jsonResponse['response']);
-      } else if (jsonResponse["response"]["status"] == 108) {
-        // _showMyDialog("Error", "Username/Password not found", "login");
-        // print("Username/Password not found");
-      }
-    } else {
-      print("Something Went Wrong");
-    }
-  }
+  // Future<bool?> _forgotPassword(String? mobile) async {
+  //   var requestBody = {
+  //     "service_name": "forgotpassword",
+  //     "param": {"u_phn": mobile}
+  //   };
+  //   var jsonRequest = json.encode(requestBody);
+  //   print(jsonRequest);
+  //   var response = await http.post(baseUrl,
+  //       headers: {'Accept': 'application/json'}, body: jsonRequest);
+  //   var jsonResponse = null;
+  //   if (response.statusCode == 200) {
+  //     jsonResponse = json.decode(response.body);
+  //     if (jsonResponse["response"]["status"] == 200) {
+  //       Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //               builder: (context) => OtpScreenMobile(
+  //                     uid: jsonResponse['response']['result']['data'],
+  //                     otp: jsonResponse['response']['result']['otp'],
+  //                     oTyp: "2",
+  //                     phn: mobile,
+  //                     screen: "forgotpassword",
+  //                   )));
+  //       print(jsonResponse['response']);
+  //     } else if (jsonResponse["response"]["status"] == 108) {
+  //       // _showMyDialog("Error", "Username/Password not found", "login");
+  //       // print("Username/Password not found");
+  //     }
+  //   } else {
+  //     print("Something Went Wrong");
+  //   }
+  // }
 
   Future<dynamic> _checkUsr(String phn) async {
     //Check mobile

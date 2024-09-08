@@ -32,6 +32,7 @@ import '../../models/logincredentialsmodel.dart';
 import '../eventBooking/eventListing.dart';
 import '../eventBooking/eventlistscreen.dart';
 import '../eventBooking/eventscreen.dart';
+import '../home/jobScreen.dart';
 import '../profile/fixeruserprofilescreen.dart';
 
 class Layout extends StatefulWidget {
@@ -190,9 +191,10 @@ class _LayoutState extends State<Layout> {
       EventListScreen(),
       // EventListing(),
       // HomeScreen(),
-      SearchScreen(),
+      ServiceScreen(),
       // AddScreen(),
-      HomeScreen(),
+      // HomeScreen(),
+      JobScreen(),
       Gdailscreen(),
       // ChatScreen(),
       widget.loginCredentialsModel!.ustype==1 ? ProfilePageScreen(usermodel: widget.loginCredentialsModel,):

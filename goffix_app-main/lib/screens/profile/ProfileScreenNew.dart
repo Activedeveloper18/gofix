@@ -213,7 +213,7 @@ class _ProfileScreenState extends State<ProfilePageScreen>
               decoration: BoxDecoration(
                   color: mainBlue, borderRadius: BorderRadius.circular(10)),
 
-              height: 200,
+              height: 230,
               // height: .4 * size.height,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 30),

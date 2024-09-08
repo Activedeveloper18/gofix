@@ -81,7 +81,7 @@ class _LayoutState extends State<Layout> {
   Widget build(BuildContext context) {
     final _pageOption = [
       HomeScreen(),
-      SearchScreen(),
+      ServiceScreen(),
       AddScreen(),
       ChatScreen(),
       ProfilePageScreen(),

@@ -41,7 +41,8 @@ class catName {
   }
 }
 
- bool isLoading= false;
+bool isLoading = false;
+
 class locName {
   String? loc_id;
   String? loc_name;
@@ -246,18 +247,18 @@ class _HomeScreenState extends State<AddScreen> {
     // return null;
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog(String message) async {
     // var context;
     return showDialog<void>(
       context: context,
-      barrierDismissible: true, // user must tap button!
+      // barrierDismissible: true, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Job Post"),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text("Job Posted Successfully"),
+                Text("$message"),
                 // Text('Would you like to approve of this message?'),
               ],
             ),
@@ -268,10 +269,10 @@ class _HomeScreenState extends State<AddScreen> {
               onPressed: () {
                 // if (route == "home") {
                 Navigator.pop(context);
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => Layout()),
-                );
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //       builder: (BuildContext context) => Layout()),
+                // );
                 // } else if (route == "login") {
                 //   Navigator.of(context).pop();
                 // }
@@ -284,56 +285,11 @@ class _HomeScreenState extends State<AddScreen> {
   }
 
   Future<dynamic> _addPost(
-      title,desc,profession,locName,
-      ) async {
-    // if (this.mounted) {
-    //   setState(() {
-    //     IsPosting = true;
-    //   });
-    // }
-    // if (tit == "") {
-    //   if (this.mounted) {
-    //     setState(() {
-    //       _titValError = true;
-    //     });
-    //   }
-    // }
-    // if (Desc == "") {
-    //   if (this.mounted) {
-    //     setState(() {
-    //       _descValError = true;
-    //     });
-    //   }
-    // }
-    // if (_catTextFeild == null) {
-    //   if (this.mounted) {
-    //     setState(() {
-    //       _proValError = true;
-    //     });
-    //   }
-    // }
-    // if (_locTextFeild == null) {
-    //   if (this.mounted) {
-    //     setState(() {
-    //       _locValError = true;
-    //     });
-    //   }
-    // }
-    // if (_conTypeTextFeild == null) {
-    //   if (this.mounted) {
-    //     setState(() {
-    //       _ctypValError = true;
-    //     });
-    //   }
-    // }
-    // if (_timePTextFeild == null) {
-    //   if (this.mounted) {
-    //     setState(() {
-    //       _timValError = true;
-    //     });
-    //   }
-    // }
-
+    title,
+    desc,
+    profession,
+    locName,
+  ) async {
     var requestBody = {
       "jobtitle": title,
       "jobdescription": desc,
@@ -359,14 +315,13 @@ class _HomeScreenState extends State<AddScreen> {
     if (response.statusCode == 200) {
       // jsonResponse = json.decode(response.body);
       // print(jsonResponse);
-      isLoading=false;
-      setState(() {
-
-      });
-      _showMyDialog();
+      isLoading = false;
+      setState(() {});
+      _showMyDialog("Job posted successfully");
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (BuildContext context) => Layout()),
       );
+
       //Post Success code
       // Alert(
       //   context: context,
@@ -388,6 +343,10 @@ class _HomeScreenState extends State<AddScreen> {
       //   Navigator.pushReplacement(
       //       context, MaterialPageRoute(builder: (context) => Layout()));
       // });
+    } else {
+      isLoading = false;
+      setState(() {});
+      _showMyDialog("Job post failed try again");
     }
   }
 
@@ -474,14 +433,14 @@ class _HomeScreenState extends State<AddScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DeletePostScreen()),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => DeletePostScreen()),
+                            // );
                           },
                           child: Icon(
-                            Icons.delete,
+                            Icons.account_circle,
                             size: 30,
                             color: mainBlue,
                           ),
@@ -866,90 +825,75 @@ class _HomeScreenState extends State<AddScreen> {
                                   IsPosting
                                       ? CircularProgressIndicator()
                                       : !isPosted
-                                          ? SizedBox(
-                                              width: MediaQuery.of(context).size.width*0.8,
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.tealAccent
-                                                ),
-                                                  onPressed: () {
-                                                    isLoading = true;
-                                                    setState(() {
-
-                                                    });
-                                                    _addPost(
-                                                        _postTitle.text,
+                                          ? SliderButton(
+                                              action: () {
+                                                ///Do something here OnSlide
+                                                print("Posting a Job");
+                                                if (_titValError == false) {
+                                                  // startTimer();
+                                                  isLoading = true;
+                                                  setState(() {});
+                                                  _addPost(
+                                                      _postTitle.text,
                                                       _postDesc.text,
-                                                      _professionController.text,
-                                                      _locationController.text
-                                                    );
-                                                  },
-                                                  child:isLoading?CircularProgressIndicator(): Text("Post Your Job",style: TextStyle(
-                                                    fontSize: 24,
-                                                  ),)),
+                                                      _professionController
+                                                          .text,
+                                                      _locationController.text);
+
+                                                  // Navigator.pushAndRemoveUntil(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //     builder: (BuildContext
+                                                  //             context) =>
+                                                  //         Layout(),
+                                                  //   ),
+                                                  //   (route) => false,
+                                                  // );
+                                                }
+                                              },
+
+                                              ///Put label over here
+                                              label: Text(
+                                                "Slide to Post",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 17),
+                                              ),
+                                              icon: Center(
+                                                  child: Icon(
+                                                Icons.add,
+                                                color: mainOrange,
+                                                size: 40.0,
+                                                semanticLabel:
+                                                    'Text to announce in accessibility modes',
+                                              )),
+
+                                              //Put BoxShadow here
+                                              boxShadow: BoxShadow(
+                                                color: Colors.transparent
+                                                    .withOpacity(.6),
+                                                blurRadius: 1,
+                                              ),
+
+                                              //Adjust effects such as shimmer and flag vibration here
+                                              shimmer: true,
+                                              vibrationFlag: false,
+                                              dismissThresholds: 0.0,
+                                              dismissible:
+                                                  isLoading ? true : false,
+                                              alignLabel: Alignment(0.0, 0),
+
+                                              ///Change All the color and size from here.
+                                              width: 300,
+                                              radius: 20,
+                                              buttonColor:
+                                                  Colors.white.withOpacity(0.8),
+                                              // buttonColor: Colors.transparent,
+                                              backgroundColor: mainOrange,
+                                              highlightedColor: mainBlue,
+                                              baseColor: Colors.white,
                                             )
-                                          // SliderButton(
-                                          //             action: () {
-                                          //               ///Do something here OnSlide
-                                          //               print("Posting a Job");
-                                          //               if (_titValError == false) {
-                                          //                 // startTimer();
-                                          //                 _addPost();
-                                          //
-                                          //                 // Navigator.pushAndRemoveUntil(
-                                          //                 //   context,
-                                          //                 //   MaterialPageRoute(
-                                          //                 //     builder: (BuildContext
-                                          //                 //             context) =>
-                                          //                 //         Layout(),
-                                          //                 //   ),
-                                          //                 //   (route) => false,
-                                          //                 // );
-                                          //               }
-                                          //             },
-                                          //
-                                          //             ///Put label over here
-                                          //             label: Text(
-                                          //               "Slide to Post",
-                                          //               style: TextStyle(
-                                          //                   color: Colors.white,
-                                          //                   fontWeight: FontWeight.w500,
-                                          //                   fontSize: 17),
-                                          //             ),
-                                          //             icon: Center(
-                                          //                 child: Icon(
-                                          //               Icons.add,
-                                          //               color: mainOrange,
-                                          //               size: 40.0,
-                                          //               semanticLabel:
-                                          //                   'Text to announce in accessibility modes',
-                                          //             )),
-                                          //
-                                          //             //Put BoxShadow here
-                                          //             boxShadow: BoxShadow(
-                                          //               color: Colors.transparent
-                                          //                   .withOpacity(.6),
-                                          //               blurRadius: 1,
-                                          //             ),
-                                          //
-                                          //             //Adjust effects such as shimmer and flag vibration here
-                                          //             shimmer: true,
-                                          //             vibrationFlag: false,
-                                          //             // dismissThresholds: 2.0,
-                                          //             dismissible:
-                                          //                 isPosted ? true : false,
-                                          //             alignLabel: Alignment(0.0, 0),
-                                          //
-                                          //             ///Change All the color and size from here.
-                                          //             width: 300,
-                                          //             radius: 20,
-                                          //             buttonColor:
-                                          //                 Colors.white.withOpacity(0.8),
-                                          //             // buttonColor: Colors.transparent,
-                                          //             backgroundColor: mainOrange,
-                                          //             highlightedColor: mainBlue,
-                                          //             baseColor: Colors.white,
-                                          //           )
                                           : Container()),
                           isPosted
                               ? Container(

@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 
 import '../custom_widegt/popmessager.dart';
 import '../otp/otpScreen.dart';
+import 'finderandfixerscreen.dart';
 // import 'package:goffix/screens/add/AddScreen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -259,7 +260,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    SignupScreen()));
+                                                    CatagoryUserScreen()));
                                       }, child: Text("create account")),
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -347,6 +348,7 @@ class _SignInScreenState extends State<SignInScreen> {
       String otp = jsonResponse.substring(5);
       print("body ${jsonResponse.substring(5)}");
       print("body$otp");
+      // _showMyDialog("Test OTP", "OTP sent mobile", "$otp");
       final snackBar = SnackBar(
         content: Text('Your otp is $otp'),
         action: SnackBarAction(

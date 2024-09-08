@@ -1,20 +1,23 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:goffix/screens/login/login.dart';
 import 'dart:convert';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:goffix/screens/home/homeScreen.dart';
 import 'package:goffix/screens/otp/otpScreen.dart';
-import 'package:goffix/screens/signup/fixture.dart';
 import 'package:goffix/screens/signup/sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:goffix/constants.dart';
 
+import '../../utils/const_list.dart';
 import '../custom_widegt/popmessager.dart';
 import '../layout/layout.dart';
+import 'finderandfixerscreen.dart';
 // import 'package:goffix/screens/add/AddScreen.dart';
 
 class SignupScreen extends StatefulWidget {
+  int catagory;
+  SignupScreen({required this.catagory});
   @override
   _SignupScreenState createState() => _SignupScreenState();
 }
@@ -82,6 +85,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _proController = new TextEditingController();
   final TextEditingController _catController = new TextEditingController();
+  String? professionValue;
 // Get Proffession test
   Future<List<catName>?> _getCat() async {
     var requestBody = {
@@ -324,13 +328,13 @@ class _SignupScreenState extends State<SignupScreen> {
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => Layout()),
-                          );
-                        },
-                        child: Text("Skip"))
+                    // InkWell(
+                    //     onTap: () {
+                    //       Navigator.of(context).push(
+                    //         MaterialPageRoute(builder: (_) => Layout()),
+                    //       );
+                    //     },
+                    //     child: Text("Skip"))
                   ],
                 ),
               ),
@@ -395,71 +399,71 @@ class _SignupScreenState extends State<SignupScreen> {
                               SizedBox(
                                 height: 10,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: new TextField(
-                                  maxLength: 6,
-                                  controller: _passwordController,
-                                  decoration: InputDecoration(
-                                      counterText: "",
-                                      // suffixIcon: Icon(CupertinoIcons.eye),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey.shade300,
-                                              width: 1.0),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey.shade300,
-                                              width: 1.0),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      contentPadding: EdgeInsets.fromLTRB(
-                                          20.0, 15.0, 20.0, 10.0),
-                                      hintText: "Enter One Time Password",
-                                      focusColor: Colors.green,
-                                      fillColor: Colors.grey),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 16),
+                              //   child: new TextField(
+                              //     maxLength: 6,
+                              //     controller: _passwordController,
+                              //     decoration: InputDecoration(
+                              //         counterText: "",
+                              //         // suffixIcon: Icon(CupertinoIcons.eye),
+                              //         border: OutlineInputBorder(
+                              //             borderSide: BorderSide(
+                              //                 color: Colors.grey.shade300,
+                              //                 width: 1.0),
+                              //             borderRadius:
+                              //                 BorderRadius.circular(10.0)),
+                              //         focusedBorder: OutlineInputBorder(
+                              //             borderSide: BorderSide(
+                              //                 color: Colors.grey.shade300,
+                              //                 width: 1.0),
+                              //             borderRadius:
+                              //                 BorderRadius.circular(10.0)),
+                              //         contentPadding: EdgeInsets.fromLTRB(
+                              //             20.0, 15.0, 20.0, 10.0),
+                              //         hintText: "Enter One Time Password",
+                              //         focusColor: Colors.green,
+                              //         fillColor: Colors.grey),
+                              //   ),
+                              // ),
 
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 20, top: 10, bottom: 10),
-                                child: Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          // Navigator.push(
-                                          //     context,
-                                          //     MaterialPageRoute(
-                                          //         builder: (context) =>
-                                          //             ForgotPasswordScreen()));
-                                        },
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.arrow_back,
-                                              color: Colors.grey,
-                                            ),
-                                            Text(
-                                              "Resend OTP",
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontFamily: "Lato",
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(
+                              //       right: 20, top: 10, bottom: 10),
+                              //   child: Container(
+                              //     child: Row(
+                              //       mainAxisAlignment: MainAxisAlignment.end,
+                              //       children: [
+                              //         InkWell(
+                              //           onTap: () {
+                              //             // Navigator.push(
+                              //             //     context,
+                              //             //     MaterialPageRoute(
+                              //             //         builder: (context) =>
+                              //             //             ForgotPasswordScreen()));
+                              //           },
+                              //           child: Row(
+                              //             children: [
+                              //               Icon(
+                              //                 Icons.arrow_back,
+                              //                 color: Colors.grey,
+                              //               ),
+                              //               Text(
+                              //                 "Resend OTP",
+                              //                 style: TextStyle(
+                              //                     color: Colors.grey,
+                              //                     fontFamily: "Lato",
+                              //                     fontSize: 14,
+                              //                     fontWeight: FontWeight.bold),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //         )
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
                               SizedBox(
                                 height: 10,
                               ),
@@ -497,12 +501,13 @@ class _SignupScreenState extends State<SignupScreen> {
                               // gender
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 20.0, right: 20, top: 10, bottom: 10),
+                                     right: 20, top: 10, bottom: 10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    Text("Gender : "),
                                     InkWell(
                                       onTap: () {
                                         gendervlue = 1;
@@ -653,87 +658,82 @@ class _SignupScreenState extends State<SignupScreen> {
                               SizedBox(
                                 height: 10,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: new TextField(
-                                  controller: _proController,
-                                  decoration: InputDecoration(
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 16),
+                              //   child: new TextField(
+                              //     controller: _proController,
+                              //     decoration: InputDecoration(
+                              //         // suffixIcon: Icon(CupertinoIcons.eye),
+                              //         border: OutlineInputBorder(
+                              //             borderSide: BorderSide(
+                              //                 color: Colors.grey.shade300,
+                              //                 width: 1.0),
+                              //             borderRadius:
+                              //                 BorderRadius.circular(10.0)),
+                              //         focusedBorder: OutlineInputBorder(
+                              //             borderSide: BorderSide(
+                              //                 color: Colors.grey.shade300,
+                              //                 width: 1.0),
+                              //             borderRadius:
+                              //                 BorderRadius.circular(10.0)),
+                              //         contentPadding: EdgeInsets.fromLTRB(
+                              //             20.0, 15.0, 20.0, 10.0),
+                              //         hintText: "Profession",
+                              //         focusColor: Colors.green,
+                              //         fillColor: Colors.grey),
+                              //   ),
+                              // ),
 
-                                      // suffixIcon: Icon(CupertinoIcons.eye),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey.shade300,
-                                              width: 1.0),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey.shade300,
-                                              width: 1.0),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      contentPadding: EdgeInsets.fromLTRB(
-                                          20.0, 15.0, 20.0, 10.0),
-                                      hintText: "Profession",
-                                      focusColor: Colors.green,
-                                      fillColor: Colors.grey),
-                                ),
-                              ),
                               SizedBox(
                                 height: 10,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      border: Border.all(
-                                          color: Colors.grey.shade500,
-                                          width: 1),
-                                      color: Colors.white),
-                                  padding: EdgeInsets.symmetric(horizontal: 2),
-                                  child: FormBuilderDropdown<String>(
-                                    // autovalidate: true,
-                                    name: 'Finder/Fixture',
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey.shade300,
-                                              width: 1.0),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      contentPadding:
-                                          EdgeInsets.only(left: 20.0),
-                                      focusColor: Colors.green,
-                                      fillColor: Colors.white,
-                                      hintText: 'Finder / Fixture',
-                                    ),
+                              Visibility(
+                                visible: widget.catagory == 1,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 16),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        border: Border.all(
+                                            color: Colors.grey.shade500,
+                                            width: 1),
+                                        color: Colors.white),
+                                    padding: EdgeInsets.symmetric(horizontal: 2),
+                                    child: FormBuilderDropdown<String>(
+                                      // autovalidate: true,
+                                      name: 'Profession',
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey.shade300,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        contentPadding:
+                                            EdgeInsets.only(left: 20.0),
+                                        focusColor: Colors.green,
+                                        fillColor: Colors.white,
+                                        hintText: 'Profession',
+                                      ),
 
-                                    items: _finder
-                                        .map((location) => DropdownMenuItem(
-                                              value: location,
-                                              child: Text(location),
-                                            ))
-                                        .toList(),
-                                    onChanged: (val) {
-                                      setState(() {
-                                        _locValError = false;
-                                      });
-                                      print(val);
-                                      if (val == "Finder") {
+                                      items: widget.catagory == 0
+                                          ? []
+                                          : catagoryTypeList
+                                              .map((location) => DropdownMenuItem(
+                                                    value: location,
+                                                    child: Text(location),
+                                                  ))
+                                              .toList(),
+                                      onChanged: (String? newValue) {
                                         setState(() {
-                                          usertype_value = 0;
+                                          print(widget.catagory);
+                                          professionValue = newValue!;
                                         });
-                                      } else if (val == "Fixture") {
-                                        setState(() {
-                                          usertype_value = 1;
-                                        });
-                                      }
-                                      print(usertype_value);
-                                    },
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
@@ -790,13 +790,17 @@ class _SignupScreenState extends State<SignupScreen> {
                                         print("continue $gendervlue");
                                         print("continue $_catTextFeild");
                                         print("continue cliked");
+                                        if(_mobileController.text.isEmpty || _mobileController.text.length<10){
+                                          popMessage(context, "Please Enter a Valid Mobile Number");
+                                        }
+                                        else{
                                         UserPost(
                                             email: _emailController.text,
                                             phonenumber: _mobileController.text,
                                             username: _nameController.text,
                                             gender: gendervlue,
                                             profession: _proController.text,
-                                            user_type: usertype_value);
+                                            user_type: widget.catagory);}
                                         // {
                                         //   print('Finder and fixture    9'),
                                         //   print(gendervlue),
@@ -873,6 +877,9 @@ class _SignupScreenState extends State<SignupScreen> {
       Uri url = Uri.parse(
           "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/auth/signupwithotp");
       //
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => CatagoryUserScreen()));
+
       print(json);
       final response = await http.post(url, headers: header, body: json);
       print(response.statusCode);
@@ -887,6 +894,7 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     } catch (e) {
       print(e);
+      // 4565416165
     }
   }
 }

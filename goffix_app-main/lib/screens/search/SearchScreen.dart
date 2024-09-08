@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:goffix/screens/login/login.dart';
 import 'package:goffix/screens/search/BookService.dart';
@@ -18,7 +19,7 @@ import '../../constants.dart';
 import '../../models/getbyprofessiontype.dart';
 import '../CauroselDemo.dart';
 
-class SearchScreen extends StatefulWidget {
+class ServiceScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -39,7 +40,7 @@ class catName {
   }
 }
 
-class _HomeScreenState extends State<SearchScreen> {
+class _HomeScreenState extends State<ServiceScreen> {
   List? listOfUsers;
   bool _proValError = false;
   final TextEditingController _categoryController = new TextEditingController();
@@ -143,23 +144,23 @@ class _HomeScreenState extends State<SearchScreen> {
     Size size = MediaQuery.of(context).size;
     return new Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: SizedBox(),
-        backgroundColor: Colors.white,
-        elevation: 30,
-        bottomOpacity: 0.8,
-        toolbarHeight: 60,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image.asset(
-              'assets/images/logo.png',
-              fit: BoxFit.contain,
-              height: 45,
-            ),
-          ],
-        ),
-      ),
+      // appBar: AppBar(
+      //   leading: SizedBox(),
+      //   backgroundColor: Colors.white,
+      //   elevation: 30,
+      //   bottomOpacity: 0.8,
+      //   toolbarHeight: 60,
+      //   title: Row(
+      //     mainAxisAlignment: MainAxisAlignment.start,
+      //     children: [
+      //       Image.asset(
+      //         'assets/images/logo.png',
+      //         fit: BoxFit.contain,
+      //         height: 45,
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -187,21 +188,21 @@ class _HomeScreenState extends State<SearchScreen> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                           ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        BookingStatusScreen()),
-                              );
-                            },
-                            child: Icon(
-                              CupertinoIcons.calendar_today,
-                              size: 30,
-                              color: mainBlue,
-                            ),
-                          )
+                          // InkWell(
+                          //   onTap: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //           builder: (context) =>
+                          //               BookingStatusScreen()),
+                          //     );
+                          //   },
+                          //   child: Icon(
+                          //     CupertinoIcons.calendar_today,
+                          //     size: 30,
+                          //     color: mainBlue,
+                          //   ),
+                          // )
                         ],
                       ),
                     ),
@@ -329,6 +330,40 @@ class _HomeScreenState extends State<SearchScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Wrap(
+                            runSpacing: 10,
+                            // child: Row(
+                            children: [
+                              _SeachIcon(
+                                  "assets/images/grocery.jpg", "Grocery", "166"),
+                              _SeachIcon("assets/images/veg.jpg",
+                                  "Vegtables", "267"),
+
+                              _SeachIcon("assets/images/med.jpg", "Medicine", "34"),
+                              _SeachIcon(
+                                  "assets/images/meat.jpg", "Meat", "4"),
+
+                            ],
+                            // ),
+                          ),
+                          Container(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width*0.9,
+                            decoration: BoxDecoration(
+                              color: Colors.blueGrey,
+                              border: Border.all(),
+                              image: DecorationImage(image: AssetImage("assets/images/curtain.jpg",),fit: BoxFit.fill),
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            alignment: Alignment.bottomRight,
+                            child: Text("Curtains",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w900,fontSize: 36,shadows: [
+                              BoxShadow(
+                                spreadRadius: 5,
+                                blurRadius: 10,color: Colors.black54
+                              )
+                            ]),),
+                          ),
+                          10.verticalSpace,
                           Text(
                             "HOME MAINTAINCE",
                             style: TextStyle(

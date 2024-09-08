@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:goffix/models/location_model.dart';
 import 'package:goffix/providers/location_provider.dart';
@@ -25,6 +26,9 @@ import 'package:slider_button/slider_button.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter/cupertino.dart';
 import '../../constants.dart';
+import '../../models/bookingservicemodel.dart';
+
+List<BookingServiceModel> bookingServiceList = [];
 
 class BookServiceScreen extends StatefulWidget {
   // final int cid;
@@ -68,12 +72,13 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
   final TextEditingController _mobileController = new TextEditingController();
   final TextEditingController _DescController = new TextEditingController();
   late int _timePTextFeild;
-  var Timings = ['9am - 1pm', '2pm - 6pm'];
+  var Timings = ['9:00 am  1:00 pm', '2:00pm  6:00pm'];
   var _location = ['Vizag', 'Vijayawada'];
   String finalDate = '';
   String finalMonth = '';
   String finalYear = '';
   bool isPosted = false;
+  String? subService;
   bool IsPosting = false;
   DatePickerController _datePickerController = DatePickerController();
   late DateTime _selectedValue;
@@ -253,6 +258,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
         "bs_desc": _DescController.text,
       }
     };
+
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
     var response = await http.post(baseUrl,
@@ -403,6 +409,17 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                             // New date selected
                             setState(() {
                               _selectedValue = date;
+                              DateTime dateTime = date;
+
+                              // Format the month and date
+                              String month =
+                                  DateFormat('MMM').format(dateTime); // "SEP"
+                              String day =
+                                  DateFormat('dd').format(dateTime); // "09"
+                              finalDate = day;
+                              finalMonth = month;
+                              print('Month: $month'); // Output: Month: SEP
+                              print('Day: $day'); // Output: Day: 09
                               print("dsffd");
                               print(_selectedValue);
                             });
@@ -444,38 +461,36 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                     //   ),
                     // ),
 
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.indigo),
-                            borderRadius: BorderRadius.circular(5)
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 50,
+                            width: 80,
+                            padding: const EdgeInsets.only(left: 10.0),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.indigo),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(Timings[0]),
+                          ),
                         ),
-                        child: Text(Timings[0]),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.indigo),
-                            borderRadius: BorderRadius.circular(5)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 50,
+                            width: 80,
+                            padding: const EdgeInsets.only(left: 10.0),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.indigo),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(Timings[1]),
+                          ),
                         ),
-                        child: Text(Timings[1]),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-
-
 
                     //       HorizontalCalendar(
                     //
@@ -699,6 +714,50 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                     SizedBox(
                       height: 20,
                     ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black),
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: DropdownButton<String>(
+                          value: subService, // Set the selected value here
+                          borderRadius: BorderRadius.circular(10),
+                          underline: SizedBox(),
+                          isExpanded:
+                              true, // Ensure dropdown takes the full width of the container
+                          items: <String>[
+                            'Service 1',
+                            'Service 2',
+                            'Service 3',
+                            'Service 4',
+                          ].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            if (newValue != null) {
+                              print(newValue);
+                              setState(() {
+                                subService = newValue;
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+
+                    10.verticalSpace,
                     // Address validation
                     new TextField(
                       controller: _nameController,
@@ -924,22 +983,42 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                         ? CircularProgressIndicator()
                                         : !isPosted
                                             ? SliderButton(
-                                                action: () {
+                                                action: () async {
                                                   ///Do something here OnSlide
                                                   print("Posting a Job");
-                                                  // if (_titValError ==
-                                                  //     false) {
+                                                  // if (_titValError == false) {
                                                   //   // startTimer();
+                                                  bookingServiceList.add(
+                                                      BookingServiceModel(
+                                                          servicetype:
+                                                              widget.cname!,
+                                                          date: finalDate,
+                                                          month: finalMonth));
+                                                  print(bookingServiceList);
+                                                  isPosted = true;
+                                                  setState(() {});
                                                   //   _addPost(
                                                   //       _postTitle.text,
-                                                  //       _postDesc.text);
+                                                  //       _postDesc.text,
+                                                  //       _professionController
+                                                  //           .text,
+                                                  //       _locationController.text);
+
+                                                  // Navigator.pushAndRemoveUntil(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //     builder: (BuildContext
+                                                  //             context) =>
+                                                  //         Layout(),
+                                                  //   ),
+                                                  //   (route) => false,
+                                                  // );
                                                   // }
-                                                  // _bookService();
                                                 },
 
                                                 ///Put label over here
                                                 label: Text(
-                                                  "Slide to Book",
+                                                  "Slide to Post",
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
@@ -959,13 +1038,13 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                                 boxShadow: BoxShadow(
                                                   color: Colors.transparent
                                                       .withOpacity(.6),
-                                                  blurRadius: 10,
+                                                  blurRadius: 1,
                                                 ),
 
                                                 //Adjust effects such as shimmer and flag vibration here
                                                 shimmer: true,
                                                 vibrationFlag: false,
-                                                // dismissThresholds: 2.0,
+                                                dismissThresholds: 0.0,
                                                 dismissible:
                                                     isPosted ? true : false,
                                                 alignLabel: Alignment(0.0, 0),
