@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:goffix/screens/login/login.dart';
 import 'package:goffix/screens/otp/otpScreen.dart';
@@ -18,22 +19,28 @@ import 'package:path_provider/path_provider.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../profile/model/userprofilemodels.dart';
+
 class SignupEditScreen extends StatefulWidget {
+  UserProfileModel? userDetails;
+  SignupEditScreen({
+    this.userDetails,
+  });
   @override
   _SignupEditScreenState createState() => _SignupEditScreenState();
 }
 
 class _SignupEditScreenState extends State<SignupEditScreen> {
   //Variables
-   Map? userDetails;
-   String? _unm;
-   String? _email;
-   String? _desc;
-   String? _upfn;
+
+  String? _unm;
+  String? _email;
+  String? _desc;
+  String? _upfn;
   String? _uimg;
   File? _selectedFile;
   bool _inProcess = false;
-   String? _profileImage;
+  String? _profileImage;
   bool _dummyImg = false;
   //validators
   bool _nmValError = false;
@@ -168,16 +175,16 @@ class _SignupEditScreenState extends State<SignupEditScreen> {
       jsonResponse = json.decode(response.body);
       if (jsonResponse["response"]["status"] == 200) {
         setState(() {
-          userDetails = jsonResponse['response']['result']['data']['profile'];
-          _unm = jsonResponse['response']['result']['data']['profile']['u_nm'];
-          _upfn =
-              jsonResponse['response']['result']['data']['profile']['u_pfn'];
-          _uimg =
-              jsonResponse['response']['result']['data']['profile']['u_img'];
-          _desc =
-              jsonResponse['response']['result']['data']['profile']['u_desc'];
-          _email =
-              jsonResponse['response']['result']['data']['profile']['u_email'];
+          // userDetails = jsonResponse['response']['result']['data']['profile'];
+          // _unm = jsonResponse['response']['result']['data']['profile']['u_nm'];
+          // _upfn =
+          //     jsonResponse['response']['result']['data']['profile']['u_pfn'];
+          // _uimg =
+          //     jsonResponse['response']['result']['data']['profile']['u_img'];
+          // _desc =
+          //     jsonResponse['response']['result']['data']['profile']['u_desc'];
+          // _email =
+          //     jsonResponse['response']['result']['data']['profile']['u_email'];
         });
       } else if (jsonResponse["response"]["status"] == 108) {
         // _showMyDialog("Error", "Username/Password not found", "login");
@@ -295,379 +302,286 @@ class _SignupEditScreenState extends State<SignupEditScreen> {
                 Container(
                   child: Column(
                     children: <Widget>[
-                      userDetails == null
-                          ? Container(
-                              height: size.height,
-                              width: size.width,
-                              child: Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            )
-                          : Container(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              width: double.infinity,
-                              // height: 650,
-                              child: Form(
-                                child: Column(
+                      // widget.userDetails == null
+                      //     ? Container(
+                      //         height: size.height,
+                      //         width: size.width,
+                      //         child: Center(
+                      //           child: CircularProgressIndicator(),
+                      //         ),
+                      //       )
+                      //     :
+                      Container(
+                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                          width: double.infinity,
+                          // height: 650,
+                          child: Form(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Container(
+                                    height: 80,
+                                    width: MediaQuery.of(context).size.width,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.grey,
+                                              spreadRadius: 2.0,
+                                              blurRadius: 5.0,
+                                              offset: Offset(0, 10)),
+                                        ]),
+                                    child: Text(
+                                      "SAVED ADDRESS",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w900,
+                                          color: Colors.indigo,
+                                          fontSize: 30),
+                                    ),
+                                  ),
+                                ),
+                                10.verticalSpace,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    //Image
-                                    // Material(
-                                    //   // elevation: 4.0,
-                                    //   shape: CircleBorder(),
-                                    //   clipBehavior: Clip.hardEdge,
-                                    //   color: Colors.white,
-                                    //   child: Ink.image(
-                                    //     image: AssetImage(
-                                    //         'assets/images/male.png'),
-                                    //     fit: BoxFit.cover,
-                                    //     width: 120.0,
-                                    //     height: 120.0,
-                                    //     child: InkWell(
-                                    //       onTap: () {},
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    // Positioned(
-                                    //     top: 20, child: Icon(Icons.edit)),
-                                    // Container(
-                                    //   margin: EdgeInsets.only(top: 0),
-                                    //   height: 300,
-                                    //   decoration: BoxDecoration(
-                                    //     color: Colors.white,
-                                    //     borderRadius:
-                                    //         BorderRadius.circular(16.0),
-                                    //   ),
-                                    // ),
-                                    // Align(
-                                    //     // alignment: Alignment.topCenter,
-                                    //     child:
-
-                                    Container(
-                                      margin: EdgeInsets.only(top: 30),
-                                      child: SizedBox(
-                                          child: CircleAvatar(
-                                              radius: 60.0,
-                                              backgroundColor: Colors.white,
-                                              child: CircleAvatar(
-                                                  child: Align(
-                                                      alignment:
-                                                          Alignment.bottomRight,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          print("test");
-                                                          Alert(
-                                                            context: context,
-                                                            // type: AlertType.success,
-                                                            title:
-                                                                "Update Profile Pic",
-                                                            // desc:
-                                                            //     "Flutter is more awesome with RFlutter Alert.",
-
-                                                            buttons: [
-                                                              DialogButton(
-                                                                child: Text(
-                                                                  "Camera",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          20),
-                                                                ),
-                                                                onPressed: () {
-                                                                  getImage(ImageSource
-                                                                          .camera)
-                                                                      .then({
-                                                                    Navigator.pop(
-                                                                        context),
-                                                                  });
-                                                                },
-                                                                width: 120,
-                                                              ),
-                                                              DialogButton(
-                                                                child: Text(
-                                                                  "Gallery",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          20),
-                                                                ),
-                                                                onPressed: () {
-                                                                  getImage(ImageSource
-                                                                          .gallery)
-                                                                      .then({
-                                                                    Navigator.pop(
-                                                                        context)
-                                                                  });
-                                                                },
-                                                                width: 120,
-                                                              )
-                                                            ],
-                                                          ).show();
-                                                        },
-                                                        //       child: CircleAvatar(
-                                                        //         backgroundColor: Colors.white,
-                                                        //         radius: 20.0,
-                                                        //         child: Icon(
-                                                        //           Icons.camera_alt,
-                                                        //           size: 20.0,
-                                                        //           color: Color(0xFF404040),
-                                                        //         ),
-                                                        //       ),
-                                                        //     ),
-                                                        //   ),
-                                                        //   radius: 80.0,
-                                                        //   backgroundImage: _selectedFile
-                                                        //           null
-                                                        //       ? FileImage(
-                                                        //           _selectedFile!,
-                                                        //         )
-                                                        //       : (_uimg == null) ||
-                                                        //               (_uimg ==
-                                                        //                   ("file:///android_asset/www/images/male.png")) ||
-                                                        //               (_uimg == "null")
-                                                        //           ? AssetImage(
-                                                        //               "assets/images/male.png")
-                                                        //           : MemoryImage(
-                                                        //               image_64(_uimg)),
-                                                        // ),
-                                                        //),
-                                                      ))))),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.home_outlined),
+                                        Text(
+                                            "Avinash\nplot no 64\nnear gachhiboli\n53002\n9798969594"),
+                                      ],
                                     ),
-                                    // ),
-                                    // Name
-                                    Container(
-                                      child: Column(children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              border: _nmValError == true
-                                                  ? Border.all(
-                                                      color: Colors.red,
-                                                      width: 1)
-                                                  : Border.all(
-                                                      color:
-                                                          Colors.transparent),
-                                              color: Colors.grey[300]),
-                                          margin: EdgeInsets.all(8),
-                                          child: FormBuilderTextField(
-                                            maxLength: 20,
-                                            initialValue: userDetails!["u_nm"],
-                                            // initialValue: "tre",
-                                            onChanged: (String? val) {
-                                              if (val!.isNotEmpty) {
-                                                setState(() {
-                                                  _nmValError = false;
-                                                  _unm = val;
-                                                });
-                                              }
-                                            },
-
-                                            name: 'Name',
-                                            // controller: _nameController,
-
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color:
-                                                          Colors.grey.shade300,
-                                                      width: 32.0),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25.0)),
-                                              contentPadding:
-                                                  EdgeInsets.fromLTRB(
-                                                      20.0, 5.0, 20.0, 5.0),
-                                              focusColor: Colors.green,
-                                              fillColor: Colors.grey,
-                                              hintText: 'Full Name',
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: _nmValError
-                                              ? Row(children: [
-                                                  Text(
-                                                    "Please enter Full Name",
-                                                    style: TextStyle(
-                                                        color: Colors.red),
-                                                  ),
-                                                ])
-                                              : Row(),
-                                        ),
-                                      ]),
-                                    ),
-                                    // Email
-                                    Container(
-                                      child: Column(children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              border: _emValError == true
-                                                  ? Border.all(
-                                                      color: Colors.red,
-                                                      width: 1)
-                                                  : Border.all(
-                                                      color:
-                                                          Colors.transparent),
-                                              color: Colors.grey[300]),
-                                          margin: EdgeInsets.all(8),
-                                          child: FormBuilderTextField(
-                                            initialValue:
-                                                userDetails!['u_email'],
-                                            onChanged: (String? val) {
-                                              if (val!.isNotEmpty) {
-                                                setState(() {
-                                                  _phnValError = false;
-                                                  _email = val;
-                                                });
-                                              }
-                                            },
-                                            name: 'Email',
-                                            // controller: _emailController,
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color:
-                                                          Colors.grey.shade300,
-                                                      width: 32.0),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25.0)),
-                                              contentPadding:
-                                                  EdgeInsets.fromLTRB(
-                                                      20.0, 5.0, 20.0, 5.0),
-                                              focusColor: Colors.green,
-                                              fillColor: Colors.grey,
-                                              hintText: 'Email',
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: _emValError
-                                              ? Row(children: [
-                                                  Text(
-                                                    "Please enter Email",
-                                                    style: TextStyle(
-                                                        color: Colors.red),
-                                                  ),
-                                                ])
-                                              : Row(),
-                                        ),
-                                      ]),
-                                    ),
-                                    // Desc
-                                    Container(
-                                      child: Column(children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              border: _emValError == true
-                                                  ? Border.all(
-                                                      color: Colors.red,
-                                                      width: 1)
-                                                  : Border.all(
-                                                      color:
-                                                          Colors.transparent),
-                                              color: Colors.grey[300]),
-                                          margin: EdgeInsets.all(8),
-                                          child: FormBuilderTextField(
-                                            initialValue: userDetails!['u_desc'],
-                                            onChanged: (String? val) {
-                                              if (val!.isNotEmpty) {
-                                                setState(() {
-                                                  _phnValError = false;
-                                                  _desc = val;
-                                                });
-                                              }
-                                            },
-                                            name: 'Description',
-                                            // controller: _emailController,
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color:
-                                                          Colors.grey.shade300,
-                                                      width: 32.0),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25.0)),
-                                              contentPadding:
-                                                  EdgeInsets.fromLTRB(
-                                                      20.0, 5.0, 20.0, 5.0),
-                                              focusColor: Colors.green,
-                                              fillColor: Colors.grey,
-                                              hintText: 'Description',
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: _emValError
-                                              ? Row(children: [
-                                                  Text(
-                                                    "Please enter Email",
-                                                    style: TextStyle(
-                                                        color: Colors.red),
-                                                  ),
-                                                ])
-                                              : Row(),
-                                        ),
-                                      ]),
-                                    ),
-                                    // Update Button
-                                    Container(
-                                      margin: EdgeInsets.all(5),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(0.0),
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                child: ElevatedButton(
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStateProperty
-                                                              .all(mainBlue)),
-                                                  // shape: RoundedRectangleBorder(
-                                                  //   borderRadius:
-                                                  //       BorderRadius.circular(
-                                                  //           18.0),
-                                                  // ),
-                                                  // elevation: 10,
-                                                  // textColor: Colors.white,
-                                                  onPressed: () =>
-                                                      {_UpdateUser(context)},
-                                                  // color: mainOrange,
-                                                  // splashColor: mainBlue,
-                                                  // padding: EdgeInsets.all(10.0),
-                                                  child: Row(
-                                                    // Replace with a Row for horizontal icon + text
-                                                    children: <Widget>[
-                                                      Icon(Icons.update),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text("Update")
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ]),
-                                      ),
-                                    ),
+                                    Icon(Icons.delete_outline_sharp),
                                   ],
                                 ),
-                              )),
+
+                                Container(
+                                  child: Column(children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          border: _nmValError == true
+                                              ? Border.all(
+                                                  color: Colors.red, width: 1)
+                                              : Border.all(
+                                                  color: Colors.transparent),
+                                          color: Colors.grey[300]),
+                                      margin: EdgeInsets.all(8),
+                                      child: FormBuilderTextField(
+                                        maxLength: 20,
+                                        // initialValue: widget.userDetails!.name,
+                                        // initialValue: "tre",
+                                        onChanged: (String? val) {
+                                          if (val!.isNotEmpty) {
+                                            setState(() {
+                                              _nmValError = false;
+                                              _unm = val;
+                                            });
+                                          }
+                                        },
+
+                                        name: 'Name',
+                                        // controller: _nameController,
+
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          counterText: "",
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey.shade300,
+                                                  width: 32.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(25.0)),
+                                          contentPadding: EdgeInsets.fromLTRB(
+                                              20.0, 5.0, 20.0, 5.0),
+                                          focusColor: Colors.green,
+                                          hintText: 'Landmark ',
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: _nmValError
+                                          ? Row(children: [
+                                              Text(
+                                                "Please enter Full Name",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            ])
+                                          : Row(),
+                                    ),
+                                  ]),
+                                ),
+                                // Email
+                                Container(
+                                  child: Column(children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          border: _emValError == true
+                                              ? Border.all(
+                                                  color: Colors.red, width: 1)
+                                              : Border.all(
+                                                  color: Colors.transparent),
+                                          color: Colors.grey[300]),
+                                      margin: EdgeInsets.all(8),
+                                      child: FormBuilderTextField(
+                                        // initialValue:
+                                        //     widget.userDetails!.email,
+                                        onChanged: (String? val) {
+                                          if (val!.isNotEmpty) {
+                                            setState(() {
+                                              _phnValError = false;
+                                              _email = val;
+                                            });
+                                          }
+                                        },
+                                        name: 'Email',
+                                        // controller: _emailController,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0)),
+                                          contentPadding: EdgeInsets.fromLTRB(
+                                              20.0, 5.0, 20.0, 5.0),
+                                          focusColor: Colors.green,
+                                          fillColor: Colors.grey,
+                                          hintText: 'Plot / House No',
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: _emValError
+                                          ? Row(children: [
+                                              Text(
+                                                "Please enter Email",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            ])
+                                          : Row(),
+                                    ),
+                                  ]),
+                                ),
+                                // Desc
+                                Container(
+                                  child: Column(children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          border: _emValError == true
+                                              ? Border.all(
+                                                  color: Colors.red, width: 1)
+                                              : Border.all(
+                                                  color: Colors.transparent),
+                                          color: Colors.grey[300]),
+                                      margin: EdgeInsets.all(8),
+                                      child: FormBuilderTextField(
+                                        maxLength: 6,
+                                        // initialValue: widget.userDetails!.mobileNumber,
+                                        onChanged: (String? val) {
+                                          if (val!.isNotEmpty) {
+                                            setState(() {
+                                              _phnValError = false;
+                                              _desc = val;
+                                            });
+                                          }
+                                        },
+                                        name: 'Description',
+                                        // controller: _emailController,
+                                        decoration: InputDecoration(
+                                          counterText: "",
+                                          border: InputBorder.none,
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey.shade300,
+                                                  width: 32.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(25.0)),
+                                          contentPadding: EdgeInsets.fromLTRB(
+                                              20.0, 5.0, 20.0, 5.0),
+                                          focusColor: Colors.green,
+                                          fillColor: Colors.grey,
+                                          hintText: 'Pincode',
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: _emValError
+                                          ? Row(children: [
+                                              Text(
+                                                "Please enter Email",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            ])
+                                          : Row(),
+                                    ),
+                                  ]),
+                                ),
+                                // Update Button
+                                Container(
+                                  margin: EdgeInsets.all(5),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(0.0),
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            child: ElevatedButton(
+                                              style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          mainBlue)),
+                                              // shape: RoundedRectangleBorder(
+                                              //   borderRadius:
+                                              //       BorderRadius.circular(
+                                              //           18.0),
+                                              // ),
+                                              // elevation: 10,
+                                              // textColor: Colors.white,
+                                              onPressed: () =>
+                                                  {_UpdateUser(context)},
+                                              // color: mainOrange,
+                                              // splashColor: mainBlue,
+                                              // padding: EdgeInsets.all(10.0),
+                                              child: Row(
+                                                // Replace with a Row for horizontal icon + text
+                                                children: <Widget>[
+                                                  // Icon(Icons.update),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    "Update",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ]),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
                     ],
                   ),
                 )

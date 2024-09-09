@@ -349,6 +349,8 @@ class _BookAdServiceScreenState extends State<BookAdServiceScreen> {
     // String Fixers = widget.cname;
     // String no = "+918019510486";
     return new Scaffold(
+      backgroundColor: Colors.white,
+
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(

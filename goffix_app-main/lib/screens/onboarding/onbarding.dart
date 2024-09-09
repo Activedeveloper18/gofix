@@ -79,7 +79,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       pages: [
         PageViewModel(
             titleWidget: SizedBox(),
-            bodyWidget:  Image.asset("assets/images/slide1.png"),
+            bodyWidget:  Image.asset("assets/images/slide1.png",fit: BoxFit.fill,),
            ),
         // PageViewModel(
         //   title: "Easy Connect",

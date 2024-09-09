@@ -110,6 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return PopScope(
       canPop: false,
       child: new Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: Stack(
               fit: StackFit.expand,

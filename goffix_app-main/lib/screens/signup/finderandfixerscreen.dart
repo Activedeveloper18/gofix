@@ -15,6 +15,8 @@ class _CatagoryUserScreenState extends State<CatagoryUserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

@@ -14,6 +14,7 @@ class _EventBookingScreenState extends State<EventBookingScreen> {
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController age = TextEditingController();
+  String? genderValue;
   TextEditingController contactnumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -26,15 +27,15 @@ class _EventBookingScreenState extends State<EventBookingScreen> {
         toolbarHeight: 60,
         title: Text("Visitors",style: TextStyle(fontWeight: FontWeight.w800,color: Colors.black),),
         centerTitle: true,
-        leading: InkWell(
-          onTap: () {},
-          child: Image.asset(
-            'assets/images/logo.png',
-            fit: BoxFit.fitWidth,
-            height: 80,
-            width: 100,
-          ),
-        ),
+      //   leading: InkWell(
+      //     onTap: () {},
+      //     child: Image.asset(
+      //       'assets/images/logo.png',
+      //       fit: BoxFit.fitWidth,
+      //       height: 100,
+      //       width: 100,
+      //     ),
+      //   ),
       ),
       body: Column(
         children: [
@@ -46,7 +47,7 @@ class _EventBookingScreenState extends State<EventBookingScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                          height: 330,
+                          height: 400,
                           width: MediaQuery.of(context).size.width * 0.7,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -139,6 +140,33 @@ class _EventBookingScreenState extends State<EventBookingScreen> {
                                             BorderSide(color: Colors.black12),
                                         borderRadius: BorderRadius.circular(10),
                                       )),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child:  Container(
+                                  height: 50,width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                     borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.black)
+
+                                ),
+                                  child: DropdownButton<String>(
+                                    underline: SizedBox(),
+                                    value: genderValue,
+                                    hint: Text('Select Gender'),
+                                    items: <String>['Male', 'Female',  'Other'].map((String gender) {
+                                      return DropdownMenuItem<String>(
+                                        value: gender,
+                                        child: Text(gender),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        genderValue = newValue;
+                                      });
+                                    },
+                                  ),
                                 ),
                               ),
                             ],

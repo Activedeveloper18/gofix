@@ -208,6 +208,8 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
             Container(
               margin: EdgeInsets.all(8),
               decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage("assets/images/profilebg.jpeg",),fit: BoxFit.fill),
+
                   color: mainBlue, borderRadius: BorderRadius.circular(10)),
               height: 280,
               // height: .4 * size.height,
@@ -595,7 +597,7 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SignupEditScreen()));
+                            builder: (context) => SignupEditScreen(userDetails: userDetails,)));
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),

@@ -210,12 +210,19 @@ class _LayoutState extends State<Layout> {
         //     onlineChild:
         _connectionStatus != _conStatus
             ? Scaffold(
+          floatingActionButton: FloatingActionButton(
+            focusColor: Colors.indigo,
+            child: Icon(Icons.message_outlined,size: 40,),
+            onPressed: () {},
+
+          ),
                 // backgroundColor: Colors.white,
                 bottomNavigationBar: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     color: Colors.white,
                   ),
+
                   child: SalomonBottomBar(
                     currentIndex: _page!,
 

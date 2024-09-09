@@ -6,6 +6,7 @@ import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goffix/app.dart';
 import 'package:goffix/constants.dart';
@@ -211,7 +212,9 @@ class _ProfileScreenState extends State<ProfilePageScreen>
             Container(
               margin: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                  color: mainBlue, borderRadius: BorderRadius.circular(10)),
+                  color: mainBlue, 
+                  image: DecorationImage(image: AssetImage("assets/images/profilebg.jpeg",),fit: BoxFit.fill),
+                  borderRadius: BorderRadius.circular(10)),
 
               height: 230,
               // height: .4 * size.height,
@@ -425,7 +428,7 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SignupEditScreen()));
+                            builder: (context) => SignupEditScreen(userDetails: userDetails,)));
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -675,36 +678,33 @@ class _ProfileScreenState extends State<ProfilePageScreen>
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: Container(
-              height: 200,
+              height: 500,
               width: 300,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     SizedBox(
-                      height: 20,
+                      height: 200,width: 200,
+                      child: Image(image: AssetImage("assets/images/chatwithus.png"),),
                     ),
-                    Text(
-                        'Please feel free to give us your valuable suggestions'),
-                    SizedBox(
-                      height: 20,
+                  SizedBox(
+                    height: 400,
+                    child: Expanded(
+                      child: GridView.count(
+                        crossAxisCount: 2, // Number of columns in the grid
+                        padding: EdgeInsets.all(10.0),
+                        crossAxisSpacing: 10.0,
+                        mainAxisSpacing: 10.0,
+                        children: <Widget>[
+                          _buildGridTile(Icons.mail, 'Mail',Colors.red),
+                          _buildGridTile(Icons.message, 'Write to us',Colors.deepOrange),
+                          _buildGridTile(Icons.call, 'Call us',Colors.blueAccent),
+                          _buildGridTile(CupertinoIcons.chat_bubble_2, 'WhatsApp',Colors.green),
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          'Call us: ',
-                        ),
-                        InkWell(
-                          onTap: () {
-                            launch("tel:" + no);
-                          },
-                          child: Text(no),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                  ),
                     Text("Mail us: info@goffix.com")
                   ],
                 ),
@@ -721,10 +721,7 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                         'OK',
                         style: TextStyle(color: Colors.black),
                       ),
-                      // color: mainBlue,
-                      // shape: new RoundedRectangleBorder(
-                      //   borderRadius: new BorderRadius.circular(30.0),
-                      // ),
+
                       onPressed: () {
                         //saveIssue();
                         Navigator.of(context).pop();
@@ -763,3 +760,30 @@ class _ProfileScreenState extends State<ProfilePageScreen>
         });
   }
 }
+
+
+
+Widget _buildGridTile(IconData icon, String label,Color color) {
+  return GestureDetector(
+    onTap: () {
+      // Handle icon tap
+      print('$label icon tapped');
+    },
+    child: GridTile(
+      child: Container(
+        // Background color for tiles
+        child: Icon(
+          icon,
+          size: 30.0,
+          color: color,
+        ),
+        alignment: Alignment.center,
+      ),
+      footer: GridTileBar(
+        backgroundColor: Colors.white,
+        title: Text(label, textAlign: TextAlign.center,style: TextStyle(color: Colors.black),),
+      ),
+    ),
+  );
+}
+

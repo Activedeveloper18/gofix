@@ -27,6 +27,7 @@ import 'package:slider_button/slider_button.dart';
 import 'package:flutter/cupertino.dart';
 import '../../constants.dart';
 import '../../models/bookingservicemodel.dart';
+import '../../utils/const_list.dart';
 
 List<BookingServiceModel> bookingServiceList = [];
 
@@ -72,7 +73,6 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
   final TextEditingController _mobileController = new TextEditingController();
   final TextEditingController _DescController = new TextEditingController();
   late int _timePTextFeild;
-  var Timings = ['9:00 am  1:00 pm', '2:00pm  6:00pm'];
   var _location = ['Vizag', 'Vijayawada'];
   String finalDate = '';
   String finalMonth = '';
@@ -487,6 +487,31 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                 border: Border.all(color: Colors.indigo),
                                 borderRadius: BorderRadius.circular(5)),
                             child: Text(Timings[1]),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 50,
+                            width: 80,
+                            padding: const EdgeInsets.only(left: 10.0),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.indigo),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(Timings[2]),
+                          ),
+                        ), Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 50,
+                            width: 80,
+                            padding: const EdgeInsets.only(left: 10.0),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.indigo),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(Timings[3]),
                           ),
                         ),
                       ],

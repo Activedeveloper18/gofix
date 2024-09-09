@@ -46,20 +46,24 @@ class _JobScreenState extends State<JobScreen> {
         backgroundColor: Colors.white,
         elevation: 30,
         bottomOpacity: 0.8,
-        toolbarHeight: 60,
+        toolbarHeight: 65,
         leadingWidth: 100,
         leading: InkWell(
           onTap: () {
             // fetchPost();
           },
-          child: Image.asset(
-            'assets/images/logo.png',
-            fit: BoxFit.fitWidth,
-            height: 80,
-            width: 100,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Image.asset(
+              'assets/images/jobpagelogo.png',
+              fit: BoxFit.contain,
+              height: 100,
+              width: 120,
+            ),
           ),
         ),
       ),
+
       body: SingleChildScrollView(
         child: Container(
           decoration: BoxDecoration(
@@ -95,7 +99,6 @@ class _JobScreenState extends State<JobScreen> {
                             "Find Every Job in One Place",
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-
                         ],
                       ),
                       SizedBox(

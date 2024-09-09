@@ -18,6 +18,8 @@ class _EventListscreenState extends State<EventListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+
       appBar: AppBar(
         leadingWidth: 150,
         centerTitle: true,

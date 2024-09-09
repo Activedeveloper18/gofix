@@ -84,8 +84,10 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _proController = new TextEditingController();
-  final TextEditingController _catController = new TextEditingController();
+  final TextEditingController descriptionController =
+      new TextEditingController();
   String? professionValue;
+  String? experiencevalue;
 // Get Proffession test
   Future<List<catName>?> _getCat() async {
     var requestBody = {
@@ -309,6 +311,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -501,7 +504,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               // gender
                               Padding(
                                 padding: const EdgeInsets.only(
-                                     right: 20, top: 10, bottom: 10),
+                                    right: 20, top: 10, bottom: 10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -685,22 +688,23 @@ class _SignupScreenState extends State<SignupScreen> {
                               //   ),
                               // ),
 
-                              SizedBox(
-                                height: 10,
-                              ),
+                              20.verticalSpace,
+
                               Visibility(
                                 visible: widget.catagory == 1,
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 16),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                         border: Border.all(
                                             color: Colors.grey.shade500,
                                             width: 1),
                                         color: Colors.white),
-                                    padding: EdgeInsets.symmetric(horizontal: 2),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 2),
                                     child: FormBuilderDropdown<String>(
                                       // autovalidate: true,
                                       name: 'Profession',
@@ -722,7 +726,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                       items: widget.catagory == 0
                                           ? []
                                           : catagoryTypeList
-                                              .map((location) => DropdownMenuItem(
+                                              .map((location) =>
+                                                  DropdownMenuItem(
                                                     value: location,
                                                     child: Text(location),
                                                   ))
@@ -737,10 +742,87 @@ class _SignupScreenState extends State<SignupScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 10,
+                              20.verticalSpace,
+                              Visibility(
+                                visible: widget.catagory == 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        border: Border.all(
+                                            color: Colors.grey.shade500,
+                                            width: 1),
+                                        color: Colors.white),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 2),
+                                    child: FormBuilderDropdown<String>(
+                                      // autovalidate: true,
+                                      name: 'Experience',
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey.shade300,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        contentPadding:
+                                            EdgeInsets.only(left: 20.0),
+                                        focusColor: Colors.green,
+                                        fillColor: Colors.white,
+                                        hintText: 'Experience',
+                                      ),
+
+                                      items: widget.catagory == 0
+                                          ? []
+                                          : expirenceList
+                                              .map((location) =>
+                                                  DropdownMenuItem(
+                                                    value: location,
+                                                    child: Text(location),
+                                                  ))
+                                              .toList(),
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          print(widget.catagory);
+                                          experiencevalue = newValue!;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
                               ),
 
+                              20.verticalSpace,
+                              // description
+                              Visibility(
+                                visible: widget.catagory == 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          border: Border.all(
+                                              color: Colors.grey.shade500,
+                                              width: 1),
+                                          color: Colors.white),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 2),
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                            hintText: "Description"),
+                                        maxLines: 5,
+                                        controller: descriptionController,
+                                      )),
+                                ),
+                              ),
+
+                              20.verticalSpace,
                               Container(
                                 margin: EdgeInsets.all(5),
                                 child: FormBuilderCheckbox(
@@ -790,17 +872,21 @@ class _SignupScreenState extends State<SignupScreen> {
                                         print("continue $gendervlue");
                                         print("continue $_catTextFeild");
                                         print("continue cliked");
-                                        if(_mobileController.text.isEmpty || _mobileController.text.length<10){
-                                          popMessage(context, "Please Enter a Valid Mobile Number");
+                                        if (_mobileController.text.isEmpty ||
+                                            _mobileController.text.length <
+                                                10) {
+                                          popMessage(context,
+                                              "Please Enter a Valid Mobile Number");
+                                        } else {
+                                          UserPost(
+                                              email: _emailController.text,
+                                              phonenumber:
+                                                  _mobileController.text,
+                                              username: _nameController.text,
+                                              gender: gendervlue,
+                                              profession: _proController.text,
+                                              user_type: widget.catagory);
                                         }
-                                        else{
-                                        UserPost(
-                                            email: _emailController.text,
-                                            phonenumber: _mobileController.text,
-                                            username: _nameController.text,
-                                            gender: gendervlue,
-                                            profession: _proController.text,
-                                            user_type: widget.catagory);}
                                         // {
                                         //   print('Finder and fixture    9'),
                                         //   print(gendervlue),
