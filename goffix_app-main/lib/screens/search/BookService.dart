@@ -60,6 +60,7 @@ class locName {
 }
 
 class _BookServiceScreenState extends State<BookServiceScreen> {
+  int? selected_slot;
   @override
   late List listOfFixers;
   // String Fixers = this.cname;
@@ -465,53 +466,108 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 50,
-                            width: 80,
-                            padding: const EdgeInsets.only(left: 10.0),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.indigo),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Text(Timings[0]),
+                          child: InkWell(
+                            onTap: () {
+                              selected_slot = 0;
+                              setState(() {});
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 80,
+                              padding: const EdgeInsets.only(left: 10.0),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.indigo),
+                                  color: Colors.white,
+                                  boxShadow:selected_slot==0? [
+                                    BoxShadow(
+                                      color: Colors.indigo.shade100,
+                                      blurRadius: 5,spreadRadius: 5
+                                    )
+                                  ]: null,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Text(Timings[0]),
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 50,
-                            width: 80,
-                            padding: const EdgeInsets.only(left: 10.0),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.indigo),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Text(Timings[1]),
+                          child: InkWell(
+                            onTap: () {
+                              selected_slot = 1;
+                              setState(() {});
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 80,
+                              padding: const EdgeInsets.only(left: 10.0),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+
+                                  border: Border.all(color: Colors.indigo),
+
+                                  color: Colors.white,
+                                  boxShadow:selected_slot==1? [
+                                    BoxShadow(
+                                        color: Colors.indigo.shade100,
+                                        blurRadius: 5,spreadRadius: 5
+                                    )
+                                  ]: null,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Text(Timings[1]),
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 50,
-                            width: 80,
-                            padding: const EdgeInsets.only(left: 10.0),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.indigo),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Text(Timings[2]),
+                          child: InkWell(
+                            onTap: () {
+                              selected_slot = 2;
+                              setState(() {});
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 80,
+                              padding: const EdgeInsets.only(left: 10.0),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.indigo),
+                                  color: Colors.white,
+                                  boxShadow:selected_slot==2 ? [
+                                    BoxShadow(
+                                        color: Colors.indigo.shade100,
+                                        blurRadius: 5,spreadRadius: 5
+                                    )
+                                  ]: null,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Text(Timings[2]),
+                            ),
                           ),
-                        ), Padding(
+                        ),
+                        Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 50,
-                            width: 80,
-                            padding: const EdgeInsets.only(left: 10.0),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.indigo),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Text(Timings[3]),
+                          child: InkWell(
+                            onTap: () {
+                              selected_slot = 3;
+                              setState(() {});
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 80,
+                              padding: const EdgeInsets.only(left: 10.0),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.indigo),
+                                  color: Colors.white,
+                                  boxShadow:selected_slot==3? [
+                                    BoxShadow(
+                                        color: Colors.indigo.shade100,
+                                        blurRadius: 5,spreadRadius: 5
+                                    )
+                                  ]: null,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Text(Timings[3]),
+                            ),
                           ),
                         ),
                       ],

@@ -3,6 +3,7 @@ import 'dart:io' as Io;
 import 'dart:async';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:goffix/models/logincredentialsmodel.dart';
 import 'package:goffix/screens/add/Del_post.dart';
 import 'package:goffix/screens/home/homeScreen.dart';
 import 'package:goffix/screens/layout/layout.dart';
@@ -21,6 +22,10 @@ import 'package:slider_button/slider_button.dart';
 // import 'package:slider_button/slider_button.dart';
 
 class AddScreen extends StatefulWidget {
+  LoginCredentialsModel? loginCredentialsModel;
+  AddScreen({
+   this.loginCredentialsModel,
+});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -268,7 +273,7 @@ class _HomeScreenState extends State<AddScreen> {
               child: Text('Okay'),
               onPressed: () {
                 // if (route == "home") {
-                Navigator.pop(context);
+                // Navigator.pop(context);
                 // Navigator.of(context).push(
                 //   MaterialPageRoute(
                 //       builder: (BuildContext context) => Layout()),
@@ -299,10 +304,12 @@ class _HomeScreenState extends State<AddScreen> {
       "jbmobileNumber": "1234567890",
       "priority": "High",
       "userId": 1
+
     };
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
-    var response = await http.post(Uri.parse(jobPostUrl),
+    print(jobPostUrl);
+    var response = await http.post(Uri.parse("http://ec2-51-20-153-77.eu-north-1.compute.amazonaws.com:5000/jobs/postjob"),
         headers: {
           'Accept': 'application/json',
           'content-Type': 'application/json',
@@ -319,8 +326,11 @@ class _HomeScreenState extends State<AddScreen> {
       setState(() {});
       _showMyDialog("Job posted successfully");
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => Layout()),
-      );
+        MaterialPageRoute(builder: (BuildContext context) => Layout(
+          loginCredentialsModel: widget.loginCredentialsModel,
+        )));
+    // Navigator.pop(context);
+      
 
       //Post Success code
       // Alert(
@@ -826,6 +836,7 @@ class _HomeScreenState extends State<AddScreen> {
                                       ? CircularProgressIndicator()
                                       : !isPosted
                                           ? SliderButton(
+                                    
                                               action: () {
                                                 ///Do something here OnSlide
                                                 print("Posting a Job");
@@ -879,7 +890,7 @@ class _HomeScreenState extends State<AddScreen> {
                                               //Adjust effects such as shimmer and flag vibration here
                                               shimmer: true,
                                               vibrationFlag: false,
-                                              dismissThresholds: 0.0,
+                                              dismissThresholds: 0.1,
                                               dismissible:
                                                   isLoading ? true : false,
                                               alignLabel: Alignment(0.0, 0),

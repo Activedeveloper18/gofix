@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import '../../constants.dart';
 import '../../models/getbyprofessiontype.dart';
@@ -21,18 +22,20 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
   }
 
   Future<List<GetByProfessionTypeModel>> _getCat() async {
+    print("---------------- gdail listr ");
+    // Uri url = Uri.parse(
+    //     getAllUserByProfession + "profession=${widget.professionType}");
     Uri url = Uri.parse(
-        getAllUserByProfession + "profession=${widget.professionType}");
-    final response = await http.get(url, headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer $bearerToken"
-    });
-
+        "http://ec2-51-20-153-77.eu-north-1.compute.amazonaws.com:5000/gdial/users/by-profession?profession=${widget.professionType}");
+    print('get jobs ${url}');
+    final response = await http.get(url, headers: headers);
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
       return List<GetByProfessionTypeModel>.from(
           data.map((e) => GetByProfessionTypeModel.fromJson(e)));
+      setState(() {});
     } else {
       throw Exception("Failed to load data");
     }
@@ -90,55 +93,94 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.black54)),
-                        child: ListTile(
-                          onTap: () {
-                            print("object $index");
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BookServiceScreen(
-                                        cname: widget.professionType,
-                                      )),
-                            );
-                          },
-                          title: Text(snapshot.data![index].usname!.toString()),
-                          subtitle: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.email,
-                                    size: 15,
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>BookServiceScreen(
+                            cname: snapshot.data![index].usname,
+                            catid: 1,
+                          )));
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.black54)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // username and email
+                                SizedBox(
+                                  child: Row(
+                                    children: [
+                                      10.horizontalSpace,
+                                      CircleAvatar(
+                                        backgroundImage:
+                                            AssetImage("assets/images/male.png"),
+                                        radius: 40,
+                                      ),
+                                      20.horizontalSpace,
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "${snapshot.data![index].usname}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .copyWith(
+                                                    fontWeight: FontWeight.w800),
+                                          ),
+                                          Text("${snapshot.data![index].email}"),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.verified_sharp,
+                                                color: snapshot.data![index]
+                                                            .usstatus !=
+                                                        "Active"
+                                                    ? Colors.blueGrey
+                                                    : Colors.indigo,
+                                                size: 20,
+                                              ),
+                                              5.horizontalSpace,
+                                              Text(
+                                                  "${snapshot.data![index].usstatus == "Active" ? "Verified" : "Not Verified"}"),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    width: 120,
-                                    child: Text(
-                                      snapshot.data![index].username!
-                                          .toString(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                ),
+                                10.verticalSpace,
+                                // phone and message
+                                SizedBox(
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.phone,
+                                            color: Colors.indigo,
+                                            size: 30,
+                                          )),
+                                      IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.message_outlined,
+                                            color: Colors.indigo,
+                                            size: 30,
+                                          ))
+                                    ],
                                   ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.phone,
-                                    size: 15,
-                                  ),
-                                  Text(snapshot.data![index].phNumber!
-                                      .toString()),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                                ),
+                              ],
+                            )),
                       ),
                     );
                   },

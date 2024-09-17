@@ -336,7 +336,8 @@ class _SignInScreenState extends State<SignInScreen> {
     var requestBody = {};
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
-    Uri url = Uri.parse(otpUrl + "phnumber=${phn}");
+    // Uri url = Uri.parse(otpUrl + "phnumber=${phn}");
+    Uri url = Uri.parse("http://ec2-51-20-153-77.eu-north-1.compute.amazonaws.com:5000/auth/ismobilepresent?phnumber=${phn}");
     print(url);
     var response = await http.get(url, headers: {
       'Accept': 'application/json',

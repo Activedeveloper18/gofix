@@ -585,7 +585,7 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [Icon(Icons.event, color: mainBlue)],
+                          children: [Icon(Icons.calendar_month_outlined, color: mainBlue)],
                         )
                       ],
                     ),
@@ -622,7 +622,7 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Icon(Icons.edit_calendar, color: mainBlue)
+                            Icon(Icons.maps_home_work_outlined, color: mainBlue)
                           ],
                         )
                       ],
@@ -652,7 +652,7 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.change_circle_rounded, color: mainBlue)
+                          Icon(Icons.pin_drop_rounded, color: mainBlue)
                         ],
                       )
                     ],
@@ -713,7 +713,7 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [Icon(Icons.chat, color: mainBlue)],
+                          children: [Icon(Icons.question_answer, color: mainBlue)],
                         )
                       ],
                     ),
@@ -743,7 +743,7 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.question_answer, color: mainBlue)
+                          Icon(Icons.edit_note, color: mainBlue,size: 30,)
                         ],
                       )
                     ],
@@ -828,7 +828,6 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
       ),
     );
   }
-
   void _showContactDialog(context) {
     String no = "+918074035151";
 
@@ -841,43 +840,42 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
             contentPadding: EdgeInsets.only(left: 10, right: 10),
             title: Center(
                 child: Text(
-              "Contact Us",
-              style: TextStyle(color: Colors.black),
-            )),
+                  "Contact Us",
+                  style: TextStyle(color: Colors.black),
+                )),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: Container(
-              height: 200,
+              height: 500,
               width: 300,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                      'Please feel free to give us your valuable suggestions'),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Call us: ',
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 200,width: 200,
+                      child: Image(image: AssetImage("assets/images/chatwithus.png"),),
+                    ),
+                    SizedBox(
+                      height: 400,
+                      child: Expanded(
+                        child: GridView.count(
+                          crossAxisCount: 2, // Number of columns in the grid
+                          padding: EdgeInsets.all(10.0),
+                          crossAxisSpacing: 10.0,
+                          mainAxisSpacing: 10.0,
+                          children: <Widget>[
+                            _buildGridTile(Icons.mail, 'Mail',Colors.red),
+                            _buildGridTile(Icons.message, 'Write to us',Colors.deepOrange),
+                            _buildGridTile(Icons.call, 'Call us',Colors.blueAccent),
+                            _buildGridTile(CupertinoIcons.chat_bubble_2, 'WhatsApp',Colors.green),
+                          ],
+                        ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          launch("tel:" + no);
-                        },
-                        child: Text(no),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text("Mail us: info@goffix.com")
-                ],
+                    ),
+                    Text("Mail us: info@goffix.com")
+                  ],
+                ),
               ),
             ),
             actions: <Widget>[
@@ -891,10 +889,7 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                         'OK',
                         style: TextStyle(color: Colors.black),
                       ),
-                      // color: mainBlue,
-                      // shape: new RoundedRectangleBorder(
-                      //   borderRadius: new BorderRadius.circular(30.0),
-                      // ),
+
                       onPressed: () {
                         //saveIssue();
                         Navigator.of(context).pop();
@@ -933,3 +928,30 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
         });
   }
 }
+
+
+
+Widget _buildGridTile(IconData icon, String label,Color color) {
+  return GestureDetector(
+    onTap: () {
+      // Handle icon tap
+      print('$label icon tapped');
+    },
+    child: GridTile(
+      child: Container(
+        // Background color for tiles
+        child: Icon(
+          icon,
+          size: 30.0,
+          color: color,
+        ),
+        alignment: Alignment.center,
+      ),
+      footer: GridTileBar(
+        backgroundColor: Colors.white,
+        title: Text(label, textAlign: TextAlign.center,style: TextStyle(color: Colors.black),),
+      ),
+    ),
+  );
+}
+

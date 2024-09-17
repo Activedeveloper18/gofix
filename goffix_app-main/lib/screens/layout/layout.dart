@@ -194,7 +194,7 @@ class _LayoutState extends State<Layout> {
       ServiceScreen(),
       // AddScreen(),
       // HomeScreen(),
-      JobScreen(),
+      JobScreen(loginCredentialsModel:widget.loginCredentialsModel),
       Gdailscreen(),
       // ChatScreen(),
       widget.loginCredentialsModel!.ustype==1 ? ProfilePageScreen(usermodel: widget.loginCredentialsModel,):

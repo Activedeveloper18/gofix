@@ -16,6 +16,9 @@ class GdailRepo {
       print("object");
       final resp =
           await http.get(Uri.parse(getCountProfessionUrl), headers: headers);
+
+      print(getCountProfessionUrl);
+      print(headers);
       print(resp.statusCode);
       print(resp.body.runtimeType);
 

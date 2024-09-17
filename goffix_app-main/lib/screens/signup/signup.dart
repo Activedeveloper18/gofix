@@ -961,7 +961,7 @@ class _SignupScreenState extends State<SignupScreen> {
       });
       var header = {"Content-Type": "application/json"};
       Uri url = Uri.parse(
-          "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/auth/signupwithotp");
+          "http://ec2-51-20-153-77.eu-north-1.compute.amazonaws.com:5000/auth/generateotp?phnumber=${phonenumber}");
       //
       // Navigator.push(context,
       //     MaterialPageRoute(builder: (context) => CatagoryUserScreen()));

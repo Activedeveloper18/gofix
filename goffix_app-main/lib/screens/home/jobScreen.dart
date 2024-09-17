@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:goffix/models/logincredentialsmodel.dart';
 
 import '../../constants.dart';
 import '../../utils/const_list.dart';
 import '../add/AddScreen.dart';
 
 class JobScreen extends StatefulWidget {
-  const JobScreen();
+  LoginCredentialsModel? loginCredentialsModel;
+  JobScreen({
+    this.loginCredentialsModel,
+  });
 
   @override
   State<JobScreen> createState() => _JobScreenState();
@@ -35,8 +39,12 @@ class _JobScreenState extends State<JobScreen> {
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   backgroundColor: MaterialStateProperty.all(mainBlue)),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddScreen(
+                            loginCredentialsModel:
+                                widget.loginCredentialsModel)));
               },
               icon: Icon(Icons.arrow_circle_right_rounded),
               label: Text("Post a Job"),
@@ -47,23 +55,17 @@ class _JobScreenState extends State<JobScreen> {
         elevation: 30,
         bottomOpacity: 0.8,
         toolbarHeight: 65,
-        leadingWidth: 100,
+        leadingWidth: 120,
         leading: InkWell(
           onTap: () {
             // fetchPost();
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Image.asset(
-              'assets/images/jobpagelogo.png',
-              fit: BoxFit.contain,
-              height: 100,
-              width: 120,
-            ),
+          child: Image.asset(
+            'assets/images/jobpagelogo.png',
+
           ),
         ),
       ),
-
       body: SingleChildScrollView(
         child: Container(
           decoration: BoxDecoration(

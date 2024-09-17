@@ -416,7 +416,7 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [Icon(Icons.event, color: mainBlue)],
+                          children: [Icon(Icons.calendar_month, color: mainBlue)],
                         )
                       ],
                     ),
@@ -453,7 +453,7 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Icon(Icons.edit_calendar, color: mainBlue)
+                            Icon(Icons.home_work_outlined, color: mainBlue)
                           ],
                         )
                       ],
@@ -483,7 +483,7 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.change_circle_rounded, color: mainBlue)
+                          Icon(Icons.pin_drop_sharp, color: mainBlue)
                         ],
                       )
                     ],
@@ -544,7 +544,7 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [Icon(Icons.chat, color: mainBlue)],
+                          children: [Icon(Icons.question_answer, color: mainBlue)],
                         )
                       ],
                     ),
@@ -574,7 +574,7 @@ class _ProfileScreenState extends State<ProfilePageScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.question_answer, color: mainBlue)
+                          Icon(Icons.edit_note, color: mainBlue)
                         ],
                       )
                     ],

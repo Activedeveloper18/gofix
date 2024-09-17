@@ -91,7 +91,7 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
       print(jsonRequest);
 
       Uri url = Uri.parse(
-          "http://ec2-16-171-139-167.eu-north-1.compute.amazonaws.com:5000/auth/signinwithotp");
+          "$signWithOTPUrl");
       print(url);
 
       var response = await http.post(
