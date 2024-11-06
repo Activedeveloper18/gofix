@@ -16,13 +16,29 @@ class _SlideButtonScreenState extends State<SlideButtonScreen> {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Center(
               child: SliderButton(
-            action: () {
-              ///Do something here OnSlide
-              print("working");
-              setState(() {
-                isPosted = true;
-              });
-            },
+                action: () async {
+                try {
+                  print("Sliding Delivery");
+
+                  // Uncomment if needed
+                  // if (_titValError == false) {
+                  //   // startTimer();
+                  //   await _addPost(_postTitle.text, _postDesc.text);
+                  // }
+
+                  bool result = await _bookService();
+                  return result;
+                } catch (e) {
+                  print("Error: $e");
+                  return false;
+                }},
+            // action: () {
+            //   ///Do something here OnSlide
+            //   print("working");
+            //   setState(() {
+            //     isPosted = true;
+            //   });
+            // },
 
             ///Put label over here
             label: Text(
@@ -50,7 +66,7 @@ class _SlideButtonScreenState extends State<SlideButtonScreen> {
             shimmer: true,
             vibrationFlag: false,
             // dismissThresholds: 2.0,
-            dismissible: true,
+            // dismissible: true,
             alignLabel: Alignment(0.0, 0),
 
             ///Change All the color and size from here.
@@ -98,4 +114,6 @@ class _SlideButtonScreenState extends State<SlideButtonScreen> {
       ),
     );
   }
+  
+  _bookService() {}
 }

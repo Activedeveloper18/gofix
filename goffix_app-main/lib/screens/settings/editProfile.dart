@@ -206,7 +206,7 @@ class _SignupEditScreenState extends State<SignupEditScreen> {
       _inProcess = true;
     });
     final picker = ImagePicker();
-    final image = await picker.getImage(source: source);
+    final image = await picker.pickImage(source: source);
     if (image != null) {
       File? cropped = await ImageCropper().cropImage(
           sourcePath: image.path,

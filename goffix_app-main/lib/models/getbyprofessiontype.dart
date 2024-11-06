@@ -19,10 +19,11 @@ class GetByProfessionTypeModel {
   final dynamic uslocation;
   final String? usaddress;
   final String? profession;
-  final String? usstatus;
+  // final String? usstatus;
+  final dynamic? usstatus;
   final dynamic usdescription;
   final int? ustype;
-  final bool? enabled;
+  final dynamic? enabled;
   final String? phNumber;
   final bool? accountNonExpired;
   final bool? accountNonLocked;

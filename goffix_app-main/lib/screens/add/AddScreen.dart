@@ -17,6 +17,7 @@ import 'package:goffix/providers/location_provider.dart';
 import 'package:goffix/screens/login/login.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:slider_button/slider_button.dart';
+import 'dart:math';
 // import 'utils/validators.dart';
 
 // import 'package:slider_button/slider_button.dart';
@@ -295,21 +296,26 @@ class _HomeScreenState extends State<AddScreen> {
     profession,
     locName,
   ) async {
+    var random = Random();
+     int randomJobId = random.nextInt(1000) + 1;
     var requestBody = {
+        "jobId": randomJobId,
       "jobtitle": title,
       "jobdescription": desc,
-      "jbprofession": profession,
-      "jblocation": locName,
-      "jobtype": "Full-time",
+      "jbprofession": 5,
+  "jblocation": 8,
+  "jobtype": 1,
       "jbmobileNumber": "1234567890",
       "priority": "High",
-      "userId": 1
+      "userId": 7
 
     };
+
+   
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
-    print(jobPostUrl);
-    var response = await http.post(Uri.parse("http://ec2-51-20-153-77.eu-north-1.compute.amazonaws.com:5000/jobs/postjob"),
+    // print(jobPostUrl);
+    var response = await http.post(Uri.parse("https://admin.goffix.com/api/jobs/postJob.php"),
         headers: {
           'Accept': 'application/json',
           'content-Type': 'application/json',
@@ -319,6 +325,7 @@ class _HomeScreenState extends State<AddScreen> {
     var jsonResponse = null;
     print(response.statusCode);
     print(response.body);
+    print('here completed');
     if (response.statusCode == 200) {
       // jsonResponse = json.decode(response.body);
       // print(jsonResponse);
@@ -593,7 +600,7 @@ class _HomeScreenState extends State<AddScreen> {
                             _locValError = false;
                           });
                           print(val);
-                          if (val == "Vizag") {
+                          if (val == "Vizag" || val=='Visakhapatnam') {
                             setState(() {
                               _locTextFeild = 0;
                             });
@@ -837,7 +844,7 @@ class _HomeScreenState extends State<AddScreen> {
                                       : !isPosted
                                           ? SliderButton(
                                     
-                                              action: () {
+                                              action:  () async {
                                                 ///Do something here OnSlide
                                                 print("Posting a Job");
                                                 if (_titValError == false) {
@@ -891,8 +898,8 @@ class _HomeScreenState extends State<AddScreen> {
                                               shimmer: true,
                                               vibrationFlag: false,
                                               dismissThresholds: 0.1,
-                                              dismissible:
-                                                  isLoading ? true : false,
+                                              // dismissible:
+                                              //     isLoading ? true : false,
                                               alignLabel: Alignment(0.0, 0),
 
                                               ///Change All the color and size from here.

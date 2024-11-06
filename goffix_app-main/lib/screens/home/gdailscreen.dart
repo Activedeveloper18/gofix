@@ -19,8 +19,11 @@ class _GdailscreenState extends State<Gdailscreen> {
   @override
   void initState() {
     super.initState();
+    print('hello');
     GdailRepo().getCountProfession();
   }
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +79,16 @@ class _GdailscreenState extends State<Gdailscreen> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       GetCountByProfessionModel item = snapshot.data![index];
+                      // print('item ,${item.toString()}');
                       return InkWell(
                         onTap: (){
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ListFixerScreen(
-                                  professionType: item.profession.toString(),
+                                  // professionType: item.profession.toString(),
+                                  professionType: 1.toString(),
+                                  // professionType: item.cat_id.toString(),
                                 )),
                           );
 

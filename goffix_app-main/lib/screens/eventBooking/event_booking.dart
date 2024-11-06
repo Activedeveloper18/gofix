@@ -1,197 +1,198 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'confirmbookingscreen.dart';
 
 class EventBookingScreen extends StatefulWidget {
-  const EventBookingScreen();
+  final int totalTickets;
+  const EventBookingScreen({required this.totalTickets});
 
   @override
   State<EventBookingScreen> createState() => _EventBookingScreenState();
 }
 
 class _EventBookingScreenState extends State<EventBookingScreen> {
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController age = TextEditingController();
-  String? genderValue;
-  TextEditingController contactnumber = TextEditingController();
+  List<TextEditingController> nameControllers = [];
+  List<TextEditingController> emailControllers = [];
+  List<TextEditingController> ageControllers = [];
+  List<TextEditingController> contactNumberControllers = [];
+  List<String?> genderValues = [];
+  final List<Map<String, dynamic>> visitors = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize controllers and gender values based on the number of tickets
+    for (int i = 0; i < widget.totalTickets; i++) {
+      nameControllers.add(TextEditingController());
+      emailControllers.add(TextEditingController());
+      ageControllers.add(TextEditingController());
+      contactNumberControllers.add(TextEditingController());
+      genderValues.add(null);
+    }
+  }
+
+  Future<void> submitVisitors() async {
+    bool allFieldsFilled = true;
+    visitors.clear();
+
+    // Capture each visitor’s data from controllers
+    for (int i = 0; i < widget.totalTickets; i++) {
+      final visitor = {
+        'name': nameControllers[i].text,
+        'email': emailControllers[i].text,
+        'age': ageControllers[i].text,
+        'contact': contactNumberControllers[i].text,
+        'gender': genderValues[i],
+      };
+
+      if (visitor.values.any((value) => value == null || value.isEmpty)) {
+        allFieldsFilled = false;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Please fill in all fields for each visitor.')),
+        );
+        return;
+      }
+
+      visitors.add(visitor);
+    }
+
+    if (!allFieldsFilled) return;
+
+    const String apiUrl = 'https://admin.goffix.com/api/events/confirm_event.php';
+    
+    for (var visitor in visitors) {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "eventId": 5,
+          ...visitor,
+        }),
+      );
+
+      print('response confirm ${response.body}');
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Confirmbookingscreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    print("event page ");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 30,
-        bottomOpacity: 0.8,
         toolbarHeight: 60,
-        title: Text("Visitors",style: TextStyle(fontWeight: FontWeight.w800,color: Colors.black),),
+        title: Text(
+          "Visitors",
+          style: TextStyle(fontWeight: FontWeight.w800, color: Colors.black),
+        ),
         centerTitle: true,
-      //   leading: InkWell(
-      //     onTap: () {},
-      //     child: Image.asset(
-      //       'assets/images/logo.png',
-      //       fit: BoxFit.fitWidth,
-      //       height: 100,
-      //       width: 100,
-      //     ),
-      //   ),
       ),
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return Form(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          height: 400,
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black12,
-                                    spreadRadius: 2,
-                                    blurRadius: 2.0,
-                                    offset: Offset(2, 1))
-                              ]),
-                          padding:
-                              EdgeInsets.only(top: 20, left: 20, right: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Visitors",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
-                              ),
-                              Divider(
-                                thickness: 1,
-                                color: Colors.black12,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: TextFormField(
-                                  maxLength: 50,
-                                  initialValue: name.text,
-                                  decoration: InputDecoration(
-                                      counterText: "",
-                                      labelText: "Name",
-                                      border: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black12),
-                                        borderRadius: BorderRadius.circular(10),
-                                      )),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: TextFormField(
-                                  initialValue: email.text,
-                                  maxLength: 50,
-                                  decoration: InputDecoration(
-                                      counterText: "",
-                                      labelText: "Email",
-                                      border: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black12),
-                                        borderRadius: BorderRadius.circular(10),
-                                      )),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: TextFormField(
-                                  initialValue: age.text,
-                                  maxLength: 2,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp('[0-9]')),
-                                  ],
-                                  decoration: InputDecoration(
-                                      counterText: "",
-                                      labelText: "age",
-                                      border: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black12),
-                                        borderRadius: BorderRadius.circular(10),
-                                      )),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: TextFormField(
-                                  maxLength: 10,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp('[0-9]')),
-                                  ],
-                                  initialValue: contactnumber.text,
-                                  decoration: InputDecoration(
-                                      counterText: "",
-                                      labelText: "contact",
-                                      border: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black12),
-                                        borderRadius: BorderRadius.circular(10),
-                                      )),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child:  Container(
-                                  height: 50,width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                     borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.black)
-
-                                ),
-                                  child: DropdownButton<String>(
-                                    underline: SizedBox(),
-                                    value: genderValue,
-                                    hint: Text('Select Gender'),
-                                    items: <String>['Male', 'Female',  'Other'].map((String gender) {
-                                      return DropdownMenuItem<String>(
-                                        value: gender,
-                                        child: Text(gender),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        genderValue = newValue;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
+              itemCount: widget.totalTickets,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          spreadRadius: 2,
+                          blurRadius: 2.0,
+                          offset: Offset(2, 1),
+                        ),
+                      ],
                     ),
-                  );
-                }),
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Text("Visitor ${index + 1}"),
+                        TextField(
+                          controller: nameControllers[index],
+                          decoration: InputDecoration(labelText: "Name"),
+                        ),
+                        TextField(
+                          controller: emailControllers[index],
+                          decoration: InputDecoration(labelText: "Email"),
+                        ),
+                        TextField(
+                          controller: ageControllers[index],
+                          decoration: InputDecoration(labelText: "Age"),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                        ),
+                        TextField(
+                          controller: contactNumberControllers[index],
+                          decoration: InputDecoration(labelText: "Contact"),
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                        ),
+                        DropdownButton<String>(
+                          value: genderValues[index],
+                          hint: Text('Select Gender'),
+                          items: <String>['Male', 'Female', 'Other']
+                              .map((String gender) {
+                            return DropdownMenuItem<String>(
+                              value: gender,
+                              child: Text(gender),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              genderValues[index] = newValue;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width*0.9,
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirmbookingscreen()));
-                },
-                child: Text("Continue",style: TextStyle(color: Colors.white,fontSize: 20),),
+          ElevatedButton(
+            onPressed: submitVisitors,
+            child: Text("Continue"),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5)
-              )
+                borderRadius: BorderRadius.circular(5),
+              ),
             ),
-            ),
-          )
+          ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // Dispose of all controllers
+    for (var controller in nameControllers) controller.dispose();
+    for (var controller in emailControllers) controller.dispose();
+    for (var controller in ageControllers) controller.dispose();
+    for (var controller in contactNumberControllers) controller.dispose();
+    super.dispose();
   }
 }

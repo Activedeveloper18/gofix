@@ -39,7 +39,8 @@ class _SelectedEventScreenState extends State<SelectedEventScreen> {
             textAlign: TextAlign.center,
           ),
           Text(
-            'Here’s how you can modify your SelectedEventScreen widget to work with older versions of Flutter',
+            // 'Here’s how you can modify your SelectedEventScreen widget to work with older versions of Flutter',
+            '',
             style: Theme.of(context)
                 .textTheme
                 .headlineLarge!
@@ -129,7 +130,8 @@ class _SelectedEventScreenState extends State<SelectedEventScreen> {
                           ),
                           10.verticalSpace,
                           Text(
-                            'Here’s how you can modify your SelectedEventScreen widget to work with older versions of Flutter',
+                            // 'Here’s how you can modify your SelectedEventScreen widget to work with older versions of Flutter',
+                            '',
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineLarge!
@@ -150,7 +152,7 @@ class _SelectedEventScreenState extends State<SelectedEventScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => EventBookingScreen()));
+                          builder: (context) => EventBookingScreen(totalTickets: total_tickets)));
                 }
                 setState(() {});
               },

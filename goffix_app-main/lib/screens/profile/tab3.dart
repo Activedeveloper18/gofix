@@ -527,7 +527,7 @@ class _TabPageState extends State<TabPage> with SingleTickerProviderStateMixin {
                                 size: 20,
                                 color: mainBlue.withOpacity(0.8),
                               ),
-                              Text("Vizag",
+                              Text("Visakhapatnam",
                                   style: TextStyle(
                                       color: mainBlue.withOpacity(0.5),
                                       fontWeight: FontWeight.bold)),

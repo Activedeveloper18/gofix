@@ -74,7 +74,8 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
   final TextEditingController _mobileController = new TextEditingController();
   final TextEditingController _DescController = new TextEditingController();
   late int _timePTextFeild;
-  var _location = ['Vizag', 'Vijayawada'];
+  // var _location = ['Vizag', 'Vijayawada'];
+  var _location = ['Visakhapatnam'];
   String finalDate = '';
   String finalMonth = '';
   String finalYear = '';
@@ -171,12 +172,14 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
   }
 
   Future<dynamic> _bookService() async {
-    int cid = widget.catid!;
-    if (this.mounted) {
-      setState(() {
-        IsPosting = true;
-      });
-    }
+
+    print('function called');
+    // int cid = widget.catid!;
+    // if (this.mounted) {
+    //   setState(() {
+    //     IsPosting = true;
+    //   });
+    // }
     // if (_landmarkController.text == "") {
     //   if (this.mounted) {
     //     setState(() {
@@ -201,13 +204,13 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
     // if (_mobileController.text.length != 10) {
 
     // }
-    if (_locTextFeild == null) {
-      if (this.mounted) {
-        setState(() {
-          _locValError = true;
-        });
-      }
-    }
+    // if (_locTextFeild == null) {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _locValError = true;
+    //     });
+    //   }
+    // }
     // if (_conTypeTextFeild == null) {
     //   if (this.mounted) {
     //     setState(() {
@@ -215,21 +218,21 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
     //     });
     //   }
     // }
-    if (_timePTextFeild == null) {
-      if (this.mounted) {
-        setState(() {
-          _timingsError = true;
-        });
-      }
-    }
-    if (_selectedDate == '') {
-      if (this.mounted) {
-        setState(() {
-          _selectedDate = new DateTime.now().toString();
-        });
-      }
-    }
-    print(_selectedDate);
+    // if (_timePTextFeild == null) {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _timingsError = true;
+    //     });
+    //   }
+    // }
+    // if (_selectedDate == '') {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _selectedDate = new DateTime.now().toString();
+    //     });
+    //   }
+    // }
+    // print(_selectedDate);
 
     // if (_mobileController.text.length == 10) {
     // if (mounted) {
@@ -238,78 +241,112 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
     //   });
     // }
     //  _mobValLenError = false;
-    String? token = await User().getToken();
-    int? uid = await User().getUID();
+    // String? token = await User().getToken();
+    // int? uid = await User().getUID();
 
-    if (_mobileController.text == "") {
-      _mobileController.text = "0";
-    }
+    // if (_mobileController.text == "") {
+    //   _mobileController.text = "0";
+    // }
 
+    // var requestBody = {
+    //   "service_name": "bookservice",
+    //   "param": {
+    //     "bs_uid": uid,
+    //     "bs_cid": cid,
+    //     "bs_lid": _locTextFeild,
+    //     // "bs_Loc": _landmarkController.text,
+    //     "bs_dt": _selectedDate,
+    //     "bs_time": _timePTextFeild,
+    //     "bs_phn": _mobileController.text,
+    //     "bs_isPrem": isPrem,
+    //     "bs_desc": _DescController.text,
+    //   }
+  // };
     var requestBody = {
-      "service_name": "bookservice",
-      "param": {
-        "bs_uid": uid,
-        "bs_cid": cid,
-        "bs_lid": _locTextFeild,
-        // "bs_Loc": _landmarkController.text,
-        "bs_dt": _selectedDate,
-        "bs_time": _timePTextFeild,
-        "bs_phn": _mobileController.text,
-        "bs_isPrem": isPrem,
-        "bs_desc": _DescController.text,
-      }
+  
+    "booking_date": _selectedDate,
+    "service_booking_date": _selectedDate,
+    "city": 6,
+    "service_name": widget.cname,
+    "premium_service": "No",
+    "email": "customer@example.com",
+    "assigned_by": "admin",
+    "additional_details": _DescController.toString(),
+    "fixer_name": "John Doe",
+    "fixer_mobile_no": _mobileController.toString(),
+    "fixer_unique_id": "fixer123",
+    "location": _locationController.toString(),
+    "fixer_rating": 5,
+    "quotation": 1500.50,
+    "payment_mode": "CASH",
+    "payment_amount": 1500.50
+
+      
     };
+    // print('cname ${widget.cname}');
+    // return;
 
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
-    var response = await http.post(baseUrl,
+    // var response = await http.post(baseUrl,
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Authorization': 'Bearer $token',
+    //     },
+    //     body: jsonRequest);
+        var response = await http.post(Uri.parse("https://admin.goffix.com/api/booking/book.php"),
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
+          'content-Type': 'application/json',
+          'Authorization': 'Bearer $bearerToken',
         },
         body: jsonRequest);
     var jsonResponse = null;
-
-    if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print(jsonResponse);
-      if (jsonResponse["response"]["status"] == 200) {
-        if (this.mounted) {
-          setState(() {
-            isPosted = true;
-            IsPosting = false;
-          });
-        }
+      if (response.statusCode == 200) {
+      // jsonResponse = json.decode(response.body);
+      // print(jsonResponse);
+      // isLoading = false;
+      // setState(() {});
+      // _showMyDialog("Job posted successfully");
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(builder: (BuildContext context) => Layout(
+      //     loginCredentialsModel: widget.loginCredentialsModel,
+      //   )));
+      // }
+      // if (jsonResponse["response"]["status"] == 200) {
+      //   if (this.mounted) {
+      //     setState(() {
+      //       isPosted = true;
+      //       IsPosting = false;
+      //     });
+      //   }
 
         // _showMyDialog();
-        // Navigator.of(context).pushReplacement(
-        //   MaterialPageRoute(builder: (BuildContext context) => Layout()),
-        // );
-        //Post Success code
-        // Alert(
-        //   context: context,
-        //   type: AlertType.success,
-        //   title: "Job Post",
-        //   desc: "Job Posted Successfully",
-        //   buttons: [
-        //     DialogButton(
-        //       child: Text(
-        //         "Okay",
-        //         style: TextStyle(color: Colors.white, fontSize: 20),
-        //       ),
-        //       onPressed: () => Navigator.pop(context),
-        //       width: 120,
-        //     )
-        //   ],
-        // ).show().then((value) {
-        //   print(value);
-        //   Navigator.pushReplacement(
-        //       context, MaterialPageRoute(builder: (context) => Layout()));
-        // });
-        print("Success");
-      } else {
-        print("Post not posted");
-      }
+        print('\n\n\n\nbooked');
+                Alert(
+          context: context,
+          type: AlertType.success,
+          title: "Booking",
+          desc: "Service Booked Successfully",
+                    buttons: [
+            DialogButton(
+              child: Text(
+                "Okay",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: (){
+                 isPosted = false;
+                  setState(() {});
+              },
+              width: 120,
+            )
+          ],
+        ).show().then((value) {
+          print(value);
+        });
+     
     } else {
       if (mounted) {
         setState(() {
@@ -428,287 +465,123 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                         ),
                       ),
                     ),
-                    // Text("Timings"),
-                    // Container(
-                    //   height: 70,
-                    //   width: MediaQuery.of(context).size.width * 0.9,
-                    //   // color: Colors.indigo,
-                    //   child: Expanded(
-                    //     child:GridView.builder(
-                    //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //         crossAxisCount: 3, // Number of items per row
-                    //         crossAxisSpacing: 10.0, // Spacing between columns
-                    //         mainAxisSpacing: 10.0,  // Spacing between rows
-                    //         childAspectRatio: 2, // Ratio of width to height of each grid item
-                    //       ),
-                    //       itemCount: Timings.length,
-                    //       itemBuilder: (context, index) {
-                    //         return Padding(
-                    //           padding: const EdgeInsets.all(8.0),
-                    //           child: Container(
-                    //             height: 50,
-                    //             width: 20,
-                    //             alignment: Alignment.center,
-                    //             decoration: BoxDecoration(
-                    //               border: Border.all(color: Colors.indigo),
-                    //               borderRadius: BorderRadius.circular(5)
-                    //             ),
-                    //             child: Text(Timings[index]),
-                    //           ),
-                    //         );
-                    //       },
-                    //     )
-                    //
-                    //   ),
-                    // ),
+                 
 
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              selected_slot = 0;
-                              setState(() {});
-                            },
-                            child: Container(
-                              height: 50,
-                              width: 80,
-                              padding: const EdgeInsets.only(left: 10.0),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.indigo),
-                                  color: Colors.white,
-                                  boxShadow:selected_slot==0? [
-                                    BoxShadow(
-                                      color: Colors.indigo.shade100,
-                                      blurRadius: 5,spreadRadius: 5
-                                    )
-                                  ]: null,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(Timings[0]),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              selected_slot = 1;
-                              setState(() {});
-                            },
-                            child: Container(
-                              height: 50,
-                              width: 80,
-                              padding: const EdgeInsets.only(left: 10.0),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-
-                                  border: Border.all(color: Colors.indigo),
-
-                                  color: Colors.white,
-                                  boxShadow:selected_slot==1? [
-                                    BoxShadow(
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                selected_slot = 0;
+                                setState(() {});
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 80,
+                                padding: const EdgeInsets.only(left: 10.0),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.indigo),
+                                    color: Colors.white,
+                                    boxShadow:selected_slot==0? [
+                                      BoxShadow(
                                         color: Colors.indigo.shade100,
                                         blurRadius: 5,spreadRadius: 5
-                                    )
-                                  ]: null,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(Timings[1]),
+                                      )
+                                    ]: null,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text(Timings[0]),
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              selected_slot = 2;
-                              setState(() {});
-                            },
-                            child: Container(
-                              height: 50,
-                              width: 80,
-                              padding: const EdgeInsets.only(left: 10.0),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.indigo),
-                                  color: Colors.white,
-                                  boxShadow:selected_slot==2 ? [
-                                    BoxShadow(
-                                        color: Colors.indigo.shade100,
-                                        blurRadius: 5,spreadRadius: 5
-                                    )
-                                  ]: null,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(Timings[2]),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                selected_slot = 1;
+                                setState(() {});
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 80,
+                                padding: const EdgeInsets.only(left: 10.0),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                      
+                                    border: Border.all(color: Colors.indigo),
+                      
+                                    color: Colors.white,
+                                    boxShadow:selected_slot==1? [
+                                      BoxShadow(
+                                          color: Colors.indigo.shade100,
+                                          blurRadius: 5,spreadRadius: 5
+                                      )
+                                    ]: null,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text(Timings[1]),
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              selected_slot = 3;
-                              setState(() {});
-                            },
-                            child: Container(
-                              height: 50,
-                              width: 80,
-                              padding: const EdgeInsets.only(left: 10.0),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.indigo),
-                                  color: Colors.white,
-                                  boxShadow:selected_slot==3? [
-                                    BoxShadow(
-                                        color: Colors.indigo.shade100,
-                                        blurRadius: 5,spreadRadius: 5
-                                    )
-                                  ]: null,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(Timings[3]),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                selected_slot = 2;
+                                setState(() {});
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 80,
+                                padding: const EdgeInsets.only(left: 10.0),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.indigo),
+                                    color: Colors.white,
+                                    boxShadow:selected_slot==2 ? [
+                                      BoxShadow(
+                                          color: Colors.indigo.shade100,
+                                          blurRadius: 5,spreadRadius: 5
+                                      )
+                                    ]: null,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text(Timings[2]),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                selected_slot = 3;
+                                setState(() {});
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 80,
+                                padding: const EdgeInsets.only(left: 10.0),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.indigo),
+                                    color: Colors.white,
+                                    boxShadow:selected_slot==3? [
+                                      BoxShadow(
+                                          color: Colors.indigo.shade100,
+                                          blurRadius: 5,spreadRadius: 5
+                                      )
+                                    ]: null,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text(Timings[3]),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
 
-                    //       HorizontalCalendar(
-                    //
-                    //       date: DateTime.now(),
-                    //         initialDate: DateTime.now(),
-                    //   textColor: Colors.black45,
-                    //   backgroundColor: Colors.white,
-                    //   selectedColor: Colors.blue,
-                    //   locale:    Locale('en', ''),
-                    //   showMonth:true,
-                    //   onDateSelected: (date) {
-                    //     print(date.toString());
-                    //   },
-                    // ),
-
-                    // Calendar
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: Container(
-                    //     height: 200,
-                    //     decoration: BoxDecoration(
-                    //         color: Colors.grey[300],
-                    //         // color: Colors.white,
-                    //         // border: Border.all(),
-                    //         borderRadius: BorderRadius.circular(30)),
-                    //     child: SfDateRangePicker(
-                    //       headerStyle: DateRangePickerHeaderStyle(
-                    //         textAlign: TextAlign.center,
-                    //         textStyle: TextStyle(
-                    //             fontFamily: "Lato",
-                    //             fontSize: 20,
-                    //             fontWeight: FontWeight.bold,
-                    //             color: mainOrange),
-                    //       ),
-                    //       // confirmText: 'OK',
-                    //       showNavigationArrow: true,
-                    //       monthViewSettings:
-                    //           DateRangePickerMonthViewSettings(
-                    //               numberOfWeeksInView: 3),
-                    //       // DateRangePickerView:,
-                    //       // view: CalendarView.week,
-                    //       onSelectionChanged: _onSelectionChanged,
-                    //       selectionColor: mainOrange,
-                    //       selectionTextStyle: TextStyle(
-                    //           fontFamily: "Lato",
-                    //           fontSize: 16,
-                    //           fontWeight: FontWeight.bold,
-                    //           color: Colors.white),
-                    //       rangeSelectionColor: mainOrange,
-                    //       yearCellStyle: DateRangePickerYearCellStyle(
-                    //         leadingDatesDecoration: BoxDecoration(
-                    //             color: mainOrange,
-                    //             border: Border.all(
-                    //                 color: mainOrange, width: 1),
-                    //             shape: BoxShape.circle),
-                    //         todayCellDecoration: BoxDecoration(
-                    //             // color: const Color(0xFFDFDFDF),
-                    //             color: mainOrange,
-                    //             border: Border.all(
-                    //                 color: mainOrange, width: 5),
-                    //             shape: BoxShape.rectangle),
-                    //         todayTextStyle:
-                    //             const TextStyle(color: Colors.purple),
-                    //       ),
-                    //       monthCellStyle: DateRangePickerMonthCellStyle(
-                    //         todayCellDecoration: BoxDecoration(
-                    //             // color: const Color(0xFFDFDFDF),
-                    //             color: mainOrange,
-                    //             border: Border.all(
-                    //                 color: mainOrange, width: 5),
-                    //             shape: BoxShape.circle),
-                    //         todayTextStyle:
-                    //             const TextStyle(color: Colors.black),
-                    //       ),
-                    //       selectionMode:
-                    //           DateRangePickerSelectionMode.single,
-                    //       minDate: DateTime(DateTime.now().year,
-                    //           DateTime.now().month, DateTime.now().day),
-                    //       maxDate: DateTime(
-                    //           DateTime.now().year,
-                    //           DateTime.now().month,
-                    //           DateTime.now().day + 30),
-                    //     ),
-                    //   ),
-                    // ),
-                    // Timing
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(10.0),
-                    //       border: Border.all(
-                    //           color: Colors.grey.shade500, width: 1),
-                    //       color: Colors.white),
-                    //   padding: EdgeInsets.symmetric(horizontal: 2),
-                    //   child: FormBuilderDropdown<String>(
-                    //     // autovalidate: true,
-                    //     name: 'Timengs',
-                    //     decoration: InputDecoration(
-                    //       border: InputBorder.none,
-                    //       focusedBorder: OutlineInputBorder(
-                    //           borderSide:
-                    //               BorderSide(color: Colors.white, width: 2.0),
-                    //           borderRadius: BorderRadius.circular(10.0)),
-                    //       contentPadding: EdgeInsets.only(left: 20.0),
-                    //       focusColor: Colors.green,
-                    //       fillColor: Colors.white,
-                    //       hintText: 'Select Time',
-                    //       // suffix: _timePriorityError
-                    //       //     ? const Icon(Icons.error)
-                    //       //     : const Icon(Icons.check),
-                    //     ),
-                    //     // initialValue: 'Male',
-                    //     // allowClear: true,
-                    //     // hint: Text('Select Gender'),
-                    //     // validator: FormBuilderValidators.compose(
-                    //     //     [FormBuilderValidators.required(context)]),
-                    //     items: Timings.map((location) => DropdownMenuItem(
-                    //           value: location,
-                    //           child: Text(location),
-                    //         )).toList(),
-                    //     onChanged: (val) {
-                    //       setState(() {
-                    //         _locValError = false;
-                    //       });
-                    //       print(val);
-                    //       if (val == "Male") {
-                    //         setState(() {
-                    //           _locTextFeild = 0;
-                    //         });
-                    //       } else if (val == "Female") {
-                    //         setState(() {
-                    //           _locTextFeild = 1;
-                    //         });
-                    //       }
-                    //       print(_locTextFeild);
-                    //     },
-                    //   ),
-                    // ),
+                  
                     SizedBox(
                       height: 20,
                     ),
@@ -752,7 +625,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                             _locValError = false;
                           });
                           print(val);
-                          if (val == "Vizag") {
+                          if (val == "Vizag" || val=='Visakhapatnam') {
                             setState(() {
                               _locTextFeild = 0;
                             });
@@ -772,7 +645,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                     // Location
 
                     new TextField(
-                      controller: _nameController,
+                      controller: __addressController,
                       maxLines: 4,
                       decoration: InputDecoration(
 
@@ -810,10 +683,10 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                           isExpanded:
                               true, // Ensure dropdown takes the full width of the container
                           items: <String>[
-                            'Service 1',
-                            'Service 2',
-                            'Service 3',
-                            'Service 4',
+                            'Electrician',
+                            'Plumber',
+                            'Technician',
+                            
                           ].map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -841,7 +714,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                     10.verticalSpace,
                     // Address validation
                     new TextField(
-                      controller: _nameController,
+                      controller: _mobileController,
                       decoration: InputDecoration(
 
                           // suffixIcon: Icon(CupertinoIcons.eye),
@@ -879,7 +752,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                       height: 20,
                     ),
                     new TextField(
-                      controller: _nameController,
+                      controller: _DescController,
                       maxLines: 4,
                       decoration: InputDecoration(
 
@@ -1069,13 +942,15 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                                   print("Posting a Job");
                                                   // if (_titValError == false) {
                                                   //   // startTimer();
-                                                  bookingServiceList.add(
-                                                      BookingServiceModel(
-                                                          servicetype:
-                                                              widget.cname!,
-                                                          date: finalDate,
-                                                          month: finalMonth));
-                                                  print(bookingServiceList);
+                                                  // bookingServiceList.add(
+                                                  //     BookingServiceModel(
+                                                  //         servicetype:
+                                                  //             widget.cname!,
+                                                  //         date: finalDate,
+                                                  //         month: finalMonth));
+                                                  // print(bookingServiceList);
+                                                  _bookService();
+                                                  print('done');
                                                   isPosted = true;
                                                   setState(() {});
                                                   //   _addPost(
@@ -1099,7 +974,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
 
                                                 ///Put label over here
                                                 label: Text(
-                                                  "Slide to Post",
+                                                  "Slide to Book",
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
@@ -1126,8 +1001,8 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                                 shimmer: true,
                                                 vibrationFlag: false,
                                                 dismissThresholds: 0.0,
-                                                dismissible:
-                                                    isPosted ? true : false,
+                                                // dismissible:
+                                                    // isPosted ? true : false,
                                                 alignLabel: Alignment(0.0, 0),
 
                                                 ///Change All the color and size from here.

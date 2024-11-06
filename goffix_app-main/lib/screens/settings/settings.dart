@@ -120,6 +120,11 @@ class _SettingScreenState extends State<SettingsScreen> {
                         action: "TC",
                       ),
                       _listCat(
+                        name: "CHATS",
+                        count: "Chats",
+                        action: "chats",
+                      ),
+                      _listCat(
                         name: "CHAT WITH US ",
                         count: "Write email to us / Call us",
                         action: "call",
@@ -235,11 +240,17 @@ class _listCat extends StatelessWidget {
         else if (action == "edit") {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => SignupEditScreen()));
-        } else if (action == "call") {
+        }
+         else if (action == "call") {
           _showContactDialog(context);
-        } else if (action == "about") {
+        }
+         else if (action == "chats") {
+          _showContactDialog(context);
+        }
+         else if (action == "about") {
           _showAboutDialog(context);
-        } else if (action == "TC") {
+        }
+         else if (action == "TC") {
           _showAboutTCDialog(context);
         } else if (action == "rate") {
           final InAppReview inAppReview = InAppReview.instance;
@@ -361,6 +372,33 @@ class _listCat extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [Icon(Icons.g_translate_rounded)],
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                border: Border.all(width: 1,color: mainBlue)
+
+            ),
+
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'CHATS',
+                  style: TextStyle(color: mainBlue, fontSize: 18,fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [Icon(Icons.chat)],
                 )
               ],
             ),

@@ -14,9 +14,10 @@ class GdailRepo {
   Future<List<GetCountByProfessionModel>?> getCountProfession() async {
     try {
       print("object");
+      // print("Requesting URL: $getCountProfessionUrl");
       final resp =
           await http.get(Uri.parse(getCountProfessionUrl), headers: headers);
-
+// print("object 3");
       print(getCountProfessionUrl);
       print(headers);
       print(resp.statusCode);
@@ -33,9 +34,11 @@ class GdailRepo {
         return getCountProfessionModel;
       } else {
         // Handle error, maybe return null or an empty list
+        // print('here2');
         return null;
       }
     } catch (e) {
+      // print('here');
       print(e.toString());
       log(e.toString());
     }

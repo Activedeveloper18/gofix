@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../constants.dart';
 import '../../models/getbyprofessiontype.dart';
 import 'BookService.dart';
@@ -26,7 +27,7 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
     // Uri url = Uri.parse(
     //     getAllUserByProfession + "profession=${widget.professionType}");
     Uri url = Uri.parse(
-        "http://ec2-51-20-153-77.eu-north-1.compute.amazonaws.com:5000/gdial/users/by-profession?profession=${widget.professionType}");
+        "https://admin.goffix.com/api/gdial/usersByProfession.php?profession=${widget.professionType}");
     print('get jobs ${url}');
     final response = await http.get(url, headers: headers);
     print(response.statusCode);
@@ -70,7 +71,7 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
             );
           } else if (snapshot.hasError) {
             return Center(
-              child: Text("Error: ${snapshot.error}"),
+              child: Text("Error 2: ${snapshot.error}"),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
@@ -162,13 +163,39 @@ class _ListFixerScreenState extends State<ListFixerScreen> {
                                         MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.phone,
-                                            color: Colors.indigo,
-                                            size: 30,
-                                          )),
+                                      InkWell(
+  onTap: () {
+    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: "Disclaimer",
+      desc: "Goffix is not Liable to Charges/Service Quality/ Pricing by the servicers in this section",
+      buttons: [
+        
+        DialogButton(
+          child: Text(
+            "Call",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+        )
+      ],
+    ).show();
+  },
+  child: Icon(
+    Icons.phone,
+    color: Colors.indigo,
+    size: 30,
+  ),
+),
+                                      // IconButton(
+                                      //     onPressed: () {},
+                                      //     icon: Icon(
+                                      //       Icons.phone,
+                                      //       color: Colors.indigo,
+                                      //       size: 30,
+                                      //     )),
                                       IconButton(
                                           onPressed: () {},
                                           icon: Icon(

@@ -92,6 +92,8 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
 
       Uri url = Uri.parse(
           "$signWithOTPUrl");
+      // Uri url = Uri.parse(
+      //     "https://admin.goffix.com/api/auth/validateOtp.php");
       print(url);
 
       var response = await http.post(
@@ -106,19 +108,69 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
       print('Status code: ${response.statusCode}');
       print('Response body: ${response.body}');
       if (response.statusCode == 200 || response.statusCode == 201) {
+        print('hello1');
+            // var jsonResponse = jsonDecode(response.body);
+        // SignInResponse signInResponse = SignInResponse.fromJson(jsonString);
+        print('json responce $jsonString');
         SignInResponse signInResponse = SignInResponse.fromJson(jsonString);
-        print(signInResponse.email);
-        LoginCredentialsModel loginCredentialsModel = LoginCredentialsModel.fromJson(jsonDecode(response.body));
+        print('email:-  ${signInResponse.email}');
+        print('hello2');
+
+        // LoginCredentialsModel loginCredentialsModel = LoginCredentialsModel.fromJson(jsonDecode(response.body));
+        print('hello 3');
         setState(() {});
-        print(loginCredentialsModel.token);
-        Navigator.push(
+        // print(loginCredentialsModel.token);
+            final jsonResponse = jsonDecode(response.body);
+
+    // Extract the token value
+    String? token = jsonResponse['token'];
+
+  if (token != null) {
+    // Decode the base64 string
+    String decodedString = utf8.decode(base64Url.decode(base64.normalize(token)));
+
+    // Convert the decoded string to a Map
+    Map<String, dynamic> decodedJson = jsonDecode(decodedString);
+
+    // Accessing individual fields
+    print('User ID: ${decodedJson['uid']}');
+    print('Name: ${decodedJson['name']}');
+    print('Phone: ${decodedJson['phn']}');
+    print('Email: ${decodedJson['email']}');
+    print('Expiration: ${decodedJson['exp']}');
+        // loginCredentialsModel.uid = decodedJson['uid'];
+  
+
+    String responseBody = '''
+    {
+      "token": "$token",
+    
+      "usname": "${decodedJson['name']}",
+      "phnumber": "${decodedJson['phn']}",
+      "email": "${decodedJson['email']}",
+      "expirationTime": "${decodedJson['exp']}"
+    }
+  ''';
+  print('here');
+
+  // Decode the JSON string to a Map
+  Map<String, dynamic> json = jsonDecode(responseBody);
+  print('done decoding');
+    LoginCredentialsModel loginCredentialsModel = LoginCredentialsModel.fromJson(json);
+         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Layout(loginCredentialsModel: loginCredentialsModel,)));
+  } else {
+    print('Token is null');
+  }
+   
       } else {
         return "no user found";
       }
       return "Success";
     } catch (e) {
-      return e.toString();
+      // return e.toString();
+      return 'Invalid Otp';
+
     }
   }
 
@@ -160,7 +212,7 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
           themeColor: mainBlue,
           titleColor: mainBlue,
           title: "Phone Number Verification ",
-          subTitle: "Enter the code sent to  otp ${widget.otp}\n " + widget.phn!,
+          subTitle: "Enter the code sent to  otp \n " + widget.phn!,
           icon: Image.asset(
             'assets/images/logo_ls.png',
             height: 50,

@@ -12,6 +12,8 @@ import 'package:goffix/constants.dart';
 import 'package:goffix/models/profile_posts_model.dart';
 import 'package:goffix/providers/db_provider.dart';
 import 'package:goffix/screens/SizeConfig.dart';
+// import 'package:goffix/screens/chat/chat.dart';
+import 'package:goffix/screens/profile/chatScreen.dart';
 import 'package:goffix/screens/home/components/popover_button.dart';
 import 'package:goffix/screens/login/login.dart';
 import 'package:goffix/screens/message/msg_body.dart';
@@ -586,6 +588,39 @@ class _ProfileScreenState extends State<FixerProfilePageScreen>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [Icon(Icons.calendar_month_outlined, color: mainBlue)],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ChatScreen()));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        border: Border.all(width: 1, color: mainBlue)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'CHATS',
+                          style: TextStyle(
+                              color: mainBlue,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [Icon(Icons.chat, color: mainBlue)],
                         )
                       ],
                     ),

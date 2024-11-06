@@ -55,7 +55,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   //Values
 
-  var _location = ['Vizag', 'Vijayawada'];
+  // var _location = ['Vizag', 'Vijayawada'];
+  var _location = ['Visakhapatnam'];
   int? _locTextFeild;
   bool _locValError = false;
   final TextEditingController _mobileController = new TextEditingController();
@@ -132,7 +133,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         child: Column(
                           children: <Widget>[
                             Container(
-                                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
                                 width: double.infinity,
                                 // height: 650,
                                 child: Form(
@@ -148,10 +150,11 @@ class _SignInScreenState extends State<SignInScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
                                               border: Border.all(
-                                                  color: Colors.black, width: 1),
+                                                  color: Colors.black,
+                                                  width: 1),
                                               color: Colors.white),
-                                          padding:
-                                              EdgeInsets.symmetric(horizontal: 2),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 2),
                                           child: FormBuilderDropdown<String>(
                                             // autovalidate: true,
                                             name: 'Location',
@@ -191,7 +194,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                                 _locValError = false;
                                               });
                                               print(val);
-                                              if (val == "Vizag") {
+                                              if (val == "Vizag" || val=='Visakhapatnam') {
                                                 setState(() {
                                                   _locTextFeild = 0;
                                                 });
@@ -215,16 +218,18 @@ class _SignInScreenState extends State<SignInScreen> {
                                           maxLength: 10,
                                           keyboardType: TextInputType.number,
                                           controller: _mobileController,
-                                            inputFormatters: [
-                                              FilteringTextInputFormatter.allow(RegExp("[0-9]"))
-                                            ],
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp("[0-9]"))
+                                          ],
                                           decoration: InputDecoration(
-                                            counterText: "",
+                                              counterText: "",
                                               prefixIcon: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Row(
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   children: [
                                                     Text('+91'),
                                                     Icon(Icons
@@ -234,20 +239,23 @@ class _SignInScreenState extends State<SignInScreen> {
                                               ),
                                               border: OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.grey.shade300,
+                                                      color:
+                                                          Colors.grey.shade300,
                                                       width: 3.0),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10.0)),
                                               focusedBorder: OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.grey.shade300,
+                                                      color:
+                                                          Colors.grey.shade300,
                                                       width: 1.0),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10.0)),
-                                              contentPadding: EdgeInsets.fromLTRB(
-                                                  20.0, 15.0, 20.0, 10.0),
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      20.0, 15.0, 20.0, 10.0),
                                               hintText: "Mobile No",
                                               focusColor: Colors.grey,
                                               fillColor: Colors.white),
@@ -256,13 +264,15 @@ class _SignInScreenState extends State<SignInScreen> {
                                       SizedBox(
                                         height: 20,
                                       ),
-                                      TextButton(onPressed: (){
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CatagoryUserScreen()));
-                                      }, child: Text("create account")),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CatagoryUserScreen()));
+                                          },
+                                          child: Text("create account")),
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0, vertical: 28),
@@ -280,14 +290,15 @@ class _SignInScreenState extends State<SignInScreen> {
                                             // elevation: 10,
                                             // textColor: Colors.white,
                                             onPressed: () {
-                                              if(_mobileController.text.length==10){
-                                              otpGenarate(_mobileController.text);
-
+                                              if (_mobileController
+                                                      .text.length ==
+                                                  10) {
+                                                otpGenarate(
+                                                    _mobileController.text);
+                                              } else {
+                                                popMessage(context,
+                                                    "Please enter a valid mobile number");
                                               }
-                                              else{
-                                                popMessage(context, "Please enter a valid mobile number");
-                                              }
-
                                             },
                                             /*{
                                               _checkUsr(_mobileController.text)
@@ -337,7 +348,9 @@ class _SignInScreenState extends State<SignInScreen> {
     var jsonRequest = json.encode(requestBody);
     print(jsonRequest);
     // Uri url = Uri.parse(otpUrl + "phnumber=${phn}");
-    Uri url = Uri.parse("http://ec2-51-20-153-77.eu-north-1.compute.amazonaws.com:5000/auth/ismobilepresent?phnumber=${phn}");
+    // Uri url = Uri.parse("http://ec2-51-20-153-77.eu-north-1.compute.amazonaws.com:5000/auth/ismobilepresent?phnumber=${phn}");
+    Uri url = Uri.parse(
+        "https://admin.goffix.com/api/auth/isMobilePresent.php?phnumber=${phn}");
     print(url);
     var response = await http.get(url, headers: {
       'Accept': 'application/json',
@@ -347,12 +360,22 @@ class _SignInScreenState extends State<SignInScreen> {
     print(response.statusCode);
     if (response.statusCode == 200) {
       jsonResponse = response.body;
-      String otp = jsonResponse.substring(5);
-      print("body ${jsonResponse.substring(5)}");
-      print("body$otp");
+      print(jsonResponse);
+      // String otp = jsonResponse.substring(5);
+      var jsonResponse2 = json.decode(jsonResponse);
+
+      // Extract the message and split to get the OTP
+      String message = jsonResponse2['message'];
+      // String otp = message.split(': ')[1]; // Splitting to get only the OTP part
+      String otp = '123456';
+
+      print("OTP: $otp");
+      // print("body ${jsonResponse.substring(5)}");
+      // print("body$otp");
       // _showMyDialog("Test OTP", "OTP sent mobile", "$otp");
       final snackBar = SnackBar(
-        content: Text('Your otp is $otp'),
+        // content: Text('Your otp is $otp'),
+        content: Text('Your otp is 1234$otp'),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
@@ -371,7 +394,8 @@ class _SignInScreenState extends State<SignInScreen> {
         MaterialPageRoute(
             builder: (_) => OtpScreenMobile(
                   uid: '',
-                  otp: otp,
+                  // otp: otp,
+                  otp: '1234',
                   phn: phn,
                   oTyp: "1",
                   screen: "signup",
@@ -386,6 +410,4 @@ class _SignInScreenState extends State<SignInScreen> {
       _showMyDialog("Error", "Mobile no. Already Exists", "UserExists");
     }
   }
-
-
 }

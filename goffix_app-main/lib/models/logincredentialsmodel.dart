@@ -11,7 +11,7 @@ String loginCredentialsModelToJson(LoginCredentialsModel data) => json.encode(da
 class LoginCredentialsModel {
   final int? statusCode;
   final String? message;
-  final String? token;
+  final String token;
   final String? refreshToken;
   final String? expirationTime;
   final String? email;
@@ -25,7 +25,7 @@ class LoginCredentialsModel {
   LoginCredentialsModel({
     this.statusCode,
     this.message,
-    this.token,
+    required this.token,
     this.refreshToken,
     this.expirationTime,
     this.email,

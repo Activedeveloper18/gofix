@@ -77,6 +77,33 @@ class _SignupScreenState extends State<SignupScreen> {
   List<catName>? filteredCat;
   List<locName>? filteredLoc;
 
+    List<String> professionList2 = [];
+ 
+  bool isLoading = true; // To show a loading indicator
+
+    Future<void> fetchProfessions() async {
+    final url = Uri.parse("https://admin.goffix.com/api/gdial/countByProfession.php");
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzIyMTQzMjM1LCJleHAiOjE3MjIyMjk2MzV9.ghHw0lM-eyxjvPgHif5uNmy0bmPWsZcW6FNlaFW5S8I',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      setState(() {
+        professionList2 = data.map((item) => item['profession'] as String).toList();
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      throw Exception('Failed to load professions');
+    }
+  }
+
 //Controllers
   final TextEditingController _categoryController = new TextEditingController();
   final TextEditingController _mobileController = new TextEditingController();
@@ -305,6 +332,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   void initState() {
     super.initState();
+       fetchProfessions();
     this._getCat();
   }
 
@@ -705,40 +733,33 @@ class _SignupScreenState extends State<SignupScreen> {
                                         color: Colors.white),
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 2),
-                                    child: FormBuilderDropdown<String>(
-                                      // autovalidate: true,
-                                      name: 'Profession',
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.grey.shade300,
-                                                width: 1.0),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0)),
-                                        contentPadding:
-                                            EdgeInsets.only(left: 20.0),
-                                        focusColor: Colors.green,
-                                        fillColor: Colors.white,
-                                        hintText: 'Profession',
-                                      ),
-
-                                      items: widget.catagory == 0
-                                          ? []
-                                          : catagoryTypeList
-                                              .map((location) =>
-                                                  DropdownMenuItem(
-                                                    value: location,
-                                                    child: Text(location),
-                                                  ))
-                                              .toList(),
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          print(widget.catagory);
-                                          professionValue = newValue!;
-                                        });
-                                      },
-                                    ),
+                                    child:   isLoading
+        ? Center(child: CircularProgressIndicator())
+        : FormBuilderDropdown<String>(
+            name: 'Profession',
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade300, width: 1.0),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              contentPadding: EdgeInsets.only(left: 20.0),
+              focusColor: Colors.green,
+              fillColor: Colors.white,
+              hintText: 'Profession',
+            ),
+            items: professionList2
+                .map((profession) => DropdownMenuItem(
+                      value: profession,
+                      child: Text(profession),
+                    ))
+                .toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                professionValue = newValue;
+              });
+            },
+          ),
                                   ),
                                 ),
                               ),
@@ -961,7 +982,7 @@ class _SignupScreenState extends State<SignupScreen> {
       });
       var header = {"Content-Type": "application/json"};
       Uri url = Uri.parse(
-          "http://ec2-51-20-153-77.eu-north-1.compute.amazonaws.com:5000/auth/generateotp?phnumber=${phonenumber}");
+          "https://admin.goffix.com/api/auth/signUpWithOtp.php");
       //
       // Navigator.push(context,
       //     MaterialPageRoute(builder: (context) => CatagoryUserScreen()));

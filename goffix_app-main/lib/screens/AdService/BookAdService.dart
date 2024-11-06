@@ -350,7 +350,6 @@ class _BookAdServiceScreenState extends State<BookAdServiceScreen> {
     // String no = "+918019510486";
     return new Scaffold(
       backgroundColor: Colors.white,
-
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
@@ -554,105 +553,105 @@ class _BookAdServiceScreenState extends State<BookAdServiceScreen> {
                           // ),
 
                           // Location
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.0),
-                                border: _locValError == true
-                                    ? Border.all(color: Colors.red, width: 1)
-                                    : Border.all(color: Colors.transparent),
-                                color: Colors.grey[300]),
-                            margin: EdgeInsets.all(8),
-                            child: TypeAheadFormField(
-                              textFieldConfiguration: TextFieldConfiguration(
-                                controller: _locationController,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.grey.shade300, width: 32.0),
-                                      borderRadius:
-                                          BorderRadius.circular(25.0)),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 15.0, 20.0, 10.0),
-                                  focusColor: Colors.green,
-                                  fillColor: Colors.grey,
-                                  labelText: 'Location',
-                                ),
-                              ),
-                              // name: 'Location',
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //       borderRadius: BorderRadius.circular(30.0),
+                          //       border: _locValError == true
+                          //           ? Border.all(color: Colors.red, width: 1)
+                          //           : Border.all(color: Colors.transparent),
+                          //       color: Colors.grey[300]),
+                          //   margin: EdgeInsets.all(8),
+                          //   child: TypeAheadFormField(
+                          //     textFieldConfiguration: TextFieldConfiguration(
+                          //       controller: _locationController,
+                          //       decoration: InputDecoration(
+                          //         border: InputBorder.none,
+                          //         focusedBorder: OutlineInputBorder(
+                          //             borderSide: BorderSide(
+                          //                 color: Colors.grey.shade300, width: 32.0),
+                          //             borderRadius:
+                          //                 BorderRadius.circular(25.0)),
+                          //         contentPadding: EdgeInsets.fromLTRB(
+                          //             20.0, 15.0, 20.0, 10.0),
+                          //         focusColor: Colors.green,
+                          //         fillColor: Colors.grey,
+                          //         labelText: 'Location',
+                          //       ),
+                          //     ),
+                          //     // name: 'Location',
 
-                              // onChanged: _onChanged,
-                              itemBuilder: (context,String country) {
-                                return ListTile(
-                                  title: Text(country),
-                                );
-                              },
+                          //     // onChanged: _onChanged,
+                          //     itemBuilder: (context,String country) {
+                          //       return ListTile(
+                          //         title: Text(country),
+                          //       );
+                          //     },
 
-                              // initialValue: '',
-                              onSuggestionSelected: (String id) {
-                                if (this.mounted) {
-                                  setState(() {
-                                    _locValError = false;
-                                    _locationController.text = id;
-                                  });
-                                }
-                                // print(id);
-                                print(_locationController.text);
-                                var lowercaseQuery = id.toLowerCase();
-                                // filteredLoc = listOfLoc.where((country) {
-                                //   return country.loc_name
-                                //       .toLowerCase()
-                                //       .contains(lowercaseQuery);
-                                // }).toList();
-                                print(_locTextFeild);
-                                // print(filteredCat[0].cat_id);
-                                if (this.mounted) {
-                                  setState(() {
-                                    _locTextFeild =
-                                        int.parse(filteredLoc[0].loc_id!);
-                                  });
-                                }
-                                print(_locTextFeild);
-                                _checkIsPosted();
-                              },
-                              suggestionsCallback: (query) {
-                                var locations = listOfLoc
-                                    .map((loc) => "${loc.loc_name}")
-                                    .toList(growable: false);
-                                if (query.isNotEmpty) {
-                                  var lowercaseQuery = query.toLowerCase();
-                                  var loc = locations.where((country) {
-                                    return country
-                                        .toLowerCase()
-                                        .contains(lowercaseQuery);
-                                  }).toList(growable: false);
-                                  if (loc.isEmpty) {
-                                    if (this.mounted) {
-                                      setState(() {
-                                        _locValError = true;
-                                      });
-                                    }
-                                    return loc;
-                                  } else {
-                                    if (this.mounted) {
-                                      setState(() {
-                                        _locValError = false;
-                                      });
-                                    }
-                                    return loc;
-                                  }
-                                } else {
-                                  return locations;
-                                }
-                              },
-                            ),
-                          ),
+                          //     // initialValue: '',
+                          //     onSuggestionSelected: (String id) {
+                          //       if (this.mounted) {
+                          //         setState(() {
+                          //           _locValError = false;
+                          //           _locationController.text = id;
+                          //         });
+                          //       }
+                          //       // print(id);
+                          //       print(_locationController.text);
+                          //       var lowercaseQuery = id.toLowerCase();
+                          //       // filteredLoc = listOfLoc.where((country) {
+                          //       //   return country.loc_name
+                          //       //       .toLowerCase()
+                          //       //       .contains(lowercaseQuery);
+                          //       // }).toList();
+                          //       print(_locTextFeild);
+                          //       // print(filteredCat[0].cat_id);
+                          //       if (this.mounted) {
+                          //         setState(() {
+                          //           _locTextFeild =
+                          //               int.parse(filteredLoc[0].loc_id!);
+                          //         });
+                          //       }
+                          //       print(_locTextFeild);
+                          //       _checkIsPosted();
+                          //     },
+                          //     suggestionsCallback: (query) {
+                          //       var locations = listOfLoc
+                          //           .map((loc) => "${loc.loc_name}")
+                          //           .toList(growable: false);
+                          //       if (query.isNotEmpty) {
+                          //         var lowercaseQuery = query.toLowerCase();
+                          //         var loc = locations.where((country) {
+                          //           return country
+                          //               .toLowerCase()
+                          //               .contains(lowercaseQuery);
+                          //         }).toList(growable: false);
+                          //         if (loc.isEmpty) {
+                          //           if (this.mounted) {
+                          //             setState(() {
+                          //               _locValError = true;
+                          //             });
+                          //           }
+                          //           return loc;
+                          //         } else {
+                          //           if (this.mounted) {
+                          //             setState(() {
+                          //               _locValError = false;
+                          //             });
+                          //           }
+                          //           return loc;
+                          //         }
+                          //       } else {
+                          //         return locations;
+                          //       }
+                          //     },
+                          //   ),
+                          // ),
                           Container(
                             padding: EdgeInsets.only(left: 20),
                             child: Row(
                               children: [
                                 Text(
-                                  " If you didn't find your location or column is red \n please select vizag from dropdown",
+                                  " If you didn't find your location or column is red \n please select Visakhapatnam from dropdown",
                                   style: TextStyle(
                                       fontStyle: FontStyle.italic,
                                       color: Colors.grey),
@@ -698,7 +697,8 @@ class _BookAdServiceScreenState extends State<BookAdServiceScreen> {
                                 border: InputBorder.none,
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.grey.shade300, width: 32.0),
+                                        color: Colors.grey.shade300,
+                                        width: 32.0),
                                     borderRadius: BorderRadius.circular(25.0)),
                                 contentPadding:
                                     EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
@@ -759,7 +759,8 @@ class _BookAdServiceScreenState extends State<BookAdServiceScreen> {
                                 border: InputBorder.none,
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.grey.shade300, width: 32.0),
+                                        color: Colors.grey.shade300,
+                                        width: 32.0),
                                     borderRadius: BorderRadius.circular(25.0)),
                                 contentPadding:
                                     EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
@@ -819,7 +820,8 @@ class _BookAdServiceScreenState extends State<BookAdServiceScreen> {
                                 border: InputBorder.none,
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.grey.shade300, width: 32.0),
+                                        color: Colors.grey.shade300,
+                                        width: 32.0),
                                     borderRadius: BorderRadius.circular(25.0)),
                                 contentPadding:
                                     EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 10.0),
@@ -949,18 +951,24 @@ class _BookAdServiceScreenState extends State<BookAdServiceScreen> {
                                               ? CircularProgressIndicator()
                                               : !isPosted
                                                   ? SliderButton(
-                                                      action: () {
-                                                        ///Do something here OnSlide
-                                                        print(
-                                                            "Sliding Delivery");
-                                                        // if (_titValError ==
-                                                        //     false) {
-                                                        //   // startTimer();
-                                                        //   _addPost(
-                                                        //       _postTitle.text,
-                                                        //       _postDesc.text);
-                                                        // }
-                                                        _bookAdService();
+                                                      action: () async {
+                                                        try {
+                                                          print(
+                                                              "Sliding Delivery");
+
+                                                          // Uncomment if needed
+                                                          // if (_titValError == false) {
+                                                          //   // startTimer();
+                                                          //   await _addPost(_postTitle.text, _postDesc.text);
+                                                          // }
+
+                                                          bool result =
+                                                              await _bookAdService();
+                                                          return result;
+                                                        } catch (e) {
+                                                          print("Error: $e");
+                                                          return false;
+                                                        }
                                                       },
 
                                                       ///Put label over here
@@ -993,9 +1001,9 @@ class _BookAdServiceScreenState extends State<BookAdServiceScreen> {
                                                       shimmer: true,
                                                       vibrationFlag: false,
                                                       // dismissThresholds: 2.0,
-                                                      dismissible: isPosted
-                                                          ? true
-                                                          : false,
+                                                      // dismissible: isPosted
+                                                      //     ? true
+                                                      //     : false,
                                                       alignLabel:
                                                           Alignment(0.0, 0),
 
@@ -1059,3 +1067,5 @@ class _BookAdServiceScreenState extends State<BookAdServiceScreen> {
     );
   }
 }
+
+class TypeAheadFormField {}

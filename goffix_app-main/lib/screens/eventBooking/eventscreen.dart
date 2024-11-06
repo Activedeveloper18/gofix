@@ -5,7 +5,7 @@ import '../../constants.dart';
 import '../add/AddScreen.dart';
 
 class Eventscreen extends StatefulWidget {
-  Eventscreen();
+  Eventscreen({required eveId});
 
   @override
   State<Eventscreen> createState() => _EventscreenState();
@@ -64,7 +64,7 @@ class _EventscreenState extends State<Eventscreen> {
           children: [
             Image(image: AssetImage('assets/images/2807471.jpg')),
             Text(
-              "New year 2025 Sale on Shopper Stop on vizag",
+              "New year 2025 Sale on Shopper Stop on Visakhapatnam",
               // style: ThemeDataTween,
               style: Theme.of(context).textTheme.headlineLarge,
             ),
@@ -191,7 +191,7 @@ class _EventscreenState extends State<Eventscreen> {
                     height: 10,
                   ),
                   Text(
-                    "Event Venue :  Vizag,RK beach",
+                    "Event Venue :  Visakhapatnam,RK beach",
                   ),
                   Text(
                     "Event Date :  31 Dec 2024",
@@ -253,7 +253,7 @@ class _EventscreenState extends State<Eventscreen> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "Novotel Hotel, 7th floor,RK beach, vizag,Novotel Hotel, 7th floor,RK beach, vizag ",
+                    "Novotel Hotel, 7th floor,RK beach, Visakhapatnam,Novotel Hotel, 7th floor,RK beach, Visakhapatnam ",
                   ),
                   SizedBox(height: 10),
                   Center(
